@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/map_navigaction"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <fragment
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        tools:layout="@layout/map_fragment"
+        android:id="@+id/map"
+        >
+
+
+    </fragment>
+</navigation>
