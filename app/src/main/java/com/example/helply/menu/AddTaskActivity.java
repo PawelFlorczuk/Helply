@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -267,7 +268,7 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
 
     @Override
     public void onClick(View view) {
-        if(view.getId() == R.id.addBtn)
+        if(view.getId() == R.id.addBtn)  // todo could be a case in switch operator ????
         {
             user = FirebaseAuth.getInstance().getCurrentUser();
             String address,purch,mes,des;
@@ -297,9 +298,14 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
        }
         if(view.getId() == R.id.addressBtn) {
             startActivity(new Intent(this, MapActivity.class));
+        }
 
-
-
+        switch (view.getId()){
+            case R.id.listBtn:
+            {
+                startActivity(new Intent(AddTaskActivity.this, ListPopUpWindow.class));
+                break;
+            }
         }
 
     }
