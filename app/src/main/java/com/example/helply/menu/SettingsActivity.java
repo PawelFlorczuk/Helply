@@ -54,8 +54,6 @@ public class SettingsActivity extends Navigaction implements View.OnClickListene
     protected NavigationView navigationView;
     protected ActionBarDrawerToggle actionBarDrawerToggle;
     private FirebaseAuth mAuth;
-    private FirebaseFirestore db;
-    private FirebaseUser user;
 
     private TextView phoneTV;
     private Button phoneBtn;
@@ -105,7 +103,7 @@ public class SettingsActivity extends Navigaction implements View.OnClickListene
         View headerView = navigationView.inflateHeaderView(R.layout.header);
         profileImage = (ImageView) headerView.findViewById(R.id.profileImage);
 
-        user = FirebaseAuth.getInstance().getCurrentUser();
+
 
         Intent intent = getIntent();
         bitmap = intent.getParcelableExtra("Bitmap");
