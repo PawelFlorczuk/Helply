@@ -99,7 +99,7 @@ public class SettingsActivity extends Navigaction implements View.OnClickListene
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        View headerView = navigationView.inflateHeaderView(R.layout.header);
+        View headerView = navigationView.inflateHeaderView(R.layout.header_deprecated);
         profileImage = (ImageView) headerView.findViewById(R.id.profileImage_deprecated);
 
 

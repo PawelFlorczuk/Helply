@@ -69,7 +69,7 @@ public class MainActivity extends Navigaction {
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, (R.string.open), (R.string.close));
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
-        View headerView = navigationView.inflateHeaderView(R.layout.header);
+        View headerView = navigationView.inflateHeaderView(R.layout.sidebar_header);
         profileImage = (ImageView) headerView.findViewById(R.id.profileImage_deprecated);
 
         Intent intent = getIntent();

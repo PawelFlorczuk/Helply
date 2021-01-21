@@ -92,7 +92,7 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
         actionBarDrawerToggle.syncState();
         navigationView.bringToFront();
 
-        View headerView = navigationView.inflateHeaderView(R.layout.header);
+        View headerView = navigationView.inflateHeaderView(R.layout.header_deprecated);
         profileImage = (ImageView) headerView.findViewById(R.id.profileImage_deprecated);
 
         user = FirebaseAuth.getInstance().getCurrentUser();

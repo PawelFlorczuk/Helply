@@ -61,7 +61,7 @@ public class RankingActivity extends Navigaction {
 
         db = FirebaseFirestore.getInstance();
 
-        View headerView = navigationView.inflateHeaderView(R.layout.header);
+        View headerView = navigationView.inflateHeaderView(R.layout.header_deprecated);
         profileImage = (ImageView) headerView.findViewById(R.id.profileImage_deprecated);
         user = FirebaseAuth.getInstance().getCurrentUser();
 
