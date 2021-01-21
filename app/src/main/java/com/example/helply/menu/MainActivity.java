@@ -31,6 +31,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.List;
 import java.util.Vector;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MainActivity extends Navigaction {
 
     protected Toolbar toolbar;
@@ -70,7 +72,8 @@ public class MainActivity extends Navigaction {
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         View headerView = navigationView.inflateHeaderView(R.layout.sidebar_header);
-        profileImage = (ImageView) headerView.findViewById(R.id.profileImage_deprecated);
+//        profileImage = (ImageView) headerView.findViewById(R.id.profileImage_deprecated);
+        profileImage = (CircleImageView) headerView.findViewById(R.id.profileImage_deprecated);  // here change was made <------------------------------------------------
 
         Intent intent = getIntent();
         bitmap = intent.getParcelableExtra("Bitmap");
