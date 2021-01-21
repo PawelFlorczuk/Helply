@@ -11,7 +11,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/announcements_card_view_menu"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="45dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
@@ -36,9 +36,10 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/my_announcements_card_view_menu"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="45dp"
+        android:layout_below="@+id/announcements_card_view_menu"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
         app:cardCornerRadius="25dp">
 
@@ -61,9 +62,10 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/create_announcement_card_view_menu"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="45dp"
+        android:layout_below="@+id/my_announcements_card_view_menu"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="190dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
         app:cardCornerRadius="25dp">
 
@@ -86,9 +88,10 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/tasks_to_be_performed_card_view_menu"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="45dp"
+        android:layout_below="@+id/create_announcement_card_view_menu"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="280dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
         app:cardCornerRadius="25dp">
 
@@ -111,9 +114,10 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/settings_card_view_menu"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="45dp"
+        android:layout_below="@+id/tasks_to_be_performed_card_view_menu"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="370dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
         app:cardCornerRadius="25dp">
 
@@ -136,9 +140,10 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/best_volunteers_card_view_menu"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="45dp"
+        android:layout_below="@+id/settings_card_view_menu"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="460dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
         app:cardCornerRadius="25dp">
 
@@ -161,9 +166,10 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/log_out_card_view_menu"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="45dp"
+        android:layout_below="@+id/best_volunteers_card_view_menu"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="460dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
         app:cardCornerRadius="25dp">
 
