@@ -33,8 +33,10 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycledView"
             android:layout_width="match_parent"
-            android:layout_height="661dp"
+            android:layout_height="675dp"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="0dp" />
     </RelativeLayout>
+
+
 </androidx.drawerlayout.widget.DrawerLayout>

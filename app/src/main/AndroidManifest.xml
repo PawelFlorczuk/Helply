@@ -2,9 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.helply">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
 
     <application
@@ -20,20 +19,23 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="my_api_key"/>
+            android:value="my_api_key" />
 
-        <activity android:name=".menu.SettingsActivity"/>
+        <activity android:name=".menu.SettingsActivity" />
         <activity android:name=".login.RegistrationActivity" />
-        <activity android:name=".login.LoginActivity"/>
-        <activity android:name=".TaskDescriptionActivity"/>
-        <activity android:name=".menu.AddTaskActivity"/>
-        <activity android:name=".menu.TasksToDoActivity"/>
-        <activity android:name=".menu.RankingActivity"/>
-        <activity android:name=".FinishTaskActivity"/>
-        <activity android:name=".MapActivity"/>
-        <activity android:name=".TaskInformactionActivity"/>
-        <activity android:name=".menu.MyTasksActivity"/>
+        <activity android:name=".login.LoginActivity" />
+        <activity android:name=".TaskDescriptionActivity" />
+        <activity android:name=".menu.AddTaskActivity" />
+        <activity android:name=".menu.TasksToDoActivity" />
+        <activity android:name=".menu.RankingActivity" />
+        <activity android:name=".FinishTaskActivity" />
+        <activity android:name=".MapActivity" />
+        <activity android:name=".TaskInformactionActivity" />
+        <activity android:name=".menu.MyTasksActivity" />
 
+        <activity
+            android:name=".menu.ListPopUpWindow"
+            android:theme="@style/AppTheme.ListPupUpWindowTheme"/>
 
 
         <activity android:name=".menu.MainActivity">

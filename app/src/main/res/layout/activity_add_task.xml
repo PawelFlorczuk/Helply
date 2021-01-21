@@ -4,24 +4,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/dl_drawer_layout"
-        tools:openDrawer="start"
 
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <!--    xmlns:tools="http://schemas.android.com/tools"-->
-    <LinearLayout
+
+
+
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
 
-        <include
-            android:layout_height="wrap_content"
+        <LinearLayout
             android:layout_width="match_parent"
-            layout="@layout/main_toolbar"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/quantum_orange400"
+            >
 
-        />
+            <include
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                layout="@layout/main_toolbar"
+
+                />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="675dp">
 
                 <TextView
                     android:id="@+id/textView9"
@@ -62,8 +74,8 @@
                     android:layout_width="152dp"
                     android:layout_height="34dp"
                     android:layout_marginTop="20dp"
-                    android:textSize="10sp"
                     android:text="Create list"
+                    android:textSize="10sp"
                     android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.498"
@@ -154,18 +166,21 @@
                     android:background="@android:color/transparent"
                     android:gravity="start"
                     android:hint="Description"
-                    android:inputType="text"
+                    android:inputType="textMultiLine"
                     android:minHeight="200dp"
                     android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.509"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/descTV" />
+                    app:layout_constraintTop_toBottomOf="@+id/descTV"
+                    />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </LinearLayout>
+        </LinearLayout>
 
+    </ScrollView>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nv_navView"
