@@ -1,6 +1,5 @@
 package com.example.helply.menu;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,10 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.helply.MapActivity;
 import com.example.helply.R;
@@ -96,7 +93,7 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
         navigationView.bringToFront();
 
         View headerView = navigationView.inflateHeaderView(R.layout.header);
-        profileImage = (ImageView) headerView.findViewById(R.id.profileImage);
+        profileImage = (ImageView) headerView.findViewById(R.id.profileImage_deprecated);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
 

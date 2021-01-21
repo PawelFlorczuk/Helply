@@ -4,7 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/dl_drawer_layout"
+        tools:openDrawer="start"
+
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--    xmlns:tools="http://schemas.android.com/tools"-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -171,7 +174,7 @@
         android:background="@android:color/white"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:menu ="@menu/drawer_menu">
+        app:menu ="@menu/drawer_menu_deprecated">
 
     </com.google.android.material.navigation.NavigationView>
 

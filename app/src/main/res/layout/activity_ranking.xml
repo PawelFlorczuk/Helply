@@ -22,7 +22,7 @@
         android:background="@android:color/white"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:menu ="@menu/drawer_menu">
+        app:menu ="@menu/drawer_menu_deprecated">
 
     </com.google.android.material.navigation.NavigationView>
 
