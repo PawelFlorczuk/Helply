@@ -55,10 +55,11 @@ public class MainActivity extends Navigaction {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if(FirebaseAuth.getInstance().getCurrentUser()== null){
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             startActivity(new Intent(this, LoginActivity.class));
             finish();
-        }
+        } else {
+
         super.onCreate(savedInstanceState);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -74,7 +75,7 @@ public class MainActivity extends Navigaction {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         toolbar = findViewById(R.id.toolBar);
         toolbar.setTitle("Announcements");
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,(R.string.open), (R.string.close));
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, (R.string.open), (R.string.close));
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         View headerView = navigationView.inflateHeaderView(R.layout.header);
@@ -84,7 +85,7 @@ public class MainActivity extends Navigaction {
         bitmap = intent.getParcelableExtra("Bitmap");
         setProfileImage(bitmap);
 
-        if(mAuth.getUid()!= null){
+        if (mAuth.getUid() != null) {
             db = FirebaseFirestore.getInstance();
             com.google.android.gms.tasks.Task<QuerySnapshot> documentReference = db.collection("tasks").get();
             documentReference.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -92,9 +93,9 @@ public class MainActivity extends Navigaction {
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
                     List<DocumentSnapshot> list = task.getResult().getDocuments();
-                    int i = 0 ;
+                    int i = 0;
                     for (DocumentSnapshot doc : list) {
-                        if(doc.get("helper").toString().equals(" ")){
+                        if (doc.get("helper").toString().equals(" ")) {
                             String[] dataString = new String[6];
                             dataString[0] = doc.get("address").toString();
                             dataString[1] = doc.get("description").toString();
@@ -109,7 +110,7 @@ public class MainActivity extends Navigaction {
 
                     }
 
-                    adapter = new Adapter(MainActivity.this, datalist,0);
+                    adapter = new Adapter(MainActivity.this, datalist, 0);
                     recyclerView.setAdapter(adapter);
                 }
 
@@ -119,8 +120,7 @@ public class MainActivity extends Navigaction {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch(item.getItemId())
-                {
+                switch (item.getItemId()) {
                     case R.id.tasksItem: {
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         intent.putExtra("Bitmap", bitmap);
@@ -167,5 +167,6 @@ public class MainActivity extends Navigaction {
                 return true;
             }
         });
+    }
     }
 }

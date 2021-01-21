@@ -2,6 +2,7 @@ package com.example.helply.menu;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -20,6 +21,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.example.helply.MapActivity;
 import com.example.helply.R;
@@ -166,12 +168,6 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
                         startActivity(intent);
                         break;
                     }
-                    case R.id.addressBtn: {
-
-
-
-                        break;
-                    }
 
                 }
                 return true;
@@ -299,7 +295,7 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
             });
        }
         if(view.getId() == R.id.addressBtn) {
-            startActivity(new Intent(this, MapActivity.class));
+            startActivityForResult(new Intent(this, MapActivity.class),1001);
 
 
 
@@ -307,5 +303,15 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == 1) {
+            SharedPreferences preferences = getSharedPreferences("Address",MODE_PRIVATE);
+            String address = preferences.getString("address","Test");
 
+            addressTV.setVisibility(View.VISIBLE);
+            yourAddressTV.setText(address);
+        }
+    }
 }
