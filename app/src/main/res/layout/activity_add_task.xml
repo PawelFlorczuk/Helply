@@ -25,7 +25,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="Kind of help"
+                    android:text="@string/kind_of_help"
                     android:textSize="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.498"
@@ -69,8 +69,8 @@
 
                 <Button
                     android:id="@+id/addressBtn"
-                    android:layout_width="146dp"
-                    android:layout_height="38dp"
+                    android:layout_width="165dp"
+                    android:layout_height="39dp"
                     android:layout_marginTop="12dp"
                     android:text="Press to set address"
                     android:textAllCaps="false"

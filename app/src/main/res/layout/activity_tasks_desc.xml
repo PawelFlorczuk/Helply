@@ -24,12 +24,13 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="624dp"
-                android:text="Take"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="10dp"
+                android:text="@string/kind_of_help"
+                android:textSize="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/addBtn"
@@ -44,9 +45,9 @@
 
             <TextView
                 android:id="@+id/adressET"
-                android:layout_width="266dp"
-                android:layout_height="46dp"
-                android:layout_marginTop="28dp"
+                android:layout_width="224dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="10dp"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text="Address"
@@ -57,13 +58,14 @@
 
             <TextView
                 android:id="@+id/purchaseTV"
-                android:layout_width="250dp"
-                android:layout_height="36dp"
-                android:layout_marginTop="20dp"
+                android:layout_width="228dp"
+                android:layout_height="186dp"
+                android:layout_marginTop="48dp"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text="List of purchase"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/adressET" />
 
@@ -71,12 +73,12 @@
                 android:id="@+id/mesTV"
                 android:layout_width="250dp"
                 android:layout_height="51dp"
-                android:layout_marginTop="96dp"
+                android:layout_marginTop="200dp"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text="Message to voluntaree"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintHorizontal_bias="0.503"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/purchaseTV" />
 
@@ -91,6 +93,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/mesTV" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
@@ -105,9 +109,4 @@
 
     </com.google.android.material.navigation.NavigationView>
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-    </RelativeLayout>
 </androidx.drawerlayout.widget.DrawerLayout>

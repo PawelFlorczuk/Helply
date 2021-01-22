@@ -57,6 +57,8 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
     private Button addressBtn;
     private Button addBtn;
 
+    private String address;
+
     int PLACE_PICKER_REQUEST = 101;
 
 
@@ -268,16 +270,22 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
     public void onClick(View view) {
         if(view.getId() == R.id.addBtn)
         {
+
+
+            String address, description, nameOfHelp;
+
+
+
+
             user = FirebaseAuth.getInstance().getCurrentUser();
-            String address,purch,mes,des;
-            address = addressTV.getText().toString().trim();
-            des = descTV.getText().toString().trim();
             db = FirebaseFirestore.getInstance();
+
+
             DocumentReference documentReference = db.collection("tasks").document(user.getUid());
             Map<String, Object> user = new HashMap<>();
-            user.put("address", address);
-            user.put("description",des);
-            user.put("helper"," ");
+//            user.put("address", address);
+//            user.put("description",des);
+//            user.put("helper"," ");
             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
@@ -309,9 +317,20 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
         if(resultCode == 1) {
             SharedPreferences preferences = getSharedPreferences("Address",MODE_PRIVATE);
             String address = preferences.getString("address","Test");
+            String[] split = address.split(",");
+            String country = split[10].split("=")[1];
+            String street =  split[7].split("=")[1];
+            String city =  split[6].split("=")[1];
+            String number = split[3].split("=")[1];
+            String partOfCountry = split[4].split("=")[1];
+            String result = country + ", " + partOfCountry + ", " + city + ", "
+                    + street  + ", "+  number;
 
             addressTV.setVisibility(View.VISIBLE);
-            yourAddressTV.setText(address);
+            addressBtn.setText(R.string.change_address);
+            yourAddressTV.setText(result);
+            this.address = country + "-" + partOfCountry + "-" + city + "-"
+                    + street  + "-"+  number;
         }
     }
 }
