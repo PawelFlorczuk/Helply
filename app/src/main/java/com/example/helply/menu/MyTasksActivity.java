@@ -56,8 +56,8 @@ public class MyTasksActivity extends Navigation {
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
 
-        View headerView = navigationView.inflateHeaderView(R.layout.header_deprecated);
-        profileImage = (ImageView) headerView.findViewById(R.id.profileImage_deprecated);
+        View headerView = navigationView.inflateHeaderView(R.layout.sidebar_header);
+        profileImage = (CircleImageView) headerView.findViewById(R.id.profileImage);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
 

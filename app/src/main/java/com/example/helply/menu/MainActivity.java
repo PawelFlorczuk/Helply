@@ -73,8 +73,9 @@ public class MainActivity extends Navigation {
             actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, (R.string.open), (R.string.close));
             drawerLayout.addDrawerListener(actionBarDrawerToggle);
             actionBarDrawerToggle.syncState();
-            View headerView = navigationView.inflateHeaderView(R.layout.header_deprecated);
-            profileImage = (ImageView) headerView.findViewById(R.id.profileImage_deprecated);
+
+            View headerView = navigationView.inflateHeaderView(R.layout.sidebar_header);
+            profileImage = (CircleImageView) headerView.findViewById(R.id.profileImage);
 
             Intent intent = getIntent();
             bitmap = intent.getParcelableExtra("Bitmap");

@@ -38,7 +38,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class Navigation extends AppCompatActivity {
     protected Bitmap bitmap;
     protected NavigationView navigationView;
-    protected ImageView profileImage;
+    protected CircleImageView profileImage;
     protected Toolbar toolbar;
     protected DrawerLayout drawerLayout;
     protected ActionBarDrawerToggle actionBarDrawerToggle;

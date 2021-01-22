@@ -63,7 +63,7 @@ public class SettingsActivity extends Navigation implements View.OnClickListener
     private TextView oldPasswordTV;
     private Button passwordBtn;
     private Button chooseAvatarBtn;
-    private ImageView avatar;
+    private CircleImageView avatar;
 
     private Bitmap bitmap;
 
@@ -101,8 +101,8 @@ public class SettingsActivity extends Navigation implements View.OnClickListener
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        View headerView = navigationView.inflateHeaderView(R.layout.header_deprecated);
-        profileImage = (ImageView) headerView.findViewById(R.id.profileImage_deprecated);
+        View headerView = navigationView.inflateHeaderView(R.layout.sidebar_header);
+        profileImage = (CircleImageView) headerView.findViewById(R.id.profileImage);
 
 
 
@@ -183,11 +183,7 @@ public class SettingsActivity extends Navigation implements View.OnClickListener
                     intent.setAction(Intent.ACTION_GET_CONTENT);
                     startActivityForResult(Intent.createChooser(intent, "Pobierz zdjecie"), 10001);
 
-
-
-
-
-                break;
+              break;
             }
             case R.id.settings_changePhoneNumBtn:
             {

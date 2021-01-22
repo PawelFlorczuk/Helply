@@ -21,7 +21,7 @@
 
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profileImage_deprecated"
+        android:id="@+id/profileImage"
         android:src="@drawable/logo"
 
         android:layout_width="100dp"
