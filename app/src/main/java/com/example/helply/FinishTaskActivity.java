@@ -86,45 +86,7 @@ public class FinishTaskActivity extends AppCompatActivity implements View.OnClic
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,(R.string.open), (R.string.close));
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch(item.getItemId())
-                {
-                    case R.id.tasksItem: {
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        break;
-                    }
-                    case R.id.lookForTaskItem: {
-                        startActivity(new Intent(getApplicationContext(), AddTaskActivity.class));
-                        break;
-                    }
-                    case R.id.myTasksItem: {
-                        startActivity(new Intent(getApplicationContext(), MyTasksActivity.class));
-                        break;
-                    }
-                    case R.id.settingsItem: {
-                        startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
-                        break;
-                    }
-                    case R.id.logOutItem: {
-                        FirebaseAuth.getInstance().signOut();
-                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                        break;
-                    }
-                    case R.id.rankItem: {
-                        startActivity(new Intent(getApplicationContext(), RankingActivity.class));
-                        break;
-                    }
-                    case R.id.tasksToDoITem: {
-                        startActivity(new Intent(getApplicationContext(), TasksToDoActivity.class));
-                        break;
-                    }
 
-                }
-                return true;
-            }
-        });
     }
 
     @Override

@@ -45,6 +45,8 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SettingsActivity extends Navigation implements View.OnClickListener {
@@ -108,68 +110,18 @@ public class SettingsActivity extends Navigation implements View.OnClickListener
 
         Intent intent = getIntent();
         bitmap = intent.getParcelableExtra("Bitmap");
-        setProfileImage(bitmap);
 
+        setProfileImage(bitmap);
 
         this.initSideBarMenu();
 
 
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch(item.getItemId())
-                {
-                    case R.id.tasksItem: {
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        intent.putExtra("Bitmap", bitmap);
-                        startActivity(intent);
-                        break;
-                    }
-                    case R.id.lookForTaskItem: {
-                        Intent intent = new Intent(getApplicationContext(), AddTaskActivity.class);
-                        intent.putExtra("Bitmap", bitmap);
-                        startActivity(intent);
-                        break;
-                    }
-                    case R.id.myTasksItem: {
-                        Intent intent = new Intent(getApplicationContext(), MyTasksActivity.class);
-                        intent.putExtra("Bitmap", bitmap);
-                        startActivity(intent);
-                        break;
-                    }
-                    case R.id.settingsItem: {
-                        Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-                        intent.putExtra("Bitmap", bitmap);
-                        startActivity(intent);
-                        break;
-                    }
-                    case R.id.logOutItem: {
-                        FirebaseAuth.getInstance().signOut();
-                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                        break;
-                    }
-                    case R.id.rankItem: {
-                        Intent intent = new Intent(getApplicationContext(), RankingActivity.class);
-                        intent.putExtra("Bitmap", bitmap);
-                        startActivity(intent);
-                        break;
-                    }
-                    case R.id.tasksToDoITem: {
-                        Intent intent = new Intent(getApplicationContext(), TasksToDoActivity.class);
-                        intent.putExtra("Bitmap", bitmap);
-                        startActivity(intent);
-                        break;
-                    }
 
-
-                }
-                return true;
-            }
-        });
     }
 
     @Override
     public void onClick(View view) {
+
         switch (view.getId()){
             case R.id.settings_chooseAvatarBtn:
             {

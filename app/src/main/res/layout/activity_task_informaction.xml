@@ -89,15 +89,14 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        android:background="@color/quantum_orange300"
-        app:headerLayout="@layout/sidebar_header">
+        android:background="@color/quantum_orange300">
+        <!--        app:headerLayout="@layout/sidebar_header">-->
 
         <include
             layout="@layout/sidebar_menu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="200dp" />
-
 
     </com.google.android.material.navigation.NavigationView>
 

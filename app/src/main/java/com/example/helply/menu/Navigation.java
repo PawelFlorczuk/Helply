@@ -74,6 +74,7 @@ public class Navigation extends AppCompatActivity {
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        String error = e.getMessage();
                         profileImage.setImageResource(R.drawable.logo);
                     }
                 });
