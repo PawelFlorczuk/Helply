@@ -32,6 +32,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Vector;
 
@@ -98,17 +99,18 @@ public class MainActivity extends Navigaction {
                         for (DocumentSnapshot doc : list) {
                             if (doc.get("helper").toString().equals(" ")) {
                                 String[] dataString = new String[6];
-                                dataString[0] = doc.get("address").toString();
-                                dataString[1] = doc.get("description").toString();
-                                dataString[2] = doc.get("helper").toString();
-                                dataString[3] = doc.get("message").toString();
-                                dataString[4] = doc.get("purchase").toString();
-                                dataString[5] = doc.getId();
+                                dataString[0] = doc.get("date").toString();
+                                dataString[1] = doc.get("address").toString();
+                                dataString[2] = doc.get("description").toString();
+                                dataString[3] = doc.get("helper").toString();
+                                dataString[4] = doc.get("emailPhoneNumber").toString();
+                                dataString[5] = doc.get("kindOfHelp").toString();
+                                dataString[6] = doc.get("nameOfHelp").toString();
+                                dataString[7] = doc.getId();
                                 datalist.add(dataString);
 
                             }
                             i++;
-
                         }
 
                         adapter = new Adapter(MainActivity.this, datalist, 0);

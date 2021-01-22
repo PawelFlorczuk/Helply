@@ -22,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.app.LoaderManager;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.example.helply.MapActivity;
@@ -37,6 +38,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -202,6 +204,8 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
                 helpKindET.setVisibility(View.INVISIBLE);
                 descET.setVisibility(View.INVISIBLE);
 
+                emailPhoneNumberTV.setVisibility(View.INVISIBLE);
+                emailPhoneNumberET.setVisibility(View.INVISIBLE);
 
 
                 break;
@@ -221,6 +225,10 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
                 descTV.setVisibility(View.VISIBLE);
                 descET.setVisibility(View.VISIBLE);
 
+                emailPhoneNumberTV.setVisibility(View.VISIBLE);
+                emailPhoneNumberET.setVisibility(View.VISIBLE);
+
+
                 helpKindTV.setText(R.string.dog_breed);
                 helpKindET.setHint(R.string.dog_breed);
 
@@ -235,6 +243,9 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
                 addressBtn.setVisibility(View.VISIBLE);
 
                 listBtn.setVisibility(View.VISIBLE);
+
+                emailPhoneNumberTV.setVisibility(View.VISIBLE);
+                emailPhoneNumberET.setVisibility(View.VISIBLE);
 
                 addressTV.setVisibility(View.INVISIBLE);
                 yourAddressTV.setVisibility(View.VISIBLE);
@@ -252,6 +263,9 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
             case 3: {
                 addBtn.setVisibility(View.VISIBLE);
                 addressBtn.setVisibility(View.VISIBLE);
+
+                emailPhoneNumberTV.setVisibility(View.VISIBLE);
+                emailPhoneNumberET.setVisibility(View.VISIBLE);
 
                 listBtn.setVisibility(View.INVISIBLE);
 
@@ -273,6 +287,7 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onClick(View view) {
         if(view.getId() == R.id.addBtn)
@@ -280,6 +295,7 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
 
 
             String address, description, nameOfHelp,need,emailPhoneNumber;
+            need = null;
 
             emailPhoneNumber = emailPhoneNumberET.getText().toString().trim();
             nameOfHelp = this.kindOfHelp;
@@ -304,14 +320,10 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
                 {
                     need = helpKindET.getText().toString();
 
-                    if (need.equals("") || need.equals(" ")) {
+                    if (need.equals("") || need.equals(" ") || need == null) {
                         Toast.makeText(getApplicationContext(), "The breed of the dog can't be empty" ,Toast.LENGTH_SHORT).show();
                         return;
                     }
-
-
-
-
                     break;
                 }
                 case "Shopping":
@@ -323,28 +335,26 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
                 case "Other":
                 {
                     need = helpKindET.getText().toString();
-
-                    if (need.equals("") || need.equals(" ")) {
+                    if (need.equals("") || need.equals(" ")|| need == null) {
                         Toast.makeText(getApplicationContext(), "The kind of the help can't be empty" ,Toast.LENGTH_SHORT).show();
                         return;
                     }
-
-
                     break;
                 }
             }
-
-
-
             user = FirebaseAuth.getInstance().getCurrentUser();
             db = FirebaseFirestore.getInstance();
 
 
             DocumentReference documentReference = db.collection("tasks").document(user.getUid());
             Map<String, Object> user = new HashMap<>();
-//            user.put("address", address);
-//            user.put("description",des);
-//            user.put("helper"," ");
+            user.put("date", LocalDateTime.now().toString());
+            user.put("address", address);
+            user.put("description",description);
+            user.put("helper"," ");
+            user.put("emailPhoneNumber", emailPhoneNumber);
+            user.put("kindOfHelp", nameOfHelp);
+            user.put("nameOfHelp", need);
             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
@@ -369,11 +379,13 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
         }
         switch (view.getId()) {
             case R.id.listBtn: {
-                startActivity(new Intent(AddTaskActivity.this, ListPopUpWindow.class));
+                startActivityForResult(new Intent(AddTaskActivity.this, ListPopUpWindow.class),1002);
                 break;
             }
         }
     }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -395,6 +407,9 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
             yourAddressTV.setText(result);
             this.address = country + "-" + partOfCountry + "-" + city + "-"
                     + street  + "-"+  number;
+        }
+        if(resultCode == 2) {
+
         }
     }
 }

@@ -11,15 +11,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class Holder extends RecyclerView.ViewHolder {
 
-    TextView description, street;
+    TextView need, address, time;
     ImageView imageView;
     Integer is;
 
     public Holder(@NonNull View itemView) {
         super(itemView);
 
-        this.description = itemView.findViewById(R.id.streetTV);
-        this.street = itemView.findViewById(R.id.descriptionTV);
+        this.need = itemView.findViewById(R.id.needTV);
+        this.address = itemView.findViewById(R.id.addressObjectTV);
+        this.time = itemView.findViewById(R.id.timeTV);
         this.imageView = itemView.findViewById(R.id.personImage);
 
         itemView.setOnClickListener(new View.OnClickListener() {

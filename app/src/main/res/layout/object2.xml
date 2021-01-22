@@ -14,7 +14,7 @@
         android:layout_height="60dp"
         android:background="@color/white">
         <TextView
-            android:id="@+id/descriptionTV"
+            android:id="@+id/addressObjectTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -25,14 +25,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/streetTV"
+            android:id="@+id/needTV"
             android:layout_width="72dp"
             android:layout_height="18dp"
             android:layout_marginTop="8dp"
             android:text="Points"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/descriptionTV" />
+            app:layout_constraintTop_toBottomOf="@+id/addressObjectTV" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -47,8 +46,8 @@ public class Adapter extends RecyclerView.Adapter<Holder> {
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
 
-        holder.street.setText(v.get(position)[0]);
-        holder.description.setText(v.get(position)[1]);
+        holder.address.setText(v.get(position)[0]);
+        holder.need.setText(v.get(position)[1]);
 
         Data.Address = v.get(position)[0];
         Data.Description = v.get(position)[1];

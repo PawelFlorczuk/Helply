@@ -34,7 +34,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     private TextView emailET;
     private TextView passwordET;
     private TextView confirmPasswordET;
-    private TextView phoneNumberET;
+    private TextView loginET;
     private CheckBox termsOfUseCheckBox;
     private Button signInBtn;
     private Button registerBtn;
@@ -50,7 +50,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         emailET = findViewById(R.id.register_emailET);
         passwordET = findViewById(R.id.loginET);
         confirmPasswordET = findViewById(R.id.register_confirmPasswordET);
-        phoneNumberET = findViewById(R.id.register_phoneNumberET);
+        loginET = findViewById(R.id.register_phoneNumberET);
         termsOfUseCheckBox = findViewById(R.id.register_termsOfUseChckBox);
         signInBtn = findViewById(R.id.register_signInBtn);
         registerBtn = findViewById(R.id.register_registerBtn);
@@ -78,11 +78,11 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
     public void register() {
         progressBar.setVisibility(View.VISIBLE);
-        String email, password, phoneNumber, repeatPassword;
+        String email, password, login, repeatPassword;
         email = emailET.getText().toString().trim();
         password = passwordET.getText().toString().trim();
         repeatPassword = confirmPasswordET.getText().toString().trim();
-        phoneNumber = phoneNumberET.getText().toString().trim();
+        login = loginET.getText().toString().trim();
 
         if(!password.equals(repeatPassword)) {
             Toast.makeText(RegistrationActivity.this, "Passwords are not the same", Toast.LENGTH_SHORT).show();
@@ -100,13 +100,13 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             Toast.makeText(RegistrationActivity.this,"Pasword is less than 6 characters", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(phoneNumber.length() != 9){
-            Toast.makeText(RegistrationActivity.this,"Phone number have to have 9 numbers", Toast.LENGTH_SHORT).show();
+        if(!termsOfUseCheckBox.isActivated()){
+            Toast.makeText(RegistrationActivity.this,"You have to accept the rules", Toast.LENGTH_SHORT).show();
             return;
         }
 
 
-
+      
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -114,7 +114,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                     DocumentReference documentReference = db.collection("users").document(mAuth.getUid());
                     Map<String, Object> user = new HashMap<>();
                         user.put("email", email);
-                        user.put("phone", phoneNumber);
+                        user.put("login", login);
                         user.put("points",0);
                         documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
@@ -130,6 +130,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                                 progressBar.setVisibility(View.INVISIBLE);
                                 final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                 AuthCredential credential = EmailAuthProvider.getCredential(email, password);
+
                                 user.reauthenticate(credential)
                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override

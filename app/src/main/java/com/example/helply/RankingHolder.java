@@ -14,8 +14,8 @@ public class RankingHolder extends RecyclerView.ViewHolder {
 
     public RankingHolder(@NonNull View itemView) {
         super(itemView);
-        this.description = itemView.findViewById(R.id.streetTV);
-        this.street = itemView.findViewById(R.id.descriptionTV);
+        this.description = itemView.findViewById(R.id.needTV);
+        this.street = itemView.findViewById(R.id.addressObjectTV);
 
 
     }

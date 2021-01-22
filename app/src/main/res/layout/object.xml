@@ -10,60 +10,58 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="161dp"
         android:background="@color/white">
 
 
         <TextView
-            android:id="@+id/descriptionTV"
+            android:id="@+id/addressObjectTV"
             android:layout_width="134dp"
             android:layout_height="14dp"
             android:layout_marginStart="10dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="5dp"
             android:text="TextView"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textSize="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/personImage" />
+            app:layout_constraintStart_toEndOf="@+id/personImage"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
         <TextView
-            android:id="@+id/streetTV"
+            android:id="@+id/needTV"
             android:layout_width="145dp"
             android:layout_height="32dp"
             android:layout_marginStart="10dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginTop="5dp"
             android:text="TextView"
-            app:layout_constraintBottom_toTopOf="@+id/textView3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/personImage" />
+            app:layout_constraintStart_toEndOf="@+id/personImage"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="37dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginTop="10dp"
             android:text="Address"
             android:textSize="10dp"
-            app:layout_constraintBottom_toTopOf="@+id/descriptionTV"
-            app:layout_constraintStart_toEndOf="@+id/personImage" />
+            app:layout_constraintStart_toEndOf="@+id/personImage"
+            app:layout_constraintTop_toBottomOf="@+id/needTV" />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="181dp"
             android:layout_height="23dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="15dp"
             android:text="Kind of help"
-            app:layout_constraintBottom_toTopOf="@+id/streetTV"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/personImage"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/personImage"
@@ -73,8 +71,19 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.518"
+            app:layout_constraintVertical_bias="0.394"
             app:srcCompat="@drawable/logo" />
+
+        <TextView
+            android:id="@+id/timeTV"
+            android:layout_width="47dp"
+            android:layout_height="11dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Time"
+            android:textSize="10dp"
+            app:layout_constraintStart_toEndOf="@+id/personImage"
+            app:layout_constraintTop_toBottomOf="@+id/addressObjectTV" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
