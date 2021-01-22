@@ -268,8 +268,17 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
 
     @Override
     public void onClick(View view) {
+<<<<<<< HEAD
         if(view.getId() == R.id.addBtn)  // todo could be a case in switch operator ????
         {
+=======
+        if (view.getId() == R.id.addBtn) {
+
+
+            String address, description, nameOfHelp;
+
+
+>>>>>>> db49522c882cb25281973cd8f13b9768a8a582c7
             user = FirebaseAuth.getInstance().getCurrentUser();
             String address,purch,mes,des;
             address = addressTV.getText().toString().trim();
@@ -295,19 +304,24 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
 
                 }
             });
+<<<<<<< HEAD
        }
         if(view.getId() == R.id.addressBtn) {
             startActivity(new Intent(this, MapActivity.class));
         }
+=======
+        }
+        if (view.getId() == R.id.addressBtn) {
+            startActivityForResult(new Intent(this, MapActivity.class), 1001);
+>>>>>>> db49522c882cb25281973cd8f13b9768a8a582c7
 
-        switch (view.getId()){
-            case R.id.listBtn:
-            {
+        }
+        switch (view.getId()) {
+            case R.id.listBtn: {
                 startActivity(new Intent(AddTaskActivity.this, ListPopUpWindow.class));
                 break;
             }
         }
-
     }
 
 
