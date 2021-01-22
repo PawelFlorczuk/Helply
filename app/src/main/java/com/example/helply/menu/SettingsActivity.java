@@ -45,7 +45,9 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SettingsActivity extends Navigaction implements View.OnClickListener {
+import de.hdodenhof.circleimageview.CircleImageView;
+
+public class SettingsActivity extends Navigation implements View.OnClickListener {
 
     protected Toolbar toolbar;
     private Adapter adapter;
@@ -107,6 +109,10 @@ public class SettingsActivity extends Navigaction implements View.OnClickListene
         Intent intent = getIntent();
         bitmap = intent.getParcelableExtra("Bitmap");
         setProfileImage(bitmap);
+
+
+        this.initSideBarMenu();
+
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override

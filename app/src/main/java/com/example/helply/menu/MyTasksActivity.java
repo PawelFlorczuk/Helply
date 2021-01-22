@@ -28,7 +28,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Vector;
 
-public class MyTasksActivity extends Navigaction {
+import de.hdodenhof.circleimageview.CircleImageView;
+
+public class MyTasksActivity extends Navigation {
     protected Toolbar toolbar;
     private Adapter adapter;
     protected DrawerLayout drawerLayout;
@@ -62,6 +64,9 @@ public class MyTasksActivity extends Navigaction {
         Intent intent = getIntent();
         bitmap = intent.getParcelableExtra("Bitmap");
         setProfileImage(bitmap);
+
+        this.initSideBarMenu();
+
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -149,4 +154,6 @@ public class MyTasksActivity extends Navigaction {
         } else{
         }
     }
+
+
 }

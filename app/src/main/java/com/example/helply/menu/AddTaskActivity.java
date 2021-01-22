@@ -1,6 +1,5 @@
 package com.example.helply.menu;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -12,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,8 +19,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.example.helply.MapActivity;
 import com.example.helply.R;
@@ -40,8 +36,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 
-public class AddTaskActivity extends Navigaction implements View.OnClickListener {
+
+public class AddTaskActivity extends Navigation implements View.OnClickListener {
 
 
     private Spinner spinner;
@@ -112,6 +110,10 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
         String[] spinnerString = {"Choose kind of help","Walking the dog", "Shopping", "Other"};
         spinner.setAdapter(new ArrayAdapter<>(AddTaskActivity.this,
                 android.R.layout.simple_spinner_dropdown_item, spinnerString));
+
+
+        this.initSideBarMenu();
+
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -334,4 +336,7 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
                     + street  + "-"+  number;
         }
     }
+
+
+
 }

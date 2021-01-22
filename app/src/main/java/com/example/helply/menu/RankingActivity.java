@@ -29,8 +29,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.List;
 import java.util.Vector;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 
-public class RankingActivity extends Navigaction {
+
+public class RankingActivity extends Navigation {
     protected Toolbar toolbar;
     private RankingAdapter adapter;
     protected DrawerLayout drawerLayout;
@@ -68,6 +70,9 @@ public class RankingActivity extends Navigaction {
         Intent intent = getIntent();
         bitmap = intent.getParcelableExtra("Bitmap");
         setProfileImage(bitmap);
+
+        this.initSideBarMenu();
+
 
         Task<QuerySnapshot> documentReference = db.collection("users").get();
         documentReference.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

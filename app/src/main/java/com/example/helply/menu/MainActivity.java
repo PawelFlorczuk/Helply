@@ -1,7 +1,5 @@
 package com.example.helply.menu;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -14,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,7 +34,7 @@ import java.util.Vector;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends Navigaction {
+public class MainActivity extends Navigation {
 
     protected Toolbar toolbar;
     protected RecyclerView recyclerView;
@@ -169,86 +166,6 @@ public class MainActivity extends Navigaction {
                 }
             });
         }
-    }
-
-
-    private void initSideBarMenu() {
-        View.OnClickListener customOnClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                switch (v.getId()) {
-                    case R.id.announcements_card_view_menu: {
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        intent.putExtra("Bitmap", bitmap);
-                        startActivity(intent);
-                        break;
-                    }
-                    case R.id.my_announcements_card_view_menu: {
-                        Intent intent = new Intent(getApplicationContext(), MyTasksActivity.class);
-                        intent.putExtra("Bitmap", bitmap);
-                        startActivity(intent);
-                        break;
-                    }
-                    case R.id.create_announcement_card_view_menu: {
-                        Intent intent = new Intent(getApplicationContext(), AddTaskActivity.class);
-                        intent.putExtra("Bitmap", bitmap);
-                        startActivity(intent);
-                        break;
-                    }
-                    case R.id.tasks_to_be_performed_card_view_menu: {
-                        Intent intent = new Intent(getApplicationContext(), TasksToDoActivity.class);
-                        intent.putExtra("Bitmap", bitmap);
-                        startActivity(intent);
-                        break;
-                    }
-
-                    case R.id.settings_card_view_menu: {
-                        Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-                        intent.putExtra("Bitmap", bitmap);
-                        startActivity(intent);
-                        break;
-                    }
-
-                    case R.id.best_volunteers_card_view_menu: {
-                        Intent intent = new Intent(getApplicationContext(), RankingActivity.class);
-                        intent.putExtra("Bitmap", bitmap);
-                        startActivity(intent);
-                        break;
-                    }
-
-                    case R.id.log_out_card_view_menu: {
-                        FirebaseAuth.getInstance().signOut();
-                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                        break;
-                    }
-                }
-            }
-        };
-
-        CardView menu_element = findViewById(R.id.announcements_card_view_menu);
-        menu_element.setOnClickListener(customOnClickListener);
-
-        menu_element = findViewById(R.id.my_announcements_card_view_menu);
-        menu_element.setOnClickListener(customOnClickListener);
-
-        menu_element = findViewById(R.id.create_announcement_card_view_menu);
-        menu_element.setOnClickListener(customOnClickListener);
-
-        menu_element = findViewById(R.id.tasks_to_be_performed_card_view_menu);
-        menu_element.setOnClickListener(customOnClickListener);
-
-        menu_element = findViewById(R.id.settings_card_view_menu);
-        menu_element.setOnClickListener(customOnClickListener);
-
-        menu_element = findViewById(R.id.best_volunteers_card_view_menu);
-        menu_element.setOnClickListener(customOnClickListener);
-
-        menu_element = findViewById(R.id.log_out_card_view_menu);
-        menu_element.setOnClickListener(customOnClickListener);
-
-//        menu_element = findViewById(R.id.announcements_card_view_menu);
-//        menu_element.setOnClickListener(customOnClickListener);
     }
 
 
