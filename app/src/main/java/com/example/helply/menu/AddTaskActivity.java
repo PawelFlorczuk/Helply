@@ -269,13 +269,10 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
 
     @Override
     public void onClick(View view) {
-        if(view.getId() == R.id.addBtn)
-        {
+        if (view.getId() == R.id.addBtn) {
 
 
             String address, description, nameOfHelp;
-
-
 
 
             user = FirebaseAuth.getInstance().getCurrentUser();
@@ -302,19 +299,17 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
 
                 }
             });
-       }
-        if(view.getId() == R.id.addressBtn) {
-            startActivityForResult(new Intent(this, MapActivity.class),1001);
+        }
+        if (view.getId() == R.id.addressBtn) {
+            startActivityForResult(new Intent(this, MapActivity.class), 1001);
 
-
-        switch (view.getId()){
-            case R.id.listBtn:
-            {
+        }
+        switch (view.getId()) {
+            case R.id.listBtn: {
                 startActivity(new Intent(AddTaskActivity.this, ListPopUpWindow.class));
                 break;
             }
         }
-
     }
 
     @Override
