@@ -42,8 +42,10 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 
-public class AddTaskActivity extends Navigaction implements View.OnClickListener {
+
+public class AddTaskActivity extends Navigation implements View.OnClickListener {
 
 
     private Spinner spinner;
@@ -106,8 +108,8 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
         actionBarDrawerToggle.syncState();
         navigationView.bringToFront();
 
-        View headerView = navigationView.inflateHeaderView(R.layout.header_deprecated);
-        profileImage = (ImageView) headerView.findViewById(R.id.profileImage_deprecated);
+        View headerView = navigationView.inflateHeaderView(R.layout.sidebar_header);
+        profileImage = (CircleImageView) headerView.findViewById(R.id.profileImage);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -118,6 +120,10 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
         String[] spinnerString = {"Choose kind of help","Walking the dog", "Shopping", "Other"};
         spinner.setAdapter(new ArrayAdapter<>(AddTaskActivity.this,
                 android.R.layout.simple_spinner_dropdown_item, spinnerString));
+
+
+        this.initSideBarMenu();
+
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -131,57 +137,6 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
             }
         });
 
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch(item.getItemId())
-                {
-                    case R.id.tasksItem: {
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        intent.putExtra("Bitmap", bitmap);
-                        startActivity(intent);
-                        break;
-                    }
-                    case R.id.lookForTaskItem: {
-                        Intent intent = new Intent(getApplicationContext(), AddTaskActivity.class);
-                        intent.putExtra("Bitmap", bitmap);
-                        startActivity(intent);
-                        break;
-                    }
-                    case R.id.myTasksItem: {
-                        Intent intent = new Intent(getApplicationContext(), MyTasksActivity.class);
-                        intent.putExtra("Bitmap", bitmap);
-                        startActivity(intent);
-                        break;
-                    }
-                    case R.id.settingsItem: {
-                        Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-                        intent.putExtra("Bitmap", bitmap);
-                        startActivity(intent);
-                        break;
-                    }
-                    case R.id.logOutItem: {
-                        FirebaseAuth.getInstance().signOut();
-                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                        break;
-                    }
-                    case R.id.rankItem: {
-                        Intent intent = new Intent(getApplicationContext(), RankingActivity.class);
-                        intent.putExtra("Bitmap", bitmap);
-                        startActivity(intent);
-                        break;
-                    }
-                    case R.id.tasksToDoITem: {
-                        Intent intent = new Intent(getApplicationContext(), TasksToDoActivity.class);
-                        intent.putExtra("Bitmap", bitmap);
-                        startActivity(intent);
-                        break;
-                    }
-
-                }
-                return true;
-            }
-        });
 
     }
 
@@ -348,13 +303,9 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
 
             DocumentReference documentReference = db.collection("tasks").document(user.getUid());
             Map<String, Object> user = new HashMap<>();
-            user.put("date", LocalDateTime.now().toString());
-            user.put("address", address);
-            user.put("description",description);
-            user.put("helper"," ");
-            user.put("emailPhoneNumber", emailPhoneNumber);
-            user.put("kindOfHelp", nameOfHelp);
-            user.put("nameOfHelp", need);
+//            user.put("address", address);
+//            user.put("description",des);
+//            user.put("helper"," ");
             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
@@ -408,8 +359,15 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
             this.address = country + "-" + partOfCountry + "-" + city + "-"
                     + street  + "-"+  number;
         }
-        if(resultCode == 2) {
+
+        if(resultCode == 1110){
+
+            SharedPreferences preferences = getSharedPreferences("ShoppingList",MODE_PRIVATE);
+            String shoppingList = preferences.getString("shopping_list","Test");
+            this.descTV.setText(shoppingList);
 
         }
+
+
     }
 }

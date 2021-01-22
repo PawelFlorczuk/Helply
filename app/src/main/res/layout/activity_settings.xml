@@ -127,18 +127,23 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.521" />
 
-                    <ImageView
+
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/settings_avatarIV"
+
+
                         android:layout_width="100dp"
                         android:layout_height="100dp"
+
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="16dp"
                         android:contentDescription="@string/avatar"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:src="@drawable/logo"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.05"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.05"
-                        tools:srcCompat="@drawable/logo" />
+                        app:layout_constraintTop_toTopOf="parent" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>
@@ -149,12 +154,19 @@
         android:id="@+id/nv_navView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="@android:color/white"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:menu ="@menu/drawer_menu_deprecated">
+        android:background="@color/quantum_orange300">
+        <!--        app:headerLayout="@layout/sidebar_header">-->
+
+        <include
+            layout="@layout/sidebar_menu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="200dp" />
 
     </com.google.android.material.navigation.NavigationView>
+
     <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
