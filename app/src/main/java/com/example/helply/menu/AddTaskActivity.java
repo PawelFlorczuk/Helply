@@ -1,8 +1,6 @@
 package com.example.helply.menu;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -18,11 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.example.helply.MapActivity;
 import com.example.helply.R;
@@ -57,8 +52,6 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
     private Button listBtn;
     private Button addressBtn;
     private Button addBtn;
-
-    private String address;
 
     int PLACE_PICKER_REQUEST = 101;
 
@@ -171,6 +164,12 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
                         startActivity(intent);
                         break;
                     }
+                    case R.id.addressBtn: {
+
+
+
+                        break;
+                    }
 
                 }
                 return true;
@@ -269,24 +268,18 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
 
     @Override
     public void onClick(View view) {
-        if(view.getId() == R.id.addBtn)
+        if(view.getId() == R.id.addBtn)  // todo could be a case in switch operator ????
         {
-
-
-            String address, description, nameOfHelp;
-
-
-
-
             user = FirebaseAuth.getInstance().getCurrentUser();
+            String address,purch,mes,des;
+            address = addressTV.getText().toString().trim();
+            des = descTV.getText().toString().trim();
             db = FirebaseFirestore.getInstance();
-
-
             DocumentReference documentReference = db.collection("tasks").document(user.getUid());
             Map<String, Object> user = new HashMap<>();
-//            user.put("address", address);
-//            user.put("description",des);
-//            user.put("helper"," ");
+            user.put("address", address);
+            user.put("description",des);
+            user.put("helper"," ");
             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
@@ -304,8 +297,8 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
             });
        }
         if(view.getId() == R.id.addressBtn) {
-            startActivityForResult(new Intent(this, MapActivity.class),1001);
-
+            startActivity(new Intent(this, MapActivity.class));
+        }
 
         switch (view.getId()){
             case R.id.listBtn:
@@ -317,26 +310,5 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == 1) {
-            SharedPreferences preferences = getSharedPreferences("Address",MODE_PRIVATE);
-            String address = preferences.getString("address","Test");
-            String[] split = address.split(",");
-            String country = split[10].split("=")[1];
-            String street =  split[7].split("=")[1];
-            String city =  split[6].split("=")[1];
-            String number = split[3].split("=")[1];
-            String partOfCountry = split[4].split("=")[1];
-            String result = country + ", " + partOfCountry + ", " + city + ", "
-                    + street  + ", "+  number;
 
-            addressTV.setVisibility(View.VISIBLE);
-            addressBtn.setText(R.string.change_address);
-            yourAddressTV.setText(result);
-            this.address = country + "-" + partOfCountry + "-" + city + "-"
-                    + street  + "-"+  number;
-        }
-    }
 }
