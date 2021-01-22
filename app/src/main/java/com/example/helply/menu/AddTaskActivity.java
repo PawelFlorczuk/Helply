@@ -88,6 +88,9 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
         addressBtn = findViewById(R.id.addressBtn);
         listBtn = findViewById(R.id.listBtn);
 
+        emailPhoneNumberET = findViewById(R.id.emailPhoneNumberET);
+        emailPhoneNumberTV = findViewById(R.id.emailPhoneNumberTV);
+
         addBtn.setOnClickListener(this);
         addressBtn.setOnClickListener(this);
         listBtn.setOnClickListener(this);
@@ -199,6 +202,8 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
                 helpKindET.setVisibility(View.INVISIBLE);
                 descET.setVisibility(View.INVISIBLE);
 
+
+
                 break;
             }
             case 1: {
@@ -219,7 +224,7 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
                 helpKindTV.setText(R.string.dog_breed);
                 helpKindET.setHint(R.string.dog_breed);
 
-
+                kindOfHelp = "Walking the dog";
 
 
 
@@ -274,8 +279,60 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
         {
 
 
-            String address, description, nameOfHelp;
+            String address, description, nameOfHelp,need,emailPhoneNumber;
 
+            emailPhoneNumber = emailPhoneNumberET.getText().toString().trim();
+            nameOfHelp = this.kindOfHelp;
+            address = this.address;
+            description = descET.getText().toString();
+
+            if (address.equals("") || address.equals(" ") || address == null) {
+                Toast.makeText(getApplicationContext(), "You have to set your address" ,Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (description.equals("") || description.equals(" ") || description == null) {
+                Toast.makeText(getApplicationContext(), "The description can't be empty" ,Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (emailPhoneNumber.equals("") || emailPhoneNumber.equals(" ")|| emailPhoneNumber == null) {
+                Toast.makeText(getApplicationContext(), "The phone number or email form can't be empty" ,Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            switch(nameOfHelp) {
+                case "Walking the dog":
+                {
+                    need = helpKindET.getText().toString();
+
+                    if (need.equals("") || need.equals(" ")) {
+                        Toast.makeText(getApplicationContext(), "The breed of the dog can't be empty" ,Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+
+
+
+                    break;
+                }
+                case "Shopping":
+                {
+
+
+                    break;
+                }
+                case "Other":
+                {
+                    need = helpKindET.getText().toString();
+
+                    if (need.equals("") || need.equals(" ")) {
+                        Toast.makeText(getApplicationContext(), "The kind of the help can't be empty" ,Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+
+                    break;
+                }
+            }
 
 
 

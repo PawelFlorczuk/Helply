@@ -1,5 +1,7 @@
 package com.example.helply.menu;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -28,6 +30,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Vector;
 
@@ -46,7 +50,7 @@ public class MainActivity extends Navigaction {
     private FirebaseAuth mAuth;
 
 
-
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
@@ -72,29 +76,17 @@ public class MainActivity extends Navigaction {
             actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, (R.string.open), (R.string.close));
             drawerLayout.addDrawerListener(actionBarDrawerToggle);
             actionBarDrawerToggle.syncState();
-<<<<<<< HEAD
-            View headerView = navigationView.inflateHeaderView(R.layout.sidebar_header);
-//        profileImage = (ImageView) headerView.findViewById(R.id.profileImage_deprecated);
-            profileImage = (CircleImageView) headerView.findViewById(R.id.profileImage_deprecated);  // here change was made <------------------------------------------------
-=======
             View headerView = navigationView.inflateHeaderView(R.layout.header_deprecated);
             profileImage = (ImageView) headerView.findViewById(R.id.profileImage_deprecated);
->>>>>>> db49522c882cb25281973cd8f13b9768a8a582c7
 
             Intent intent = getIntent();
             bitmap = intent.getParcelableExtra("Bitmap");
             setProfileImage(bitmap);
 
-<<<<<<< HEAD
-            this.initSideBarMenu();
-
-            if (mAuth.getUid() != null) {
-=======
             initSideBarMenu();
 
 
                 if (mAuth.getUid() != null) {
->>>>>>> db49522c882cb25281973cd8f13b9768a8a582c7
                 db = FirebaseFirestore.getInstance();
                 com.google.android.gms.tasks.Task<QuerySnapshot> documentReference = db.collection("tasks").get();
                 documentReference.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -126,8 +118,6 @@ public class MainActivity extends Navigaction {
                 });
             } else {
             }
-<<<<<<< HEAD
-
             navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -174,64 +164,13 @@ public class MainActivity extends Navigaction {
                             break;
                         }
 
-=======
-            navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    switch (item.getItemId()) {
-                        case R.id.tasksItem: {
-                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                            intent.putExtra("Bitmap", bitmap);
-                            startActivity(intent);
-                            break;
-                        }
-                        case R.id.lookForTaskItem: {
-                            Intent intent = new Intent(getApplicationContext(), AddTaskActivity.class);
-                            intent.putExtra("Bitmap", bitmap);
-                            startActivity(intent);
-                            break;
-                        }
-                        case R.id.myTasksItem: {
-                            Intent intent = new Intent(getApplicationContext(), MyTasksActivity.class);
-                            intent.putExtra("Bitmap", bitmap);
-                            startActivity(intent);
-                            break;
-                        }
-                        case R.id.settingsItem: {
-                            Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-                            intent.putExtra("Bitmap", bitmap);
-                            startActivity(intent);
-                            break;
-                        }
-                        case R.id.logOutItem: {
-                            FirebaseAuth.getInstance().signOut();
-                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                            break;
-                        }
-                        case R.id.rankItem: {
-                            Intent intent = new Intent(getApplicationContext(), RankingActivity.class);
-                            intent.putExtra("Bitmap", bitmap);
-                            startActivity(intent);
-                            break;
-                        }
-                        case R.id.tasksToDoITem: {
-                            Intent intent = new Intent(getApplicationContext(), TasksToDoActivity.class);
-                            intent.putExtra("Bitmap", bitmap);
-                            startActivity(intent);
-                            break;
-                        }
-
->>>>>>> db49522c882cb25281973cd8f13b9768a8a582c7
                     }
                     return true;
                 }
             });
         }
     }
-<<<<<<< HEAD
-=======
 
->>>>>>> db49522c882cb25281973cd8f13b9768a8a582c7
 
     private void initSideBarMenu() {
         View.OnClickListener customOnClickListener = new View.OnClickListener() {
