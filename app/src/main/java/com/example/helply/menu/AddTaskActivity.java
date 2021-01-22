@@ -257,7 +257,7 @@ public class AddTaskActivity extends Navigation implements View.OnClickListener 
         }
         switch (view.getId()) {
             case R.id.listBtn: {
-                startActivity(new Intent(AddTaskActivity.this, ListPopUpWindow.class));
+                startActivityForResult(new Intent(AddTaskActivity.this, ListPopUpWindow.class),1002);
                 break;
             }
         }
@@ -284,6 +284,16 @@ public class AddTaskActivity extends Navigation implements View.OnClickListener 
             this.address = country + "-" + partOfCountry + "-" + city + "-"
                     + street  + "-"+  number;
         }
+
+        if(resultCode == 1110){
+
+            SharedPreferences preferences = getSharedPreferences("ShoppingList",MODE_PRIVATE);
+            String shoppingList = preferences.getString("shopping_list","Test");
+            this.descTV.setText(shoppingList);
+
+        }
+
+
     }
 
 
