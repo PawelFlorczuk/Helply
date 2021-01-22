@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -56,8 +55,8 @@ public class TasksToDoActivity extends Navigaction {
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
 
-        View headerView = navigationView.inflateHeaderView(R.layout.header);
-        profileImage = (ImageView) headerView.findViewById(R.id.profileImage);
+        View headerView = navigationView.inflateHeaderView(R.layout.header_deprecated);
+        profileImage = (ImageView) headerView.findViewById(R.id.profileImage_deprecated);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
 

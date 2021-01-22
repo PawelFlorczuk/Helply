@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -82,8 +83,6 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
         helpKindET = findViewById(R.id.helpKindET);
         descET = findViewById(R.id.descET);
 
-        emailPhoneNumberET = findViewById(R.id.emailPhoneNumberET);
-        emailPhoneNumberTV = findViewById(R.id.emailPhoneNumberTV);
 
         addBtn = findViewById(R.id.addBtn);
         addressBtn = findViewById(R.id.addressBtn);
@@ -102,8 +101,8 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
         actionBarDrawerToggle.syncState();
         navigationView.bringToFront();
 
-        View headerView = navigationView.inflateHeaderView(R.layout.header);
-        profileImage = (ImageView) headerView.findViewById(R.id.profileImage);
+        View headerView = navigationView.inflateHeaderView(R.layout.header_deprecated);
+        profileImage = (ImageView) headerView.findViewById(R.id.profileImage_deprecated);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -219,7 +218,6 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
 
                 helpKindTV.setText(R.string.dog_breed);
                 helpKindET.setHint(R.string.dog_breed);
-                this.kindOfHelp = "Walking the dog";
 
 
 
@@ -243,7 +241,7 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
                 descET.setVisibility(View.VISIBLE);
 
                 helpKindTV.setText(R.string.shopping_list);
-                this.kindOfHelp = "Shopping";
+
                 break;
             }
             case 3: {
@@ -263,7 +261,6 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
 
                 helpKindTV.setText(R.string.kind_need);
                 helpKindET.setHint(R.string.kind_need);
-                this.kindOfHelp = "Other";
                 break;
             }
 
@@ -277,60 +274,8 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
         {
 
 
-            String address, description, nameOfHelp,need,emailPhoneNumber;
+            String address, description, nameOfHelp;
 
-            emailPhoneNumber = emailPhoneNumberET.getText().toString().trim();
-            nameOfHelp = this.kindOfHelp;
-            address = this.address;
-            description = descET.getText().toString();
-
-            if (address.equals("") || address.equals(" ") || address == null) {
-                Toast.makeText(getApplicationContext(), "You have to set your address" ,Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (description.equals("") || description.equals(" ") || description == null) {
-                Toast.makeText(getApplicationContext(), "The description can't be empty" ,Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (emailPhoneNumber.equals("") || emailPhoneNumber.equals(" ")|| emailPhoneNumber == null) {
-                Toast.makeText(getApplicationContext(), "The phone number or email form can't be empty" ,Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            switch(nameOfHelp) {
-                case "Walking the dog":
-                {
-                    need = helpKindET.getText().toString();
-
-                    if (need.equals("") || need.equals(" ")) {
-                        Toast.makeText(getApplicationContext(), "The breed of the dog can't be empty" ,Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-
-
-
-
-                    break;
-                }
-                case "Shopping":
-                {
-
-
-                    break;
-                }
-                case "Other":
-                {
-                    need = helpKindET.getText().toString();
-
-                    if (need.equals("") || need.equals(" ")) {
-                        Toast.makeText(getApplicationContext(), "The kind of the help can't be empty" ,Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-
-
-                    break;
-                }
-            }
 
 
 
@@ -365,7 +310,12 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
 
 
         }
-
+        switch (view.getId()) {
+            case R.id.listBtn: {
+                startActivity(new Intent(AddTaskActivity.this, ListPopUpWindow.class));
+                break;
+            }
+        }
     }
 
     @Override
@@ -376,8 +326,8 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
             String address = preferences.getString("address","Test");
             String[] split = address.split(",");
             String country = split[10].split("=")[1];
-            String street = split[7].split("=")[1];
-            String city = split[6].split("=")[1];
+            String street =  split[7].split("=")[1];
+            String city =  split[6].split("=")[1];
             String number = split[3].split("=")[1];
             String partOfCountry = split[4].split("=")[1];
             String result = country + ", " + partOfCountry + ", " + city + ", "
