@@ -303,9 +303,13 @@ public class AddTaskActivity extends Navigation implements View.OnClickListener 
 
             DocumentReference documentReference = db.collection("tasks").document(user.getUid());
             Map<String, Object> user = new HashMap<>();
-//            user.put("address", address);
-//            user.put("description",des);
-//            user.put("helper"," ");
+            user.put("date", LocalDateTime.now().toString());
+            user.put("address", address);
+            user.put("description",description);
+            user.put("helper"," ");
+            user.put("emailPhoneNumber", emailPhoneNumber);
+            user.put("kindOfHelp", nameOfHelp);
+            user.put("nameOfHelp", need);
             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {

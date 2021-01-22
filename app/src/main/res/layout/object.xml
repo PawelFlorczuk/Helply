@@ -76,8 +76,8 @@
 
         <TextView
             android:id="@+id/timeTV"
-            android:layout_width="47dp"
-            android:layout_height="11dp"
+            android:layout_width="102dp"
+            android:layout_height="12dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:text="Time"
