@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -99,8 +100,8 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
         actionBarDrawerToggle.syncState();
         navigationView.bringToFront();
 
-        View headerView = navigationView.inflateHeaderView(R.layout.header);
-        profileImage = (ImageView) headerView.findViewById(R.id.profileImage);
+        View headerView = navigationView.inflateHeaderView(R.layout.header_deprecated);
+        profileImage = (ImageView) headerView.findViewById(R.id.profileImage_deprecated);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -306,7 +307,12 @@ public class AddTaskActivity extends Navigaction implements View.OnClickListener
             startActivityForResult(new Intent(this, MapActivity.class),1001);
 
 
-
+        switch (view.getId()){
+            case R.id.listBtn:
+            {
+                startActivity(new Intent(AddTaskActivity.this, ListPopUpWindow.class));
+                break;
+            }
         }
 
     }

@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -100,8 +99,8 @@ public class SettingsActivity extends Navigaction implements View.OnClickListene
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        View headerView = navigationView.inflateHeaderView(R.layout.header);
-        profileImage = (ImageView) headerView.findViewById(R.id.profileImage);
+        View headerView = navigationView.inflateHeaderView(R.layout.header_deprecated);
+        profileImage = (ImageView) headerView.findViewById(R.id.profileImage_deprecated);
 
 
 

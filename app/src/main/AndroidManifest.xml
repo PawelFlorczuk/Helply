@@ -34,6 +34,9 @@
         <activity android:name=".TaskInformactionActivity"/>
         <activity android:name=".menu.MyTasksActivity"/>
 
+        <activity
+            android:name=".menu.ListPopUpWindow"
+            android:theme="@style/AppTheme.ListPupUpWindowTheme"/>
 
 
         <activity android:name=".menu.MainActivity">
