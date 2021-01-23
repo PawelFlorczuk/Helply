@@ -3,11 +3,13 @@ package com.example.helply;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -18,6 +20,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Vector;
 
 public class Adapter extends RecyclerView.Adapter<Holder> {
@@ -26,9 +29,10 @@ public class Adapter extends RecyclerView.Adapter<Holder> {
         this.c = c;
         this.v = v;
         this.is = is;
+        this.windowNum = -1;
 
     }
-
+    Integer windowNum;
     Context c;
     Vector<String[]> v;
     Integer is;
@@ -39,10 +43,11 @@ public class Adapter extends RecyclerView.Adapter<Holder> {
     public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(c);
         View view = inflater.inflate(R.layout.object, parent, false);
-
-        return new Holder(view);
+        windowNum = windowNum + 1;
+        return new Holder(view,v.get(windowNum));
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
 
@@ -50,6 +55,12 @@ public class Adapter extends RecyclerView.Adapter<Holder> {
         String finalAddress = address[2] + " " + address[3] + " " + address[4];
         String[] timeArray = v.get(position)[0].split("T");
         String time =  timeArray[0];
+        String timeNow = LocalDateTime.now().toString().split("T")[0];
+        if(time.equals(timeNow)) {
+            time = "Today";
+        } else if (time.equals(LocalDateTime.now().minusDays(1).toString().split("T")[0])) {
+            time = "Yesterday";
+        }
 
         holder.address.setText(finalAddress);
         holder.need.setText(v.get(position)[5]);
@@ -63,6 +74,7 @@ public class Adapter extends RecyclerView.Adapter<Holder> {
         Data.ID = v.get(position)[5];
         holder.is = is;
 
+        String imageID = v.get(position)[7].split("-")[0];
         StorageReference storageReference = FirebaseStorage.getInstance().getReference()
                 .child("profileImage")
                 .child(v.get(position)[7] + ".jpg");

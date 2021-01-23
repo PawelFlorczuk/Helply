@@ -30,11 +30,14 @@ import com.example.helply.R;
 import com.example.helply.login.LoginActivity;
 
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
@@ -64,10 +67,13 @@ public class AddTaskActivity extends Navigation implements View.OnClickListener 
 
     private String address;
     private String kindOfHelp;
+    private String needString;
     private String shoppingList;
 
     private TextView emailPhoneNumberTV;
     private EditText emailPhoneNumberET;
+
+    private Boolean con;
 
 
 
@@ -280,7 +286,7 @@ public class AddTaskActivity extends Navigation implements View.OnClickListener 
                 case "Walking the dog":
                 {
                     need = helpKindET.getText().toString();
-
+                    this.needString = need;
                     if (need.equals("") || need.equals(" ") || need == null) {
                         Toast.makeText(getApplicationContext(), "The breed of the dog can't be empty" ,Toast.LENGTH_SHORT).show();
                         return;
@@ -290,6 +296,7 @@ public class AddTaskActivity extends Navigation implements View.OnClickListener 
                 case "Shopping":
                 {
                     need = this.shoppingList;
+                    this.needString = need;
                     if (need.equals("") || need.equals(" ")|| need == null) {
                         Toast.makeText(getApplicationContext(), "The list can't be empty" ,Toast.LENGTH_SHORT).show();
                         return;
@@ -300,6 +307,7 @@ public class AddTaskActivity extends Navigation implements View.OnClickListener 
                 case "Other":
                 {
                     need = helpKindET.getText().toString();
+                    this.needString = need;
                     if (need.equals("") || need.equals(" ")|| need == null) {
                         Toast.makeText(getApplicationContext(), "The kind of the help can't be empty" ,Toast.LENGTH_SHORT).show();
                         return;
@@ -309,32 +317,50 @@ public class AddTaskActivity extends Navigation implements View.OnClickListener 
             }
             user = FirebaseAuth.getInstance().getCurrentUser();
             db = FirebaseFirestore.getInstance();
-
-
-            DocumentReference documentReference = db.collection("tasks").document(user.getUid());
-            Map<String, Object> user = new HashMap<>();
-            user.put("date", LocalDateTime.now().toString());
-            user.put("address", address);
-            user.put("description",description);
-            user.put("helper"," ");
-            user.put("emailPhoneNumber", emailPhoneNumber);
-            user.put("kindOfHelp", nameOfHelp);
-            user.put("nameOfHelp", need);
-            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+            con = true;
+            DocumentReference document = (db.collection("tasks").document(user.getUid()));
+            document.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
-                public void onSuccess(Void aVoid) {
-                    Toast.makeText(AddTaskActivity.this, "Udało się zarejestrować", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                    finish();
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(AddTaskActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot doc = task.getResult();
+                        if(!doc.exists()) {
+                            Map<String, Object> user = new HashMap<>();
+                            user.put("date", LocalDateTime.now().toString());
+                            user.put("address", address);
+                            user.put("description",description);
+                            user.put("helper"," ");
+                            user.put("emailPhoneNumber", emailPhoneNumber);
+                            user.put("kindOfHelp", nameOfHelp);
+                            user.put("nameOfHelp", needString);
+                            document.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(AddTaskActivity.this, "Announcement created!", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                    finish();
+                                    con = false;
+
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(AddTaskActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
 
 
+                                }
+                            });
+                        }
+                    }
                 }
             });
+
+
+
+
+
+
+
        }
         if(view.getId() == R.id.addressBtn) {
             startActivityForResult(new Intent(this, MapActivity.class),1001);

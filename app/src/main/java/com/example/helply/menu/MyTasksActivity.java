@@ -25,7 +25,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.List;
 import java.util.Vector;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -71,36 +73,38 @@ public class MyTasksActivity extends Navigation {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Vector<String[]> datalist = new Vector<>();
-        if(mAuth.getUid()!= null){
-
-
+        if (mAuth.getUid() != null) {
             db = FirebaseFirestore.getInstance();
-            DocumentReference documentReference = db.collection("tasks").document(mAuth.getUid());
-            documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            com.google.android.gms.tasks.Task<QuerySnapshot> documentReference = db.collection("tasks").get();
+            documentReference.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
-                    DocumentSnapshot documentSnapshot = task.getResult();
-                    if(documentSnapshot.exists() && !
-                            documentSnapshot.equals(null)){
-                        String[] dataString = new String[6];
-                        dataString[0] = documentSnapshot.get("address").toString();
-                        dataString[1] = documentSnapshot.get("description").toString();
-                        dataString[2] = documentSnapshot.get("helper").toString();
-                        dataString[3] = documentSnapshot.get("message").toString();
-                        dataString[4] = documentSnapshot.get("purchase").toString();
-                        dataString[5] = documentSnapshot.getId();
-                        datalist.add(dataString);
-                        adapter = new Adapter(MyTasksActivity.this, datalist,2);
-                        recyclerView.setAdapter(adapter);
+                    List<DocumentSnapshot> list = task.getResult().getDocuments();
+                    int i = 0;
+                    for (DocumentSnapshot doc : list) {
+                        if (doc.get("helper").toString().equals(" ")) {
+                            String[] dataString = new String[8];
+                            dataString[0] = doc.get("date").toString();
+                            dataString[1] = doc.get("address").toString();
+                            dataString[2] = doc.get("description").toString();
+                            dataString[3] = doc.get("helper").toString();
+                            dataString[4] = doc.get("emailPhoneNumber").toString();
+                            dataString[5] = doc.get("kindOfHelp").toString();
+                            dataString[6] = doc.get("nameOfHelp").toString();
+                            dataString[7] = doc.getId();
+                            datalist.add(dataString);
+
+                        }
+                        i++;
                     }
 
+                    adapter = new Adapter(MyTasksActivity.this, datalist, 0);
+                    recyclerView.setAdapter(adapter);
                 }
 
             });
-
-
-        } else{
+        } else {
         }
     }
 

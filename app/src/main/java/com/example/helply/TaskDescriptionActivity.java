@@ -3,7 +3,6 @@ package com.example.helply;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,13 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.helply.login.LoginActivity;
-import com.example.helply.menu.AddTaskActivity;
 import com.example.helply.menu.MainActivity;
-import com.example.helply.menu.MyTasksActivity;
-import com.example.helply.menu.RankingActivity;
-import com.example.helply.menu.SettingsActivity;
-import com.example.helply.menu.TasksToDoActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
@@ -41,13 +34,20 @@ public class TaskDescriptionActivity extends AppCompatActivity implements View.O
     protected NavigationView navigationView;
     protected ActionBarDrawerToggle actionBarDrawerToggle;
 
+    private TextView kindOfHelpTV;
     private TextView addressTV;
-    private TextView purchaseTV;
-    private TextView messageTV;
-    private TextView descTV;
+    private TextView descriptionTV;
+    private TextView emailPhoneNumberTV;
+    private TextView needTV;
+    private TextView shoppingListTV;
+    private TextView dateTV;
+    private TextView informactionBreedTV;
+
     private Button addBtn;
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
+
+    private String [] data;
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -55,17 +55,40 @@ public class TaskDescriptionActivity extends AppCompatActivity implements View.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tasks_desc);
-        addressTV = findViewById(R.id.adressET);
-        purchaseTV = findViewById(R.id.purchaseTV);
-        messageTV = findViewById(R.id.mesTV);
-        descTV = findViewById(R.id.descET);
+
+        kindOfHelpTV = findViewById(R.id.kindHelpTV);
+        descriptionTV = findViewById(R.id.desTV);
+        addressTV = findViewById(R.id.addressTaskTV);
+        emailPhoneNumberTV = findViewById(R.id.emailPhoneTV);
+        needTV = findViewById(R.id.dogBreedTV);
+        shoppingListTV = findViewById(R.id.shoppingListTV);
+        dateTV = findViewById(R.id.dateTV);
+        informactionBreedTV = findViewById(R.id.informactionBreadTV);
+
         addBtn = findViewById(R.id.addBtn);
         addBtn.setOnClickListener(this);
 
-        addressTV.setText(Data.Address);
-        purchaseTV.setText(Data.Purchase);
-        messageTV.setText(Data.Message);
-        descTV.setText(Data.Description);
+        Intent intent = getIntent();
+        data = intent.getStringArrayExtra("TaskData");
+        kindOfHelpTV.setText(data[5]);
+        descriptionTV.setText(data[2]);
+        addressTV.setText(data[1]);
+        emailPhoneNumberTV.setText(data[4]);
+        dateTV.setText(data[0]);
+        if(data[5].equals("Shopping")) {
+            shoppingListTV.setText(data[6]);
+            informactionBreedTV.setText("Shopping list");
+        } else if(data[5].equals("Walking the dog")){
+            needTV.setText(data[6]);
+            informactionBreedTV.setText("Walking the dog");
+        } else if(data[5].equals("Other")) {
+            needTV.setText(data[6]);
+            informactionBreedTV.setText("Other");
+        }
+
+
+
+
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -84,7 +107,7 @@ public class TaskDescriptionActivity extends AppCompatActivity implements View.O
     public void onClick(View view) {
         if(view.getId() == R.id.addBtn) {
 
-            if(!mAuth.getUid().equals(Data.ID)) {
+            if(!mAuth.getUid().equals(data[7])) {
 
                 db = FirebaseFirestore.getInstance();
                 DocumentReference documentReference = db.collection("tasks").document(Data.ID);
