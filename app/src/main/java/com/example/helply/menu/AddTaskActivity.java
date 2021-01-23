@@ -64,6 +64,7 @@ public class AddTaskActivity extends Navigation implements View.OnClickListener 
 
     private String address;
     private String kindOfHelp;
+    private String shoppingList;
 
     private TextView emailPhoneNumberTV;
     private EditText emailPhoneNumberET;
@@ -213,6 +214,8 @@ public class AddTaskActivity extends Navigation implements View.OnClickListener 
 
                 helpKindTV.setText(R.string.shopping_list);
 
+                kindOfHelp = "Shopping";
+
                 break;
             }
             case 3: {
@@ -235,6 +238,9 @@ public class AddTaskActivity extends Navigation implements View.OnClickListener 
 
                 helpKindTV.setText(R.string.kind_need);
                 helpKindET.setHint(R.string.kind_need);
+
+                kindOfHelp = "Other";
+
                 break;
             }
 
@@ -283,7 +289,11 @@ public class AddTaskActivity extends Navigation implements View.OnClickListener 
                 }
                 case "Shopping":
                 {
-
+                    need = this.shoppingList;
+                    if (need.equals("") || need.equals(" ")|| need == null) {
+                        Toast.makeText(getApplicationContext(), "The list can't be empty" ,Toast.LENGTH_SHORT).show();
+                        return;
+                    }
 
                     break;
                 }
@@ -368,7 +378,9 @@ public class AddTaskActivity extends Navigation implements View.OnClickListener 
 
             SharedPreferences preferences = getSharedPreferences("ShoppingList",MODE_PRIVATE);
             String shoppingList = preferences.getString("shopping_list","Test");
-            this.descTV.setText(shoppingList);
+            this.helpKindTV.setText("Change your shopping list");
+            this.shoppingList = shoppingList;
+            this.listBtn.setText("Change your list");
 
         }
 
