@@ -99,7 +99,7 @@ public class TasksToDoActivity extends Navigation {
                         i++;
 
                     }
-                    adapter = new Adapter(TasksToDoActivity.this, datalist,1);
+                    adapter = new Adapter(TasksToDoActivity.this, datalist,1,bitmap);
                     recyclerView.setAdapter(adapter);
                 }
 

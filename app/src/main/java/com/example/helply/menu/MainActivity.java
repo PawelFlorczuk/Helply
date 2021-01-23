@@ -111,7 +111,7 @@ public class MainActivity extends Navigation {
                             i++;
                         }
 
-                        adapter = new Adapter(MainActivity.this, datalist, 0);
+                        adapter = new Adapter(MainActivity.this, datalist, 0,bitmap);
                         recyclerView.setAdapter(adapter);
                     }
 

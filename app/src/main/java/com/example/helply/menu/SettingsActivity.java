@@ -104,8 +104,6 @@ public class SettingsActivity extends Navigation implements View.OnClickListener
 
         Intent intent = getIntent();
         bitmap = intent.getParcelableExtra("Bitmap");
-
-
         setProfileImage(bitmap);
 
 

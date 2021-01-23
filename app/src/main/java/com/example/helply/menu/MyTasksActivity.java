@@ -99,7 +99,7 @@ public class MyTasksActivity extends Navigation {
                         i++;
                     }
 
-                    adapter = new Adapter(MyTasksActivity.this, datalist, 0);
+                    adapter = new Adapter(MyTasksActivity.this, datalist, 0,bitmap);
                     recyclerView.setAdapter(adapter);
                 }
 
