@@ -1,162 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dl_drawer_layout"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-        <include
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            layout="@layout/main_toolbar"
-            />
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include
+                android:id="@+id/toolBar"
+                layout="@layout/main_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="top"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <EditText
-                    android:id="@+id/settings_newPhoneNumET"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="102dp"
-                    android:layout_marginTop="80dp"
-                    android:layout_marginEnd="100dp"
-                    android:layout_marginBottom="16dp"
-                    android:ems="10"
-                    android:hint="@string/new_phone_number"
-                    android:importantForAutofill="no"
-                    android:inputType="phone" />
-
-                <Button
-                    android:id="@+id/settings_changePhoneNumBtn"
-                    android:layout_width="155dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/change_phone_number" />
-
-                <EditText
-                    android:id="@+id/settings_currentPasswordET"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="101dp"
-                    android:layout_marginTop="75dp"
-                    android:layout_marginEnd="100dp"
-                    android:layout_marginBottom="10dp"
-                    android:ems="10"
-                    android:hint="@string/password"
-                    android:inputType="textPassword"
-                    android:importantForAutofill="no" />
-
-                <EditText
-                    android:id="@+id/settings_newPasswordET"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="101dp"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginEnd="100dp"
-                    android:layout_marginBottom="16dp"
-                    android:ems="10"
-                    android:hint="@string/new_password"
-                    android:inputType="textPassword"
-                    android:importantForAutofill="no" />
-
-                <EditText
-                    android:id="@+id/settings_confirmPasswordET"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="101dp"
-                    android:layout_marginTop="1dp"
-                    android:layout_marginEnd="100dp"
-                    android:ems="10"
-                    android:hint="@string/confirm_password"
-                    android:inputType="textPassword"
-                    android:importantForAutofill="no" />
-
-                <Button
-                    android:id="@+id/settings_savePasswordBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="114dp"
-                    android:layout_marginTop="26dp"
-                    android:layout_marginEnd="114dp"
-                    android:layout_marginBottom="15dp"
-                    android:text="@string/change_password" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="159dp"
-                    android:layout_gravity="center"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/settings_chooseAvatarBtn"
-                        android:layout_width="99dp"
-                        android:layout_height="68dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="32dp"
-                        android:layout_marginTop="44dp"
-                        android:text="@string/choose"
-                        app:layout_constraintStart_toEndOf="@+id/settings_avatarIV"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <Button
-                        android:id="@+id/backBtn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="42dp"
-                        android:layout_marginEnd="16dp"
-                        android:layout_weight="1"
-                        android:text="Back"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.521" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
 
 
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/settings_avatarIV"
+            <EditText
+                android:id="@+id/settings_currentPasswordET"
+                android:layout_width="212dp"
+                android:layout_height="43dp"
+                android:ems="10"
+                android:hint="@string/password"
+                android:importantForAutofill="no"
+                android:inputType="textPassword"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.502"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.398" />
+
+            <EditText
+                android:id="@+id/settings_confirmPasswordET"
+                android:layout_width="213dp"
+                android:layout_height="44dp"
+                android:ems="10"
+                android:hint="@string/confirm_password"
+                android:importantForAutofill="no"
+                android:inputType="textPassword"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.505"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.548" />
+
+            <Button
+                android:id="@+id/settings_savePasswordBtn"
+                style="@style/Widget.AppCompat.Button.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="216dp"
+                android:text="@string/change_password"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolBar"
+                app:layout_constraintVertical_bias="0.934" />
+
+            <EditText
+                android:id="@+id/settings_newPasswordET"
+                android:layout_width="213dp"
+                android:layout_height="43dp"
+                android:layout_marginBottom="360dp"
+                android:ems="10"
+                android:hint="@string/new_password"
+                android:importantForAutofill="no"
+                android:inputType="textPassword"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.505"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolBar"
+                app:layout_constraintVertical_bias="0.985" />
+
+            <EditText
+                android:id="@+id/settings_newNickET"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:ems="10"
+                android:hint="@string/new_nick"
+                android:importantForAutofill="no"
+                android:inputType="phone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.766" />
+
+            <Button
+                android:id="@+id/settings_changeNickBtn"
+                android:layout_width="184dp"
+                android:layout_height="35dp"
+                android:layout_marginBottom="100dp"
+                android:text="@string/change_nick"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolBar"
+                app:layout_constraintVertical_bias="0.981" />
+
+            <Button
+                android:id="@+id/settings_chooseAvatarBtn"
+                android:layout_width="159dp"
+                android:layout_height="38dp"
+                android:layout_gravity="center_vertical"
+                android:text="@string/choose"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/toolBar"
+                app:layout_constraintVertical_bias="0.307" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/settings_avatarIV"
 
 
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
+                android:layout_width="123dp"
+                android:layout_height="127dp"
 
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="16dp"
-                        android:contentDescription="@string/avatar"
-                        android:src="@drawable/logo"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.05"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="16dp"
+                android:contentDescription="@string/avatar"
+                android:src="@drawable/logo"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.47"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.115" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </LinearLayout>
-        </ScrollView>
-    </LinearLayout>
+
+
+
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nv_navView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        android:background="@color/quantum_orange300">
+        android:background="@color/quantum_orange300"
+        android:fitsSystemWindows="true">
         <!--        app:headerLayout="@layout/sidebar_header">-->
 
         <include
@@ -167,10 +167,5 @@
 
     </com.google.android.material.navigation.NavigationView>
 
-    <RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    </RelativeLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>

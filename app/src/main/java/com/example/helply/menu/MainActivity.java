@@ -96,7 +96,7 @@ public class MainActivity extends Navigation {
                         int i = 0;
                         for (DocumentSnapshot doc : list) {
                             if (doc.get("helper").toString().equals(" ")) {
-                                String[] dataString = new String[6];
+                                String[] dataString = new String[8];
                                 dataString[0] = doc.get("date").toString();
                                 dataString[1] = doc.get("address").toString();
                                 dataString[2] = doc.get("description").toString();

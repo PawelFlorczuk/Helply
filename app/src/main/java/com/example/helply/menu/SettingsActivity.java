@@ -13,16 +13,13 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.helply.Adapter;
 import com.example.helply.R;
-import com.example.helply.login.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -45,8 +42,6 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.inject.Inject;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SettingsActivity extends Navigation implements View.OnClickListener {
@@ -58,8 +53,8 @@ public class SettingsActivity extends Navigation implements View.OnClickListener
     protected ActionBarDrawerToggle actionBarDrawerToggle;
     private FirebaseAuth mAuth;
 
-    private TextView phoneTV;
-    private Button phoneBtn;
+    private TextView nickTV;
+    private Button nickBtn;
     private TextView passwordTV;
     private TextView repeatPasswordTV;
     private TextView oldPasswordTV;
@@ -79,7 +74,7 @@ public class SettingsActivity extends Navigation implements View.OnClickListener
         navigationView = findViewById(R.id.nv_navView);
         drawerLayout = findViewById(R.id.dl_drawer_layout);
         toolbar = findViewById(R.id.toolBar);
-        phoneTV = findViewById(R.id.settings_newPhoneNumET);
+        nickTV = findViewById(R.id.settings_newNickET);
         passwordTV = findViewById(R.id.settings_newPasswordET);
         repeatPasswordTV = findViewById(R.id.settings_confirmPasswordET);
         oldPasswordTV = findViewById(R.id.settings_currentPasswordET);
@@ -87,16 +82,16 @@ public class SettingsActivity extends Navigation implements View.OnClickListener
 
 
         passwordBtn = findViewById(R.id.settings_savePasswordBtn);
-        phoneBtn = findViewById(R.id.settings_changePhoneNumBtn);
+        nickBtn = findViewById(R.id.settings_changeNickBtn);
         chooseAvatarBtn = findViewById(R.id.settings_chooseAvatarBtn);
 
         passwordBtn.setOnClickListener(this);
         chooseAvatarBtn.setOnClickListener(this);
-        phoneBtn.setOnClickListener(this);
+        nickBtn.setOnClickListener(this);
 
         navigationView.bringToFront();
         toolbar.setTitle("Settings");
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,(R.string.open), (R.string.close));
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, (R.string.open), (R.string.close));
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -107,63 +102,64 @@ public class SettingsActivity extends Navigation implements View.OnClickListener
         profileImage = (CircleImageView) headerView.findViewById(R.id.profileImage);
 
 
-
         Intent intent = getIntent();
         bitmap = intent.getParcelableExtra("Bitmap");
 
+
         setProfileImage(bitmap);
 
+
         this.initSideBarMenu();
-
-
 
     }
 
     @Override
     public void onClick(View view) {
 
-        switch (view.getId()){
-            case R.id.settings_chooseAvatarBtn:
-            {
+        switch (view.getId()) {
+            case R.id.settings_chooseAvatarBtn: {
                 StorageReference storageReference = FirebaseStorage.getInstance().getReference()
                         .child("progileImage")
                         .child(mAuth.getUid() + ".jpg");
 
 
-                    Intent intent = new Intent();
-                    intent.setType("image/*");
-                    intent.setAction(Intent.ACTION_GET_CONTENT);
-                    startActivityForResult(Intent.createChooser(intent, "Pobierz zdjecie"), 10001);
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent,  "Pobierz zdjecie"), 10001);
 
-              break;
-            }
-            case R.id.settings_changePhoneNumBtn:
-            {
-                String phoneNumber = phoneTV.getText().toString().trim();
-                Map<String, Object> user = new HashMap<>();
-                DocumentReference documentReference = db.collection("users").document(mAuth.getUid());
-                user.put("phone",phoneNumber);
-
-
-                documentReference.update(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(SettingsActivity.this, "Udało się zmienic numer", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        finish();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(SettingsActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
-
-
-                    }
-                });
                 break;
             }
-            case R.id.settings_savePasswordBtn:
+            case R.id.settings_changeNickBtn: // todo handle this
             {
+
+//                String phoneNumber = nickTV.getText().toString().trim();
+//                Map<String, Object> user = new HashMap<>();
+//                DocumentReference documentReference = db.collection("users").document(mAuth.getUid());
+//                user.put("phone",phoneNumber);
+//
+//
+//                documentReference.update(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void aVoid) {
+//                        Toast.makeText(SettingsActivity.this, "Udało się zmienic numer", Toast.LENGTH_SHORT).show();
+//                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+//                        finish();
+//                    }
+//                }).addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Toast.makeText(SettingsActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+//
+//
+//                    }
+//                });
+//
+
+
+                break;
+            }
+            case R.id.settings_savePasswordBtn: {
                 mAuth.getCurrentUser();
                 String email = user.getEmail();
                 String oldPassword = oldPasswordTV.getText().toString().trim();
@@ -173,18 +169,18 @@ public class SettingsActivity extends Navigation implements View.OnClickListener
                 user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             user.updatePassword(newPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    if(!task.isSuccessful()){
+                                    if (!task.isSuccessful()) {
                                         Toast.makeText(SettingsActivity.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
-                                    }else {
-                                        Toast.makeText(SettingsActivity.this,"Password successfully changed!", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(SettingsActivity.this, "Password successfully changed!", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
-                        }else {
+                        } else {
                             Toast.makeText(SettingsActivity.this, "Authorization failed!", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -196,10 +192,11 @@ public class SettingsActivity extends Navigation implements View.OnClickListener
         }
 
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 10001 && resultCode == RESULT_OK) {
+        if (requestCode == 10001 && resultCode == RESULT_OK) {
             Uri uri = data.getData();
             try {
                 InputStream inputStream = getContentResolver().openInputStream(uri);
@@ -208,7 +205,7 @@ public class SettingsActivity extends Navigation implements View.OnClickListener
                 e.printStackTrace();
             }
 
-            bitmap = Bitmap.createScaledBitmap(bitmap, avatar.getWidth(), avatar.getHeight() , true);
+            bitmap = Bitmap.createScaledBitmap(bitmap, avatar.getWidth(), avatar.getHeight(), true);
             avatar.setImageBitmap(bitmap);
             Toast.makeText(SettingsActivity.this, "1", Toast.LENGTH_LONG).show();
             handleUpload(bitmap);

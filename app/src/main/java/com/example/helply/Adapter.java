@@ -46,8 +46,14 @@ public class Adapter extends RecyclerView.Adapter<Holder> {
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
 
-        holder.address.setText(v.get(position)[0]);
-        holder.need.setText(v.get(position)[1]);
+        String[] address = v.get(position)[1].split("-");
+        String finalAddress = address[2] + " " + address[3] + " " + address[4];
+        String[] timeArray = v.get(position)[0].split("T");
+        String time =  timeArray[0];
+
+        holder.address.setText(finalAddress);
+        holder.need.setText(v.get(position)[5]);
+        holder.time.setText(time);
 
         Data.Address = v.get(position)[0];
         Data.Description = v.get(position)[1];
@@ -59,7 +65,7 @@ public class Adapter extends RecyclerView.Adapter<Holder> {
 
         StorageReference storageReference = FirebaseStorage.getInstance().getReference()
                 .child("profileImage")
-                .child(v.get(position)[5] + ".jpg");
+                .child(v.get(position)[7] + ".jpg");
 
         try {
             final File image = File.createTempFile(v.get(position)[5], ".jpg");

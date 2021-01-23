@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Helply</string>
-    <string name="new_phone_number">New phone number</string>
-    <string name="change_phone_number">CHANGE PHONE NUMBER</string>
+    <string name="new_nick">New nick</string>
+    <string name="change_nick">CHANGE NICK</string>
     <string name="password">Password</string>
     <string name="new_password">New password</string>
     <string name="confirm_password">Confirm password</string>
