@@ -3,7 +3,6 @@ package com.example.helply;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -17,13 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.helply.login.LoginActivity;
-import com.example.helply.menu.AddTaskActivity;
-import com.example.helply.menu.MainActivity;
 import com.example.helply.menu.MyTasksActivity;
-import com.example.helply.menu.RankingActivity;
-import com.example.helply.menu.SettingsActivity;
-import com.example.helply.menu.TasksToDoActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
@@ -58,9 +51,9 @@ public class FinishTaskActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finish_task);
-        addressTV = findViewById(R.id.adressET);
+        addressTV = findViewById(R.id.kindOfHelpTV);
         purchaseTV = findViewById(R.id.purchaseTV);
-        messageTV = findViewById(R.id.mesTV);
+        messageTV = findViewById(R.id.descriptionTV);
         descTV = findViewById(R.id.descET);
         addBtn = findViewById(R.id.addBtn);
         addBtn.setOnClickListener(this);
