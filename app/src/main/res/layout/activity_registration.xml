@@ -7,7 +7,7 @@
     tools:context=".login.RegistrationActivity">
 
     <Button
-        android:id="@+id/register_registerBtn"
+        android:id="@+id/registerBtn"
         android:layout_width="125dp"
         android:layout_height="48dp"
         android:layout_marginTop="10dp"
@@ -16,10 +16,10 @@
         android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_termsOfUseChckBox" />
+        app:layout_constraintTop_toBottomOf="@+id/termsOfUseChckBox" />
 
     <EditText
-        android:id="@+id/register_emailET"
+        android:id="@+id/emailET"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
@@ -40,14 +40,14 @@
         android:ems="10"
         android:hint="Login"
         android:importantForAutofill="no"
-        android:inputType="textPassword"
+        android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_emailET" />
+        app:layout_constraintTop_toBottomOf="@+id/emailET" />
 
     <EditText
-        android:id="@+id/register_confirmPasswordET"
+        android:id="@+id/passwordET"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -61,7 +61,7 @@
         app:layout_constraintTop_toBottomOf="@+id/loginET" />
 
     <Button
-        android:id="@+id/register_signInBtn"
+        android:id="@+id/signInBtn"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -78,24 +78,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_registerBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/registerBtn" />
 
     <EditText
-        android:id="@+id/register_phoneNumberET"
+        android:id="@+id/repeatedPasswordET"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="@string/phone_number"
         android:importantForAutofill="no"
-        android:inputType="phone"
+        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_confirmPasswordET" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordET" />
 
     <CheckBox
-        android:id="@+id/register_termsOfUseChckBox"
+        android:id="@+id/termsOfUseChckBox"
         android:layout_width="265dp"
         android:layout_height="36dp"
         android:layout_marginStart="50dp"
@@ -104,7 +104,7 @@
         android:text="@string/i_agree_the_general_terms_of_use"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_phoneNumberET" />
+        app:layout_constraintTop_toBottomOf="@+id/repeatedPasswordET" />
 
     <ProgressBar
         android:id="@+id/registerProgressBar"
@@ -114,7 +114,7 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.468"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.326" />

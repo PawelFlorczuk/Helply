@@ -2,6 +2,7 @@ package com.example.helply;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Vector;
+import java.util.function.BiConsumer;
 
 public class Holder extends RecyclerView.ViewHolder {
 
@@ -17,14 +19,16 @@ public class Holder extends RecyclerView.ViewHolder {
     ImageView imageView;
     Integer is;
     String[] data;
+    Bitmap bitmap;
 
-    public Holder(@NonNull View itemView, String[] v) {
+    public Holder(@NonNull View itemView, String[] v,Bitmap bitmap) {
         super(itemView);
         this.data = v;
         this.need = itemView.findViewById(R.id.needTV);
         this.address = itemView.findViewById(R.id.addressObjectTV);
         this.time = itemView.findViewById(R.id.timeTV);
         this.imageView = itemView.findViewById(R.id.personImage);
+        this.bitmap = bitmap;
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,6 +37,7 @@ public class Holder extends RecyclerView.ViewHolder {
 
                 if(is == 0 ){
                     Intent intent = new Intent(context, TaskDescriptionActivity.class);
+                    intent.putExtra("Bitmap",bitmap);
                     intent.putExtra("TaskData",data);
                     context.startActivity(intent);
                 }

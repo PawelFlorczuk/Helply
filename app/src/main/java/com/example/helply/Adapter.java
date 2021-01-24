@@ -24,14 +24,16 @@ import java.time.LocalDateTime;
 import java.util.Vector;
 
 public class Adapter extends RecyclerView.Adapter<Holder> {
-    public Adapter(Context c, Vector<String[]> v,int is)
+    public Adapter(Context c, Vector<String[]> v,int is,Bitmap bitmap)
     {
         this.c = c;
         this.v = v;
         this.is = is;
         this.windowNum = -1;
+        this.bit = bitmap;
 
     }
+    Bitmap bit;
     Integer windowNum;
     Context c;
     Vector<String[]> v;
@@ -44,7 +46,7 @@ public class Adapter extends RecyclerView.Adapter<Holder> {
         LayoutInflater inflater = LayoutInflater.from(c);
         View view = inflater.inflate(R.layout.object, parent, false);
         windowNum = windowNum + 1;
-        return new Holder(view,v.get(windowNum));
+        return new Holder(view,v.get(windowNum), bit);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

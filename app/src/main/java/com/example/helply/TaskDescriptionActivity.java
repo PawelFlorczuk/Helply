@@ -110,7 +110,7 @@ public class TaskDescriptionActivity extends AppCompatActivity implements View.O
             if(!mAuth.getUid().equals(data[7])) {
 
                 db = FirebaseFirestore.getInstance();
-                DocumentReference documentReference = db.collection("tasks").document(Data.ID);
+                DocumentReference documentReference = db.collection("tasks").document(data[7]);
                 Map<String, Object> user = new HashMap<>();
 
                 user.put("helper",mAuth.getUid());

@@ -24,6 +24,7 @@ import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -32,9 +33,9 @@ import java.util.Map;
 public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView emailET;
-    private TextView passwordET;
-    private TextView confirmPasswordET;
     private TextView loginET;
+    private TextView passwordET;
+    private TextView repeatedPasswordET;
     private CheckBox termsOfUseCheckBox;
     private Button signInBtn;
     private Button registerBtn;
@@ -47,17 +48,18 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         mAuth = FirebaseAuth.getInstance();
-        emailET = findViewById(R.id.register_emailET);
-        passwordET = findViewById(R.id.loginET);
-        confirmPasswordET = findViewById(R.id.register_confirmPasswordET);
-        loginET = findViewById(R.id.register_phoneNumberET);
-        termsOfUseCheckBox = findViewById(R.id.register_termsOfUseChckBox);
-        signInBtn = findViewById(R.id.register_signInBtn);
-        registerBtn = findViewById(R.id.register_registerBtn);
-        progressBar = findViewById(R.id.progressBar);
+        emailET = findViewById(R.id.emailET);
+        loginET = findViewById(R.id.loginET);
+        passwordET = findViewById(R.id.passwordET);
+        repeatedPasswordET = findViewById(R.id.repeatedPasswordET);
+        termsOfUseCheckBox = findViewById(R.id.termsOfUseChckBox);
+        signInBtn = findViewById(R.id.signInBtn);
+        registerBtn = findViewById(R.id.registerBtn);
+        progressBar = findViewById(R.id.registerProgressBar);
         registerBtn.setOnClickListener(this);
         signInBtn.setOnClickListener(this);
         db = FirebaseFirestore.getInstance();
+
 
 
     }
@@ -67,10 +69,10 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View view) {
         switch(view.getId()) {
-            case R.id.register_signInBtn:
+            case R.id.signInBtn:
                 startActivity(new Intent(this, LoginActivity.class));
                 break;
-            case R.id.register_registerBtn:
+            case R.id.registerBtn:
                 register();
                 break;
         }
@@ -80,9 +82,9 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         progressBar.setVisibility(View.VISIBLE);
         String email, password, login, repeatPassword;
         email = emailET.getText().toString().trim();
-        password = passwordET.getText().toString().trim();
-        repeatPassword = confirmPasswordET.getText().toString().trim();
         login = loginET.getText().toString().trim();
+        password = passwordET.getText().toString().trim();
+        repeatPassword = repeatedPasswordET.getText().toString().trim();
 
         if(!password.equals(repeatPassword)) {
             Toast.makeText(RegistrationActivity.this, "Passwords are not the same", Toast.LENGTH_SHORT).show();
@@ -97,14 +99,13 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             return;
         }
         if(password.length() < 6) {
-            Toast.makeText(RegistrationActivity.this,"Pasword is less than 6 characters", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegistrationActivity.this,"Password is less than 6 characters", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(!termsOfUseCheckBox.isActivated()){
+        if(!termsOfUseCheckBox.isChecked()){
             Toast.makeText(RegistrationActivity.this,"You have to accept the rules", Toast.LENGTH_SHORT).show();
             return;
         }
-
 
       
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -119,6 +120,25 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                         documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
+                                DocumentReference documentReference2 = db.collection("logins").document(login);
+                                documentReference2.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                        DocumentSnapshot doc = task.getResult();
+                                        if(doc.exists()) {
+                                            documentReference.delete();
+                                            Toast.makeText(getApplicationContext(),"This login is already taken", Toast.LENGTH_LONG);
+
+                                        } else {
+                                            documentReference2.set(new HashMap<>()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+
+                                                }
+                                            });
+                                        }
+                                    }
+                                });
                                 progressBar.setVisibility(View.INVISIBLE);
                                 Toast.makeText(RegistrationActivity.this, "Authorization succeed", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(getApplicationContext(), MainActivity.class));

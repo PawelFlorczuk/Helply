@@ -32,7 +32,6 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingHolder> {
     Context c;
     Vector<String[]> v;
 
-
     @NonNull
     @Override
     public RankingHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -46,6 +45,16 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingHolder> {
     public void onBindViewHolder(@NonNull RankingHolder holder, int position) {
         holder.description.setText(v.get(position)[0]);
         holder.street.setText(v.get(position)[2]);
+        if (position == 0) {
+            holder.medal.setImageResource(R.drawable.medal_1);
+        } else if (position == 1) {
+            holder.medal.setImageResource(R.drawable.medal_2);
+        } else if (position == 2) {
+            holder.medal.setImageResource(R.drawable.medal_3);
+        } else {
+            holder.medal.setVisibility(View.INVISIBLE);
+        }
+
 
     }
 

@@ -83,23 +83,25 @@ public class MyTasksActivity extends Navigation {
                     List<DocumentSnapshot> list = task.getResult().getDocuments();
                     int i = 0;
                     for (DocumentSnapshot doc : list) {
-                        if (doc.get("helper").toString().equals(" ")) {
-                            String[] dataString = new String[8];
-                            dataString[0] = doc.get("date").toString();
-                            dataString[1] = doc.get("address").toString();
-                            dataString[2] = doc.get("description").toString();
-                            dataString[3] = doc.get("helper").toString();
-                            dataString[4] = doc.get("emailPhoneNumber").toString();
-                            dataString[5] = doc.get("kindOfHelp").toString();
-                            dataString[6] = doc.get("nameOfHelp").toString();
-                            dataString[7] = doc.getId();
-                            datalist.add(dataString);
+                        if (doc.getId().equals(mAuth.getUid())) {
+                            if (doc.get("helper").toString().equals(" ")) {
+                                String[] dataString = new String[8];
+                                dataString[0] = doc.get("date").toString();
+                                dataString[1] = doc.get("address").toString();
+                                dataString[2] = doc.get("description").toString();
+                                dataString[3] = doc.get("helper").toString();
+                                dataString[4] = doc.get("emailPhoneNumber").toString();
+                                dataString[5] = doc.get("kindOfHelp").toString();
+                                dataString[6] = doc.get("nameOfHelp").toString();
+                                dataString[7] = doc.getId();
+                                datalist.add(dataString);
 
-                        }
+                              }
+                            }
                         i++;
                     }
 
-                    adapter = new Adapter(MyTasksActivity.this, datalist, 0);
+                    adapter = new Adapter(MyTasksActivity.this, datalist, 0,bitmap);
                     recyclerView.setAdapter(adapter);
                 }
 

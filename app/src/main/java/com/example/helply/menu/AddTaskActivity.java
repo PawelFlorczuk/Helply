@@ -355,12 +355,6 @@ public class AddTaskActivity extends Navigation implements View.OnClickListener 
                 }
             });
 
-
-
-
-
-
-
        }
         if(view.getId() == R.id.addressBtn) {
             startActivityForResult(new Intent(this, MapActivity.class),1001);

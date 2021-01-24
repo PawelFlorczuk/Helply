@@ -18,33 +18,33 @@
             android:id="@+id/addressObjectTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="10dp"
             android:text="Email"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.851"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.642"
+            app:layout_constraintStart_toEndOf="@+id/medalImageView"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/needTV"
             android:layout_width="72dp"
             android:layout_height="18dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="5dp"
             android:text="Points"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.892"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.674"
+            app:layout_constraintStart_toEndOf="@+id/medalImageView"
             app:layout_constraintTop_toBottomOf="@+id/addressObjectTV" />
 
         <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="116dp"
+            android:id="@+id/medalImageView"
+            android:layout_width="65dp"
+            android:layout_height="37dp"
+            android:layout_marginStart="25dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintVertical_bias="0.521"
             app:srcCompat="@drawable/medal_1" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
