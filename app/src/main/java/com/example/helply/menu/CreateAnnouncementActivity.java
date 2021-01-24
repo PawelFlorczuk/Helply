@@ -366,6 +366,7 @@ public class AddTaskActivity extends Navigation implements View.OnClickListener 
                                             user.put("emailPhoneNumber", emailPhoneNumber);
                                             user.put("kindOfHelp", nameOfHelp);
                                             user.put("nameOfHelp", needString);
+                                            user.put("volunteerContact", " ");
                                             document.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {

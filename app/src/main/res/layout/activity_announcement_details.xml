@@ -130,6 +130,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="8dp"
                                     android:text="TaskAddress"
+                                    android:textAlignment="center"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintHorizontal_bias="0.498"
                                     app:layout_constraintStart_toStartOf="parent"
@@ -305,11 +306,79 @@
                             </androidx.constraintlayout.widget.ConstraintLayout>
                         </androidx.cardview.widget.CardView>
 
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cv_7"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:layout_below="@id/cv_6"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="20dp"
+                            app:cardBackgroundColor="@color/quantum_orange100"
+                            app:cardCornerRadius="25dp">
+                            <!---->
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <!---->
+
+                                <!---->
+
+                                <TextView
+                                    android:id="@+id/contactInformactionTV"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="8dp"
+                                    android:text="Contact to volunteer"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/contactTV"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAlignment="center"
+                                    android:layout_marginTop="4dp"
+                                    android:text="Annoucement not taken"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="0.072"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/contactInformactionTV" />
+
+                                <TextView
+                                    android:id="@+id/takenInformactionTV"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:text="Announcement status"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="0.931"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/takenTV"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:text="Waiting for volunteer"
+                                    android:textAlignment="center"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="0.933"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/takenInformactionTV" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                        </androidx.cardview.widget.CardView>
+
+
                         <Button
                             android:id="@+id/addBtn"
                             android:layout_width="120dp"
                             android:layout_height="41dp"
-                            android:layout_below="@id/cv_6"
+                            android:layout_below="@id/cv_7"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="20dp"
                             android:layout_marginBottom="8dp"

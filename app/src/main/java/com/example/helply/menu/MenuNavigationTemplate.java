@@ -3,12 +3,8 @@ package com.example.helply.menu;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -93,7 +89,7 @@ public class Navigation extends AppCompatActivity {
 
                 switch (v.getId()) {
                     case R.id.announcements_card_view_menu: {
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), AnnouncementsMainActivity.class);
                         intent.putExtra("Bitmap", bitmap);
                         startActivity(intent);
                         break;
@@ -105,7 +101,7 @@ public class Navigation extends AppCompatActivity {
                         break;
                     }
                     case R.id.create_announcement_card_view_menu: {
-                        Intent intent = new Intent(getApplicationContext(), AddTaskActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), CreateAnnouncementActivity.class);
                         intent.putExtra("Bitmap", bitmap);
                         startActivity(intent);
                         break;

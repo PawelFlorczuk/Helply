@@ -1,4 +1,4 @@
-    package com.example.helply.menu;
+package com.example.helply;
 
 import android.app.Activity;
 import android.content.Intent;

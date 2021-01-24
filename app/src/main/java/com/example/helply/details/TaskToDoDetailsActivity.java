@@ -14,7 +14,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class TaskInformactionActivity extends AppCompatActivity {
+public class TaskToDoDetailsActivity extends AppCompatActivity {
     protected Toolbar toolbar;
     protected DrawerLayout drawerLayout;
     protected NavigationView navigationView;

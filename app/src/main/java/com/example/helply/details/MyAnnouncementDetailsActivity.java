@@ -1,22 +1,24 @@
 package com.example.helply;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.helply.menu.MyTasksActivity;
+import com.example.helply.menu.MyAnnouncementsActivity;
+import com.example.helply.menu.MenuNavigationTemplate;
+import com.example.helply.popup.FinishTaskPopUpWindow;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
@@ -28,47 +30,87 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FinishTaskActivity extends AppCompatActivity implements View.OnClickListener {
+import de.hdodenhof.circleimageview.CircleImageView;
+
+public class FinishTaskActivity extends MenuNavigationTemplate implements View.OnClickListener {
     protected Toolbar toolbar;
     private Adapter adapter;
     protected DrawerLayout drawerLayout;
     protected NavigationView navigationView;
     protected ActionBarDrawerToggle actionBarDrawerToggle;
 
+    private TextView kindOfHelpTV;
     private TextView addressTV;
-    private TextView purchaseTV;
-    private TextView messageTV;
-    private TextView descTV;
+    private TextView descriptionTV;
+    private TextView emailPhoneNumberTV;
+    private TextView needTV;
+    private TextView shoppingListTV;
+    private TextView dateTV;
+    private TextView informactionBreedTV;
+
+    private TextView contactTV;
+    private TextView takenTV;
+
     private Button addBtn;
-    private FirebaseFirestore db;
     private FirebaseAuth mAuth;
-    private TextView textView;
-    private CheckBox checkBox;
+
+    private String [] data;
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_finish_task);
-        addressTV = findViewById(R.id.kindOfHelpTV);
-        purchaseTV = findViewById(R.id.purchaseTV);
-        messageTV = findViewById(R.id.descriptionTV);
-        descTV = findViewById(R.id.descET);
+        setContentView(R.layout.activity_task_desc);
+        contactTV = findViewById(R.id.contactTV);
+        takenTV = findViewById(R.id.takenTV);
+
+        kindOfHelpTV = findViewById(R.id.kindHelpTV);
+        descriptionTV = findViewById(R.id.desTV);
+        addressTV = findViewById(R.id.addressTaskTV);
+        emailPhoneNumberTV = findViewById(R.id.emailPhoneTV);
+        needTV = findViewById(R.id.dogBreedTV);
+        shoppingListTV = findViewById(R.id.shoppingListTV);
+        dateTV = findViewById(R.id.dateTV);
+        informactionBreedTV = findViewById(R.id.informactionBreadTV);
+
         addBtn = findViewById(R.id.addBtn);
         addBtn.setOnClickListener(this);
-        textView = findViewById(R.id.textView);
-        checkBox = findViewById(R.id.finishTaskCheckBox);
 
-        addressTV.setText(Data.Address);
-        purchaseTV.setText(Data.Purchase);
-        messageTV.setText(Data.Message);
-        descTV.setText(Data.Description);
-        if(!Data.Helper.equals(" ")){
-            textView.setText("Taken");
-        } else  {
-            textView.setText("Not taken");
+        Intent intent = getIntent();
+        data = intent.getStringArrayExtra("TaskData");
+        kindOfHelpTV.setText(data[5]);
+        descriptionTV.setText(data[2]);
+        addressTV.setText(data[1]);
+        emailPhoneNumberTV.setText(data[4]);
+        dateTV.setText(data[0]);
+        if(data[5].equals("Shopping")) {
+            shoppingListTV.setText(data[6]);
+            informactionBreedTV.setText("Shopping list");
+            shoppingListTV.setVisibility(View.VISIBLE);
+            needTV.setVisibility(View.GONE);
+        } else if(data[5].equals("Walking the dog")){
+            needTV.setText(data[6]);
+            informactionBreedTV.setText("Walking the dog");
+            needTV.setVisibility(View.VISIBLE);
+            shoppingListTV.setVisibility(View.GONE);
+        } else if(data[5].equals("Other")) {
+            needTV.setText(data[6]);
+            informactionBreedTV.setText("Other");
+            needTV.setVisibility(View.VISIBLE);
+            shoppingListTV.setVisibility(View.GONE);
         }
+
+        if(!data[8].equals(" ")) {
+            contactTV.setText(data[8]);
+            takenTV.setText("Accepted");
+            addBtn.setText("Finish announcement");
+            addBtn.setVisibility(View.VISIBLE);
+
+        } else {
+            addBtn.setVisibility(View.GONE);
+        }
+
 
         mAuth = FirebaseAuth.getInstance();
         navigationView = findViewById(R.id.nv_navView);
@@ -80,17 +122,48 @@ public class FinishTaskActivity extends AppCompatActivity implements View.OnClic
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
 
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
+        this.initSideBarMenu();
+
+
+        View headerView = navigationView.inflateHeaderView(R.layout.sidebar_header);
+        profileImage = (CircleImageView) headerView.findViewById(R.id.profileImage);
+
+        Intent intent2 = getIntent();
+        bitmap = intent2.getParcelableExtra("Bitmap");
+        setProfileImage(bitmap);
+
+
+
     }
+
+
+
 
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.addBtn) {
+            if (!mAuth.getUid().equals(Data.Helper)) {
+                startActivityForResult(new Intent(this, FinishTaskPopUpWindow.class),1005);
+            }
+
+
+    }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == 1112) {
+            SharedPreferences preferences = getSharedPreferences("PointAndDescription",MODE_PRIVATE);
+            String point = preferences.getString("point","0");
+            String description = preferences.getString("description"," ");
 
             if (!mAuth.getUid().equals(Data.Helper)) {
                 db = FirebaseFirestore.getInstance();
-
                 DocumentReference documentReference = db.collection("tasks").document(Data.ID);
-                if (checkBox.isChecked()) {
+                if (true){//checkBox.isChecked()) {
                     documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -116,7 +189,7 @@ public class FinishTaskActivity extends AppCompatActivity implements View.OnClic
                                                     @Override
                                                     public void onComplete(@NonNull Task<Void> task) {
                                                         Toast.makeText(FinishTaskActivity.this, "Udało się zakończyc task!", Toast.LENGTH_SHORT).show();
-                                                        startActivity(new Intent(getApplicationContext(), MyTasksActivity.class));
+                                                        startActivity(new Intent(getApplicationContext(), MyAnnouncementsActivity.class));
                                                     }
                                                 });
                                             }
@@ -130,7 +203,7 @@ public class FinishTaskActivity extends AppCompatActivity implements View.OnClic
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         Toast.makeText(FinishTaskActivity.this, "Udało się zakończyc task!", Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(getApplicationContext(), MyTasksActivity.class));
+                                        startActivity(new Intent(getApplicationContext(), MyAnnouncementsActivity.class));
                                     }
                                 });
                             }
@@ -144,7 +217,7 @@ public class FinishTaskActivity extends AppCompatActivity implements View.OnClic
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             Toast.makeText(FinishTaskActivity.this, "Udało się zakończyc task!", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), MyTasksActivity.class));
+                            startActivity(new Intent(getApplicationContext(), MyAnnouncementsActivity.class));
                         }
                     });
                 }
@@ -152,7 +225,11 @@ public class FinishTaskActivity extends AppCompatActivity implements View.OnClic
 
 
             }
-    }
+        }
+
+
+
+
     }
 
 }

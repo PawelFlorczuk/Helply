@@ -10,6 +10,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.helply.details.AnnouncementDetailsActivity;
+import com.example.helply.details.MyAnnouncementDetailsActivity;
+import com.example.helply.details.TaskToDoDetailsActivity;
+
 public class Holder extends RecyclerView.ViewHolder {
 
     TextView need, address, time;
@@ -33,19 +37,18 @@ public class Holder extends RecyclerView.ViewHolder {
                 Context context = view.getContext();
 
                 if(is == 0 ){
-                    Intent intent = new Intent(context, TaskDescriptionActivity.class);
+                    Intent intent = new Intent(context, AnnouncementDetailsActivity.class);
                     intent.putExtra("Bitmap",bitmap);
                     intent.putExtra("TaskData",data);
-                    intent.putExtra("Bitmap",bitmap);
                     context.startActivity(intent);
                 }
                 else if (is == 1) {
-                    Intent intent = new Intent(context, TaskInformactionActivity.class);
+                    Intent intent = new Intent(context, TaskToDoDetailsActivity.class);
                     intent.putExtra("TaskData",data);
                     context.startActivity(intent);
                 }
                 else {
-                    Intent intent = new Intent(context, FinishTaskActivity.class);
+                    Intent intent = new Intent(context, MyAnnouncementDetailsActivity.class);
                     intent.putExtra("TaskData",data);
                     context.startActivity(intent);
                 }
