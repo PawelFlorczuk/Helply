@@ -57,7 +57,8 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
     private Button addBtn;
     private FirebaseAuth mAuth;
 
-    private String [] data;
+    private String [] taskData;
+    private long points;
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -81,31 +82,31 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
         addBtn.setOnClickListener(this);
 
         Intent intent = getIntent();
-        data = intent.getStringArrayExtra("TaskData");
-        kindOfHelpTV.setText(data[5]);
-        descriptionTV.setText(data[2]);
-        addressTV.setText(data[1]);
-        emailPhoneNumberTV.setText(data[4]);
-        dateTV.setText(data[0]);
-        if(data[5].equals("Shopping")) {
-            shoppingListTV.setText(data[6]);
+        taskData = intent.getStringArrayExtra("TaskData");
+        kindOfHelpTV.setText(taskData[5]);
+        descriptionTV.setText(taskData[2]);
+        addressTV.setText(taskData[1]);
+        emailPhoneNumberTV.setText(taskData[4]);
+        dateTV.setText(taskData[0]);
+        if(taskData[5].equals("Shopping")) {
+            shoppingListTV.setText(taskData[6]);
             informactionBreedTV.setText("Shopping list");
             shoppingListTV.setVisibility(View.VISIBLE);
             needTV.setVisibility(View.GONE);
-        } else if(data[5].equals("Walking the dog")){
-            needTV.setText(data[6]);
+        } else if(taskData[5].equals("Walking the dog")){
+            needTV.setText(taskData[6]);
             informactionBreedTV.setText("Walking the dog");
             needTV.setVisibility(View.VISIBLE);
             shoppingListTV.setVisibility(View.GONE);
-        } else if(data[5].equals("Other")) {
-            needTV.setText(data[6]);
+        } else if(taskData[5].equals("Other")) {
+            needTV.setText(taskData[6]);
             informactionBreedTV.setText("Other");
             needTV.setVisibility(View.VISIBLE);
             shoppingListTV.setVisibility(View.GONE);
         }
 
-        if(!data[8].equals(" ")) {
-            contactTV.setText(data[8]);
+        if(!taskData[8].equals(" ")) {
+            contactTV.setText(taskData[8]);
             takenTV.setText("Accepted");
             addBtn.setText("Finish announcement");
             addBtn.setVisibility(View.VISIBLE);
@@ -161,11 +162,10 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
         if(resultCode == 1112) {
             SharedPreferences preferences = getSharedPreferences("PointAndDescription",MODE_PRIVATE);
             String point = preferences.getString("point","0");
-            String description = preferences.getString("description"," ");
-
+            String userOpinion = preferences.getString("opinion"," ");
             if (!mAuth.getUid().equals(Data.Helper)) {
                 db = FirebaseFirestore.getInstance();
-                DocumentReference documentReference = db.collection("tasks").document(Data.ID);
+                DocumentReference documentReference = db.collection("tasks").document(taskData[7]);
                 if (true){//checkBox.isChecked()) {
                     documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
@@ -177,35 +177,61 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
                                 documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                     @Override
                                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                        long points;
-                                        DocumentSnapshot doc = task.getResult();
 
+                                        DocumentSnapshot doc = task.getResult();
                                         points = (long) doc.get("points");
-                                        points++;
+                                        if(point.equals("1")) {
+                                            points++;
+                                        }
                                         Map<String, Object> user = new HashMap<>();
                                         user.put("points", points);
                                         documentReference.update(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
-                                                Toast.makeText(MyAnnouncementDetailsActivity.this, "Dodano punkty!", Toast.LENGTH_SHORT).show();
-                                                db.collection("tasks").document(Data.ID).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                        Toast.makeText(MyAnnouncementDetailsActivity.this, "Udało się zakończyc task!", Toast.LENGTH_SHORT).show();
-                                                        startActivity(new Intent(getApplicationContext(), MyAnnouncementsActivity.class));
-                                                    }
-                                                });
-                                            }
-                                        });
-                                    }
-                                });
+                                                if (task.isSuccessful()) {
+                                                        DocumentReference opinions = db.collection("users").document(taskData[7].split("-")[0]).collection("opinions").document(mAuth.getUid());
+                                                        HashMap<String, Object> opinion = new HashMap<>();
+                                                        opinion.put("opinion", userOpinion);
+                                                        opinions.set(opinion).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<Void> task) {
+                                                                if (task.isSuccessful()) {
+                                                                    DocumentReference delete = db.collection("tasks").document(taskData[7]);
+                                                                    delete.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                        @Override
+                                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                                            if(task.isSuccessful()) {
+                                                                                Toast.makeText(MyAnnouncementDetailsActivity.this, "Udało się zakończyc task!", Toast.LENGTH_SHORT).show();
+                                                                                startActivity(new Intent(getApplicationContext(), MyAnnouncementsActivity.class));
+                                                                            } else {
+                                                                                Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task is unsuccessful!", Toast.LENGTH_SHORT).show();
+                                                                            }
 
-                            } else {
+                                                                        }
+                                                                    });
+                                                                } else {
+                                                                    Map<String, Object> unsuccesfulUser = new HashMap<>();
+                                                                    unsuccesfulUser.put("points", points);
+                                                                    documentReference.update(unsuccesfulUser);
+                                                                    Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task is unsuccessful!", Toast.LENGTH_SHORT).show();
+                                                                }
+                                                            }
 
-                                db.collection("tasks").document(Data.ID).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        });
+                                                    } else {
+                                                    Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task is unsuccessful!", Toast.LENGTH_SHORT).show();
+                                                }
+                                              }
+                                            });
+                                        }
+                                    });
+                                 }
+                            else {
+
+                                db.collection("tasks").document(taskData[7]).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
-                                        Toast.makeText(MyAnnouncementDetailsActivity.this, "Udało się zakończyc task!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task is unsuccessful!", Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(getApplicationContext(), MyAnnouncementsActivity.class));
                                     }
                                 });
@@ -215,11 +241,10 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
                         }
                     });
                 } else {
-                    Toast.makeText(MyAnnouncementDetailsActivity.this, "2", Toast.LENGTH_SHORT).show();
-                    db.collection("tasks").document(Data.ID).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    db.collection("tasks").document(taskData[7]).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            Toast.makeText(MyAnnouncementDetailsActivity.this, "Udało się zakończyc task!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task is unsuccessful!", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), MyAnnouncementsActivity.class));
                         }
                     });

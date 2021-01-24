@@ -27,7 +27,7 @@ public class FinishTaskPopUpWindow extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.task_pop_up_window);
+        setContentView(R.layout.acitivity_finish_task_pop_up_window);
 
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -37,7 +37,7 @@ public class FinishTaskPopUpWindow extends Activity {
         getWindow().setLayout((int) (width * .8), (int) (height * .6));
 
         opinionET = findViewById(R.id.opinionET);
-        opinionCB = findViewById(R.id.opinionCheckBox);
+        opinionCB = findViewById(R.id.opinCheckBox);
         pointCB = findViewById(R.id.pointCheckBox);
         finishBtn = findViewById(R.id.finishBtn);
 
@@ -75,7 +75,7 @@ public class FinishTaskPopUpWindow extends Activity {
                 }
                 SharedPreferences preferences = getSharedPreferences("PointAndDescription", MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("description", description);
+                editor.putString("opinion", description);
                 editor.putString("point", point);
                 editor.apply();
                 setResult(1112);

@@ -89,15 +89,6 @@ public class RankingActivity extends MenuNavigationTemplate {
                 adapter = new RankingAdapter(RankingActivity.this, listData);
                 recyclerView.setAdapter(adapter);
             }
-
-
-
-
         });
-
-
-
-
-
     }
 }

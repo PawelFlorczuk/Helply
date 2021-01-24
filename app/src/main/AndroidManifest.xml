@@ -31,6 +31,7 @@
         <activity android:name=".menu.RankingActivity"/>
         <activity android:name=".details.MyAnnouncementDetailsActivity"/>
         <activity android:name=".popup.TaskPopUpWindow"/>
+        <activity android:name=".popup.FinishTaskPopUpWindow"/>
         <activity android:name=".popup.MapActivity"/>
         <activity android:name=".details.TaskToDoDetailsActivity"/>
         <activity android:name=".menu.MyAnnouncementsActivity"/>

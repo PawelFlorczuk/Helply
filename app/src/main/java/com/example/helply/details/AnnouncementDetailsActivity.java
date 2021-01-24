@@ -34,7 +34,6 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-
 public class AnnouncementDetailsActivity extends MenuNavigationTemplate implements View.OnClickListener {
     protected Toolbar toolbar;
     private Adapter adapter;

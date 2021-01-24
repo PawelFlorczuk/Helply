@@ -20,7 +20,7 @@
 
     <CheckBox
         android:layout_centerHorizontal="true"
-        android:id="@+id/opinionCheckBox"
+        android:id="@+id/opinCheckBox"
         android:layout_below="@+id/pointCheckBox"
         android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
@@ -34,7 +34,7 @@
         android:layout_centerHorizontal="true"
         android:layout_width="237dp"
         android:layout_height="196dp"
-        android:layout_below="@+id/opinionCheckBox"
+        android:layout_below="@+id/opinCheckBox"
         android:layout_marginTop="20dp"
         android:ems="10"
         android:background="@null"

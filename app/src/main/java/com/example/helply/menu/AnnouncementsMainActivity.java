@@ -50,9 +50,7 @@ public class AnnouncementsMainActivity extends MenuNavigationTemplate {
             startActivity(new Intent(this, LoginActivity.class));
             finish();
         } else {
-
             super.onCreate(savedInstanceState);
-
             user = FirebaseAuth.getInstance().getCurrentUser();
             mAuth = FirebaseAuth.getInstance();
             setContentView(R.layout.activity_announcements_main);
@@ -78,7 +76,6 @@ public class AnnouncementsMainActivity extends MenuNavigationTemplate {
             setProfileImage(bitmap);
 
             initSideBarMenu();
-
 
                 if (mAuth.getUid() != null) {
                 db = FirebaseFirestore.getInstance();

@@ -215,13 +215,6 @@ public class SettingsActivity extends MenuNavigationTemplate implements View.OnC
                         }
                     }
                 });
-
-
-
-
-
-
-
                 break;
             }
             case R.id.settings_savePasswordBtn: {
