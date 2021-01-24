@@ -40,18 +40,6 @@
     </com.google.android.material.navigation.NavigationView>
 
 
-<!--        <com.google.android.material.navigation.NavigationView-->
-
-<!--            android:id="@+id/nv_navView"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:background="@android:color/white"-->
-<!--            android:layout_gravity="start"-->
-<!--            android:fitsSystemWindows="true"-->
-
-<!--            app:menu ="@menu/drawer_menu_deprecated">-->
-
-<!--        </com.google.android.material.navigation.NavigationView>-->
 
 
     <RelativeLayout

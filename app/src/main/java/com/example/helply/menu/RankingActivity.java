@@ -56,7 +56,7 @@ public class RankingActivity extends Navigation {
         this.recyclerView.setHasFixedSize(true);
         this.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         toolbar = findViewById(R.id.toolBar);
-        toolbar.setTitle("My tasks");
+        toolbar.setTitle("Best volunteers");
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,(R.string.open), (R.string.close));
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();

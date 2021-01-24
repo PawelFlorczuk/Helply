@@ -63,8 +63,27 @@
             app:layout_constraintStart_toEndOf="@+id/personImage"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
+<!--        <ImageView-->
+<!--            android:id="@+id/personImage"-->
+<!--            android:layout_width="130dp"-->
+<!--            android:layout_height="123dp"-->
+<!--            android:layout_marginStart="16dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintVertical_bias="0.394"-->
+<!--            app:srcCompat="@drawable/logo" />-->
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/personImage"
+
+
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/avatar"
+            android:src="@drawable/logo"
+            app:layout_constraintHorizontal_bias="0.47"
+
             android:layout_width="130dp"
             android:layout_height="123dp"
             android:layout_marginStart="16dp"
@@ -72,7 +91,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.394"
-            app:srcCompat="@drawable/logo" />
+            app:srcCompat="@drawable/logo"
+            />
+
 
         <TextView
             android:id="@+id/timeTV"

@@ -45,5 +45,6 @@
             android:layout_alignParentBottom="true"
             android:layout_marginTop="70dp"
             android:layout_marginBottom="0dp" />
+
     </RelativeLayout>
 </androidx.drawerlayout.widget.DrawerLayout>
