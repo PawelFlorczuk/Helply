@@ -30,6 +30,7 @@
         <activity android:name=".menu.TasksToDoActivity"/>
         <activity android:name=".menu.RankingActivity"/>
         <activity android:name=".FinishTaskActivity"/>
+        <activity android:name=".menu.TaskPopUpWindow"/>
         <activity android:name=".MapActivity"/>
         <activity android:name=".TaskInformactionActivity"/>
         <activity android:name=".menu.MyTasksActivity"/>

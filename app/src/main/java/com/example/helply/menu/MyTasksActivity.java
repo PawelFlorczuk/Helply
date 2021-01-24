@@ -84,8 +84,8 @@ public class MyTasksActivity extends Navigation {
                     int i = 0;
                     for (DocumentSnapshot doc : list) {
                         if (doc.getId().split("-")[0].equals(mAuth.getUid())) {
-                            if (doc.get("helper").toString().equals(" ")) {
-                                String[] dataString = new String[8];
+
+                                String[] dataString = new String[9];
                                 dataString[0] = doc.get("date").toString();
                                 dataString[1] = doc.get("address").toString();
                                 dataString[2] = doc.get("description").toString();
@@ -94,14 +94,15 @@ public class MyTasksActivity extends Navigation {
                                 dataString[5] = doc.get("kindOfHelp").toString();
                                 dataString[6] = doc.get("nameOfHelp").toString();
                                 dataString[7] = doc.getId();
+                                dataString[8] = doc.get("volunteerContact").toString();
                                 datalist.add(dataString);
 
-                              }
+
                             }
                         i++;
                     }
 
-                    adapter = new Adapter(MyTasksActivity.this, datalist, 0,bitmap);
+                    adapter = new Adapter(MyTasksActivity.this, datalist, 5,bitmap);
                     recyclerView.setAdapter(adapter);
                 }
 

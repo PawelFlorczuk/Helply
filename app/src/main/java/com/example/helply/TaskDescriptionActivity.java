@@ -1,6 +1,7 @@
 package com.example.helply;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -9,14 +10,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.helply.menu.MainActivity;
 import com.example.helply.menu.Navigation;
+import com.example.helply.menu.TaskPopUpWindow;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
@@ -46,8 +50,12 @@ public class TaskDescriptionActivity extends Navigation implements View.OnClickL
     private TextView dateTV;
     private TextView informactionBreedTV;
 
+    private TextView contactTV;
+    private TextView takenTV;
+
+    private CardView contactCV;
+
     private Button addBtn;
-    private FirebaseFirestore db;
     private FirebaseAuth mAuth;
 
     private String [] data;
@@ -58,6 +66,14 @@ public class TaskDescriptionActivity extends Navigation implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_desc);
+
+        contactCV = findViewById(R.id.cv_7);
+        contactCV.setVisibility(View.GONE);
+
+        contactTV = findViewById(R.id.contactTV);
+        takenTV = findViewById(R.id.takenTV);
+        contactTV.setVisibility(View.GONE);
+        takenTV.setVisibility(View.GONE);
 
         kindOfHelpTV = findViewById(R.id.kindHelpTV);
         descriptionTV = findViewById(R.id.desTV);
@@ -81,18 +97,19 @@ public class TaskDescriptionActivity extends Navigation implements View.OnClickL
         if(data[5].equals("Shopping")) {
             shoppingListTV.setText(data[6]);
             informactionBreedTV.setText("Shopping list");
+            shoppingListTV.setVisibility(View.VISIBLE);
+            needTV.setVisibility(View.GONE);
         } else if(data[5].equals("Walking the dog")){
             needTV.setText(data[6]);
             informactionBreedTV.setText("Walking the dog");
+            needTV.setVisibility(View.VISIBLE);
+            shoppingListTV.setVisibility(View.GONE);
         } else if(data[5].equals("Other")) {
             needTV.setText(data[6]);
             informactionBreedTV.setText("Other");
+            needTV.setVisibility(View.VISIBLE);
+            shoppingListTV.setVisibility(View.GONE);
         }
-
-
-
-
-
 
         mAuth = FirebaseAuth.getInstance();
         navigationView = findViewById(R.id.nv_navView);
@@ -103,9 +120,11 @@ public class TaskDescriptionActivity extends Navigation implements View.OnClickL
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,(R.string.open), (R.string.close));
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
+        if(mAuth.getUid().equals(this.data[7].split("-")[0])) {
+            addBtn.setVisibility(View.GONE);
+        }
 
-
-
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
         this.initSideBarMenu();
 
@@ -124,14 +143,32 @@ public class TaskDescriptionActivity extends Navigation implements View.OnClickL
     @Override
     public void onClick(View view) {
         if(view.getId() == R.id.addBtn) {
+            if(!mAuth.getUid().equals(this.data[7].split("-")[0])) {
+                startActivityForResult(new Intent(this, TaskPopUpWindow.class), 1003);
+            }
+        }
+    }
 
-            if(!mAuth.getUid().equals(data[7].split("-")[0])) {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == 1111){
+
+            SharedPreferences preferences = getSharedPreferences("VolunteerContact",MODE_PRIVATE);
+            String contact = preferences.getString("volunteer_contact","Contact");
+            if(contact == null || contact.equals("") || contact.equals(" ") || contact.equals("Contact")) {
+                Toast.makeText(TaskDescriptionActivity.this, "The contact can't be empty", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if(!mAuth.getUid().equals(this.data[7].split("-")[0])) {
 
                 db = FirebaseFirestore.getInstance();
-                DocumentReference documentReference = db.collection("tasks").document(data[7]);
+                DocumentReference documentReference = db.collection("tasks").document(this.data[7]);
                 Map<String, Object> user = new HashMap<>();
 
                 user.put("helper",mAuth.getUid());
+                user.put("volunteerContact",contact);
 
                 documentReference.update(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -151,8 +188,11 @@ public class TaskDescriptionActivity extends Navigation implements View.OnClickL
             } else{
                 Toast.makeText(TaskDescriptionActivity.this, "e.toString()", Toast.LENGTH_SHORT).show();
             }
-            }
+        }
+
+        }
+
 
     }
 
-}
+
