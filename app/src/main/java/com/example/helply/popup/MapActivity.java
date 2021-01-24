@@ -1,4 +1,4 @@
-package com.example.helply;
+package com.example.helply.popup;
 
 import android.content.SharedPreferences;
 import android.location.Address;
@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.helply.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;

@@ -1,4 +1,4 @@
-package com.example.helply;
+package com.example.helply.popup;
 
 import android.app.Activity;
 import android.content.Intent;

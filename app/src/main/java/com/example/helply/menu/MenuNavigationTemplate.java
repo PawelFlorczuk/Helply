@@ -31,7 +31,7 @@ import java.io.IOException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class Navigation extends AppCompatActivity {
+public class MenuNavigationTemplate extends AppCompatActivity {
     protected Bitmap bitmap;
     protected NavigationView navigationView;
     protected CircleImageView profileImage;
@@ -71,7 +71,7 @@ public class Navigation extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         String error = e.getMessage();
-                        profileImage.setImageResource(R.drawable.logo);
+                        profileImage.setImageResource(R.drawable.user_default_logo);
                     }
                 });
             } catch (IOException e) {
@@ -95,7 +95,7 @@ public class Navigation extends AppCompatActivity {
                         break;
                     }
                     case R.id.my_announcements_card_view_menu: {
-                        Intent intent = new Intent(getApplicationContext(), MyTasksActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), MyAnnouncementsActivity.class);
                         intent.putExtra("Bitmap", bitmap);
                         startActivity(intent);
                         break;

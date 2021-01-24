@@ -1,4 +1,4 @@
-package com.example.helply;
+package com.example.helply.details;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,6 +16,9 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.helply.components.Adapter;
+import com.example.helply.model.Data;
+import com.example.helply.R;
 import com.example.helply.menu.MyAnnouncementsActivity;
 import com.example.helply.menu.MenuNavigationTemplate;
 import com.example.helply.popup.FinishTaskPopUpWindow;
@@ -32,7 +35,7 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class FinishTaskActivity extends MenuNavigationTemplate implements View.OnClickListener {
+public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implements View.OnClickListener {
     protected Toolbar toolbar;
     private Adapter adapter;
     protected DrawerLayout drawerLayout;
@@ -61,7 +64,7 @@ public class FinishTaskActivity extends MenuNavigationTemplate implements View.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_task_desc);
+        setContentView(R.layout.activity_announcement_details);
         contactTV = findViewById(R.id.contactTV);
         takenTV = findViewById(R.id.takenTV);
 
@@ -184,11 +187,11 @@ public class FinishTaskActivity extends MenuNavigationTemplate implements View.O
                                         documentReference.update(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
-                                                Toast.makeText(FinishTaskActivity.this, "Dodano punkty!", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(MyAnnouncementDetailsActivity.this, "Dodano punkty!", Toast.LENGTH_SHORT).show();
                                                 db.collection("tasks").document(Data.ID).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                                     @Override
                                                     public void onComplete(@NonNull Task<Void> task) {
-                                                        Toast.makeText(FinishTaskActivity.this, "Udało się zakończyc task!", Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(MyAnnouncementDetailsActivity.this, "Udało się zakończyc task!", Toast.LENGTH_SHORT).show();
                                                         startActivity(new Intent(getApplicationContext(), MyAnnouncementsActivity.class));
                                                     }
                                                 });
@@ -202,7 +205,7 @@ public class FinishTaskActivity extends MenuNavigationTemplate implements View.O
                                 db.collection("tasks").document(Data.ID).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
-                                        Toast.makeText(FinishTaskActivity.this, "Udało się zakończyc task!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(MyAnnouncementDetailsActivity.this, "Udało się zakończyc task!", Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(getApplicationContext(), MyAnnouncementsActivity.class));
                                     }
                                 });
@@ -212,11 +215,11 @@ public class FinishTaskActivity extends MenuNavigationTemplate implements View.O
                         }
                     });
                 } else {
-                    Toast.makeText(FinishTaskActivity.this, "2", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyAnnouncementDetailsActivity.this, "2", Toast.LENGTH_SHORT).show();
                     db.collection("tasks").document(Data.ID).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            Toast.makeText(FinishTaskActivity.this, "Udało się zakończyc task!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MyAnnouncementDetailsActivity.this, "Udało się zakończyc task!", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), MyAnnouncementsActivity.class));
                         }
                     });

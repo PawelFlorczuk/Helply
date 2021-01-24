@@ -1,4 +1,4 @@
-package com.example.helply;
+package com.example.helply.components;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.helply.R;
 import com.example.helply.details.AnnouncementDetailsActivity;
 import com.example.helply.details.MyAnnouncementDetailsActivity;
 import com.example.helply.details.TaskToDoDetailsActivity;

@@ -3,7 +3,6 @@ package com.example.helply.login;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,7 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.helply.menu.MainActivity;
+import com.example.helply.menu.AnnouncementsMainActivity;
 import com.example.helply.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -82,7 +81,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if(task.isSuccessful()){
                     progressBar.setVisibility(View.INVISIBLE);
                     Toast.makeText(LoginActivity.this,"Udało się zalogować", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    startActivity(new Intent(getApplicationContext(), AnnouncementsMainActivity.class));
 
                 }else {
                     progressBar.setVisibility(View.INVISIBLE);

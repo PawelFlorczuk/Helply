@@ -9,7 +9,7 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profileImage"
-        android:src="@drawable/logo"
+        android:src="@drawable/user_default_logo"
 
         android:layout_width="100dp"
         android:layout_height="100dp"

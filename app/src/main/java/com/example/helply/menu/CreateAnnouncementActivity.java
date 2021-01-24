@@ -1,18 +1,14 @@
 package com.example.helply.menu;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,20 +17,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.loader.app.LoaderManager;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import com.example.helply.MapActivity;
+import com.example.helply.popup.ListPopUpWindow;
+import com.example.helply.popup.MapActivity;
 import com.example.helply.R;
-import com.example.helply.login.LoginActivity;
 
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -48,7 +40,7 @@ import java.util.Map;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class AddTaskActivity extends Navigation implements View.OnClickListener {
+public class CreateAnnouncementActivity extends MenuNavigationTemplate implements View.OnClickListener {
 
 
     private Spinner spinner;
@@ -82,7 +74,7 @@ public class AddTaskActivity extends Navigation implements View.OnClickListener 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_task);
+        setContentView(R.layout.activity_create_announcement);
 
         spinner = findViewById(R.id.kindOfHelpSpinner);
 
@@ -125,7 +117,7 @@ public class AddTaskActivity extends Navigation implements View.OnClickListener 
         setProfileImage(bitmap);
 
         String[] spinnerString = {"Choose kind of help","Walking the dog", "Shopping", "Other"};
-        spinner.setAdapter(new ArrayAdapter<>(AddTaskActivity.this,
+        spinner.setAdapter(new ArrayAdapter<>(CreateAnnouncementActivity.this,
                 android.R.layout.simple_spinner_dropdown_item, spinnerString));
 
 
@@ -336,8 +328,8 @@ public class AddTaskActivity extends Navigation implements View.OnClickListener 
                             document.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    Toast.makeText(AddTaskActivity.this, "Announcement created!", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                    Toast.makeText(CreateAnnouncementActivity.this, "Announcement created!", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(getApplicationContext(), AnnouncementsMainActivity.class));
                                     finish();
 
 
@@ -345,7 +337,7 @@ public class AddTaskActivity extends Navigation implements View.OnClickListener 
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(AddTaskActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(CreateAnnouncementActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
 
 
                                 }
@@ -370,8 +362,8 @@ public class AddTaskActivity extends Navigation implements View.OnClickListener 
                                             document.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
-                                                    Toast.makeText(AddTaskActivity.this, "Announcement created!", Toast.LENGTH_SHORT).show();
-                                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                                    Toast.makeText(CreateAnnouncementActivity.this, "Announcement created!", Toast.LENGTH_SHORT).show();
+                                                    startActivity(new Intent(getApplicationContext(), AnnouncementsMainActivity.class));
                                                     finish();
 
 
@@ -379,13 +371,13 @@ public class AddTaskActivity extends Navigation implements View.OnClickListener 
                                             }).addOnFailureListener(new OnFailureListener() {
                                                 @Override
                                                 public void onFailure(@NonNull Exception e) {
-                                                    Toast.makeText(AddTaskActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(CreateAnnouncementActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
 
 
                                                 }
                                             });
                                         } else {
-                                            Toast.makeText(AddTaskActivity.this, "You can create only two announcements", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(CreateAnnouncementActivity.this, "You can create only two announcements", Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 }
@@ -404,7 +396,7 @@ public class AddTaskActivity extends Navigation implements View.OnClickListener 
         }
         switch (view.getId()) {
             case R.id.listBtn: {
-                startActivityForResult(new Intent(AddTaskActivity.this, ListPopUpWindow.class),1002);
+                startActivityForResult(new Intent(CreateAnnouncementActivity.this, ListPopUpWindow.class),1002);
                 break;
             }
         }

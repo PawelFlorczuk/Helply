@@ -12,7 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.helply.menu.MainActivity;
+import com.example.helply.menu.AnnouncementsMainActivity;
 import com.example.helply.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -146,7 +146,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     progressBar.setVisibility(View.INVISIBLE);
                                                     Toast.makeText(RegistrationActivity.this, "Authorization succeed", Toast.LENGTH_SHORT).show();
-                                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                                    startActivity(new Intent(getApplicationContext(), AnnouncementsMainActivity.class));
                                                     finish();
                                                 }
                                             });

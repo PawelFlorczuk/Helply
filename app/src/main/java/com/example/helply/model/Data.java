@@ -1,4 +1,4 @@
-package com.example.helply;
+package com.example.helply.model;
 
 public class Data {
     public static String ID;

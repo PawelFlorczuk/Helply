@@ -1,4 +1,4 @@
-package com.example.helply;
+package com.example.helply.components;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.helply.R;
 
 import java.util.Vector;
 
@@ -36,7 +38,7 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingHolder> {
     @Override
     public RankingHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(c);
-        View view = inflater.inflate(R.layout.object2, parent, false);
+        View view = inflater.inflate(R.layout.ranking_object, parent, false);
 
         return new RankingHolder(view);
     }

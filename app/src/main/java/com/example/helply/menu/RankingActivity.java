@@ -3,9 +3,7 @@ package com.example.helply.menu;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -16,8 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.helply.R;
-import com.example.helply.RankingAdapter;
-import com.example.helply.login.LoginActivity;
+import com.example.helply.components.RankingAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
@@ -32,7 +29,7 @@ import java.util.Vector;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class RankingActivity extends Navigation {
+public class RankingActivity extends MenuNavigationTemplate {
     protected Toolbar toolbar;
     private RankingAdapter adapter;
     protected DrawerLayout drawerLayout;

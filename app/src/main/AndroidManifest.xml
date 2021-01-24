@@ -25,21 +25,22 @@
         <activity android:name=".menu.SettingsActivity"/>
         <activity android:name=".login.RegistrationActivity" />
         <activity android:name=".login.LoginActivity"/>
-        <activity android:name=".TaskDescriptionActivity"/>
-        <activity android:name=".menu.AddTaskActivity"/>
+        <activity android:name=".details.AnnouncementDetailsActivity"/>
+        <activity android:name=".menu.CreateAnnouncementActivity"/>
         <activity android:name=".menu.TasksToDoActivity"/>
         <activity android:name=".menu.RankingActivity"/>
-        <activity android:name=".FinishTaskActivity"/>
-        <activity android:name=".MapActivity"/>
-        <activity android:name=".TaskInformactionActivity"/>
-        <activity android:name=".menu.MyTasksActivity"/>
+        <activity android:name=".details.MyAnnouncementDetailsActivity"/>
+        <activity android:name=".popup.TaskPopUpWindow"/>
+        <activity android:name=".popup.MapActivity"/>
+        <activity android:name=".details.TaskToDoDetailsActivity"/>
+        <activity android:name=".menu.MyAnnouncementsActivity"/>
 
         <activity
-            android:name=".menu.ListPopUpWindow"
+            android:name=".popup.ListPopUpWindow"
             android:theme="@style/AppTheme.ListPupUpWindowTheme"/>
 
 
-        <activity android:name=".menu.MainActivity">
+        <activity android:name=".menu.AnnouncementsMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

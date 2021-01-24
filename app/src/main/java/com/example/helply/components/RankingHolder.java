@@ -1,4 +1,4 @@
-package com.example.helply;
+package com.example.helply.components;
 
 
 import android.view.View;
@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.helply.R;
 
 public class RankingHolder extends RecyclerView.ViewHolder {
      TextView pointsTV, nickTV;

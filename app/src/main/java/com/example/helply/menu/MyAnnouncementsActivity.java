@@ -3,9 +3,7 @@ package com.example.helply.menu;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -15,14 +13,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.helply.Adapter;
+import com.example.helply.components.Adapter;
 import com.example.helply.R;
-import com.example.helply.login.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -32,7 +28,7 @@ import java.util.Vector;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MyTasksActivity extends Navigation {
+public class MyAnnouncementsActivity extends MenuNavigationTemplate {
     protected Toolbar toolbar;
     private Adapter adapter;
     protected DrawerLayout drawerLayout;
@@ -45,7 +41,7 @@ public class MyTasksActivity extends Navigation {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_tasks);
+        setContentView(R.layout.activity_my_announcements);
         navigationView = findViewById(R.id.nv_navView);
         navigationView.bringToFront();
         drawerLayout = findViewById(R.id.dl_drawer_layout);
@@ -102,7 +98,7 @@ public class MyTasksActivity extends Navigation {
                         i++;
                     }
 
-                    adapter = new Adapter(MyTasksActivity.this, datalist, 5,bitmap);
+                    adapter = new Adapter(MyAnnouncementsActivity.this, datalist, 5,bitmap);
                     recyclerView.setAdapter(adapter);
                 }
 

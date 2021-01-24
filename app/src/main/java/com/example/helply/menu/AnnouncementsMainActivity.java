@@ -4,9 +4,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 import android.content.Intent;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -16,7 +14,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.helply.Adapter;
+import com.example.helply.components.Adapter;
 import com.example.helply.R;
 import com.example.helply.login.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,15 +25,12 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.io.File;
-import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Vector;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends Navigation {
+public class AnnouncementsMainActivity extends MenuNavigationTemplate {
 
     protected Toolbar toolbar;
     protected RecyclerView recyclerView;
@@ -60,7 +55,7 @@ public class MainActivity extends Navigation {
 
             user = FirebaseAuth.getInstance().getCurrentUser();
             mAuth = FirebaseAuth.getInstance();
-            setContentView(R.layout.activity_main);
+            setContentView(R.layout.activity_announcements_main);
             datalist = new Vector<String[]>();
             navigationView = findViewById(R.id.nv_navView);
             navigationView.bringToFront();
@@ -111,7 +106,7 @@ public class MainActivity extends Navigation {
                             i++;
                         }
 
-                        adapter = new Adapter(MainActivity.this, datalist, 0,bitmap);
+                        adapter = new Adapter(AnnouncementsMainActivity.this, datalist, 0,bitmap);
                         recyclerView.setAdapter(adapter);
                     }
 

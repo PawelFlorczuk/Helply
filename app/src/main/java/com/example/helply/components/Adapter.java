@@ -1,4 +1,4 @@
-package com.example.helply;
+package com.example.helply.components;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.helply.model.Data;
+import com.example.helply.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FileDownloadTask;
@@ -44,7 +46,7 @@ public class Adapter extends RecyclerView.Adapter<Holder> {
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(c);
-        View view = inflater.inflate(R.layout.object, parent, false);
+        View view = inflater.inflate(R.layout.announcement_object, parent, false);
         windowNum = windowNum + 1;
         return new Holder(view,v.get(windowNum), bit);
     }
@@ -92,7 +94,7 @@ public class Adapter extends RecyclerView.Adapter<Holder> {
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    holder.imageView.setImageResource(R.drawable.logo);
+                    holder.imageView.setImageResource(R.drawable.user_default_logo);
                 }
             });
         } catch (IOException e) {

@@ -18,7 +18,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.helply.Adapter;
+import com.example.helply.components.Adapter;
 import com.example.helply.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -37,8 +37,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import org.w3c.dom.Document;
-
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -47,7 +45,7 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class SettingsActivity extends Navigation implements View.OnClickListener {
+public class SettingsActivity extends MenuNavigationTemplate implements View.OnClickListener {
 
     protected Toolbar toolbar;
     private Adapter adapter;
@@ -172,7 +170,7 @@ public class SettingsActivity extends Navigation implements View.OnClickListener
                                                                     public void onComplete(@NonNull Task<Void> task) {
                                                                         if(task.isSuccessful()) {
                                                                             Toast.makeText(SettingsActivity.this, "Udało się zmienic numer", Toast.LENGTH_SHORT).show();
-                                                                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                                                            startActivity(new Intent(getApplicationContext(), AnnouncementsMainActivity.class));
                                                                             finish();
                                                                         } else {
                                                                             newLoginCreate.delete();
@@ -261,7 +259,7 @@ public class SettingsActivity extends Navigation implements View.OnClickListener
                                         Toast.makeText(SettingsActivity.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
                                     } else {
                                         Toast.makeText(SettingsActivity.this, "Password successfully changed!", Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                        startActivity(new Intent(getApplicationContext(), AnnouncementsMainActivity.class));
                                         finish();
 
                                     }

@@ -1,4 +1,4 @@
-package com.example.helply;
+package com.example.helply.details;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +17,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.helply.components.Adapter;
+import com.example.helply.R;
 import com.example.helply.menu.AnnouncementsMainActivity;
 import com.example.helply.menu.MenuNavigationTemplate;
 import com.example.helply.popup.TaskPopUpWindow;
@@ -64,7 +66,7 @@ public class AnnouncementDetailsActivity extends MenuNavigationTemplate implemen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_task_desc);
+        setContentView(R.layout.activity_announcement_details);
 
         contactCV = findViewById(R.id.cv_7);
         contactCV.setVisibility(View.GONE);
