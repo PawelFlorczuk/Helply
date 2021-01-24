@@ -23,21 +23,23 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-<!---->
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp">
+
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_1"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="20dp"
-                    app:cardBackgroundColor="@color/quantum_orange400"
+                    app:cardBackgroundColor="@color/quantum_orange100"
                     app:cardCornerRadius="25dp">
-<!---->
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
-<!---->
+
                         <TextView
                             android:id="@+id/textView2"
                             android:layout_width="wrap_content"
@@ -48,7 +50,7 @@
                             app:layout_constraintHorizontal_bias="0.498"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
-<!---->
+
                         <TextView
                             android:id="@+id/kindHelpTV"
                             android:layout_width="wrap_content"
@@ -60,22 +62,26 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView2" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-<!---->
                 </androidx.cardview.widget.CardView>
-<!---->
+
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_2"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
+                    android:layout_below="@+id/cv_1"
+
                     android:layout_marginLeft="20dp"
-                    android:layout_marginTop="80dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginRight="20dp"
-                    app:cardBackgroundColor="@color/quantum_orange400"
-                    app:cardCornerRadius="25dp">
-<!---->
+                    app:cardBackgroundColor="@color/quantum_orange100"
+                    app:cardCornerRadius="25dp"
+
+                    >
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
-<!---->
+                        <!---->
                         <TextView
                             android:id="@+id/textView5"
                             android:layout_width="wrap_content"
@@ -86,7 +92,7 @@
                             app:layout_constraintHorizontal_bias="0.498"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
-<!---->
+                        <!---->
                         <TextView
                             android:id="@+id/addressTaskTV"
                             android:layout_width="wrap_content"
@@ -97,25 +103,27 @@
                             app:layout_constraintHorizontal_bias="0.498"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView5" />
-<!---->
-<!---->
+                        <!---->
+                        <!---->
                     </androidx.constraintlayout.widget.ConstraintLayout>
-<!---->
+                    <!---->
                 </androidx.cardview.widget.CardView>
-<!---->
+
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_3"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
+                    android:layout_below="@id/cv_2"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginTop="150dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginRight="20dp"
-                    app:cardBackgroundColor="@color/quantum_orange400"
+                    app:cardBackgroundColor="@color/quantum_orange100"
                     app:cardCornerRadius="25dp">
-<!---->
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
-<!---->
+
                         <TextView
                             android:id="@+id/textView11"
                             android:layout_width="wrap_content"
@@ -125,7 +133,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
-<!---->
+
                         <TextView
                             android:id="@+id/emailPhoneTV"
                             android:layout_width="wrap_content"
@@ -136,24 +144,23 @@
                             app:layout_constraintHorizontal_bias="0.498"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView11" />
-<!---->
                     </androidx.constraintlayout.widget.ConstraintLayout>
-<!---->
                 </androidx.cardview.widget.CardView>
-<!---->
+
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_4"
                     android:layout_width="match_parent"
                     android:layout_height="140dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="220dp"
                     android:layout_marginRight="20dp"
-                    app:cardBackgroundColor="@color/quantum_orange400"
+                    app:cardBackgroundColor="@color/quantum_orange100"
                     app:cardCornerRadius="25dp">
-<!---->
+                    <!---->
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
-<!---->
+
                         <TextView
                             android:id="@+id/textView12"
                             android:layout_width="wrap_content"
@@ -162,7 +169,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
-<!---->
+
                         <TextView
                             android:id="@+id/desTV"
                             android:layout_width="254dp"
@@ -173,24 +180,24 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.495"
                             app:layout_constraintStart_toStartOf="parent" />
-<!---->
                     </androidx.constraintlayout.widget.ConstraintLayout>
-<!---->
                 </androidx.cardview.widget.CardView>
-<!---->
+
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_5"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
+                    android:layout_below="@id/cv_4"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginTop="370dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginRight="20dp"
-                    app:cardBackgroundColor="@color/quantum_orange400"
+                    app:cardBackgroundColor="@color/quantum_orange100"
                     app:cardCornerRadius="25dp">
-<!---->
+                    <!---->
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
-<!---->
+                        <!---->
                         <TextView
                             android:id="@+id/informactionBreadTV"
                             android:layout_width="wrap_content"
@@ -200,7 +207,7 @@
                             app:layout_constraintHorizontal_bias="0.498"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
-<!---->
+                        <!---->
                         <TextView
                             android:id="@+id/dogBreedTV"
                             android:layout_width="90dp"
@@ -212,7 +219,7 @@
                             app:layout_constraintHorizontal_bias="0.498"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/informactionBreadTV" />
-<!---->
+                        <!---->
                         <TextView
                             android:id="@+id/shoppingListTV"
                             android:layout_width="232dp"
@@ -224,22 +231,24 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/informactionBreadTV" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-<!---->
+                    <!---->
                 </androidx.cardview.widget.CardView>
-<!---->
+                <!---->
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_6"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
+                    android:layout_below="@id/cv_5"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginTop="460dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginRight="20dp"
-                    app:cardBackgroundColor="@color/quantum_orange400"
+                    app:cardBackgroundColor="@color/quantum_orange100"
                     app:cardCornerRadius="25dp">
-<!---->
+                    <!---->
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
-<!---->
+                        <!---->
                         <TextView
                             android:id="@+id/textView6"
                             android:layout_width="wrap_content"
@@ -250,7 +259,7 @@
                             app:layout_constraintHorizontal_bias="0.498"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
-<!---->
+                        <!---->
                         <TextView
                             android:id="@+id/dateTV"
                             android:layout_width="wrap_content"
@@ -264,34 +273,20 @@
                             app:layout_constraintTop_toBottomOf="@+id/textView6" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
-<!---->
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="530dp"
-                    android:layout_marginRight="20dp"
-                    app:cardBackgroundColor="@color/quantum_orange400"
-                    app:cardCornerRadius="25dp">
-<!---->
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-<!---->
-                        <Button
-                            android:id="@+id/addBtn"
-                            android:layout_width="120dp"
-                            android:layout_height="41dp"
-                            android:layout_marginBottom="8dp"
-                            android:text="Take announcement"
-                            android:textAllCaps="false"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.498"
-                            app:layout_constraintStart_toStartOf="parent" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.cardview.widget.CardView>
-<!---->
+                <Button
+                    android:id="@+id/addBtn"
+                    android:layout_width="120dp"
+                    android:layout_height="41dp"
+                    android:layout_below="@id/cv_6"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Take"
+                    android:textAllCaps="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintStart_toStartOf="parent" />
             </RelativeLayout>
 
 
