@@ -16,6 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.helply.menu.MainActivity;
+import com.example.helply.menu.Navigation;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
@@ -26,8 +27,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 
-public class TaskDescriptionActivity extends AppCompatActivity implements View.OnClickListener {
+
+public class TaskDescriptionActivity extends Navigation implements View.OnClickListener {
     protected Toolbar toolbar;
     private Adapter adapter;
     protected DrawerLayout drawerLayout;
@@ -54,7 +57,7 @@ public class TaskDescriptionActivity extends AppCompatActivity implements View.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tasks_desc);
+        setContentView(R.layout.activity_task_desc);
 
         kindOfHelpTV = findViewById(R.id.kindHelpTV);
         descriptionTV = findViewById(R.id.desTV);
@@ -100,6 +103,21 @@ public class TaskDescriptionActivity extends AppCompatActivity implements View.O
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,(R.string.open), (R.string.close));
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
+
+
+
+
+        this.initSideBarMenu();
+
+
+        View headerView = navigationView.inflateHeaderView(R.layout.sidebar_header);
+        profileImage = (CircleImageView) headerView.findViewById(R.id.profileImage);
+
+        Intent intent2 = getIntent();
+        bitmap = intent2.getParcelableExtra("Bitmap");
+        setProfileImage(bitmap);
+
+
 
     }
 

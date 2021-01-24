@@ -24,7 +24,7 @@ import java.time.LocalDateTime;
 import java.util.Vector;
 
 public class Adapter extends RecyclerView.Adapter<Holder> {
-    public Adapter(Context c, Vector<String[]> v,int is,Bitmap bitmap)
+    public Adapter(Context c, Vector<String[]> v,int is)
     {
         this.c = c;
         this.v = v;
@@ -79,7 +79,7 @@ public class Adapter extends RecyclerView.Adapter<Holder> {
         String imageID = v.get(position)[7].split("-")[0];
         StorageReference storageReference = FirebaseStorage.getInstance().getReference()
                 .child("profileImage")
-                .child(imageID + ".jpg");
+                .child(v.get(position)[7] + ".jpg");
 
         try {
             final File image = File.createTempFile(v.get(position)[5], ".jpg");

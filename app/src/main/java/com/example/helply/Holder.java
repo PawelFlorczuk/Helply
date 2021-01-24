@@ -36,6 +36,7 @@ public class Holder extends RecyclerView.ViewHolder {
                     Intent intent = new Intent(context, TaskDescriptionActivity.class);
                     intent.putExtra("Bitmap",bitmap);
                     intent.putExtra("TaskData",data);
+                    intent.putExtra("Bitmap",bitmap);
                     context.startActivity(intent);
                 }
                 else if (is == 1) {
