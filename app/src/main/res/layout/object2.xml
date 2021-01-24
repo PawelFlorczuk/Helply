@@ -15,7 +15,7 @@
         android:background="@color/white">
 
         <TextView
-            android:id="@+id/addressObjectTV"
+            android:id="@+id/nickTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -26,7 +26,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/needTV"
+            android:id="@+id/pointsTV"
             android:layout_width="72dp"
             android:layout_height="18dp"
             android:layout_marginTop="5dp"
@@ -34,7 +34,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.674"
             app:layout_constraintStart_toEndOf="@+id/medalImageView"
-            app:layout_constraintTop_toBottomOf="@+id/addressObjectTV" />
+            app:layout_constraintTop_toBottomOf="@+id/nickTV" />
 
         <ImageView
             android:id="@+id/medalImageView"

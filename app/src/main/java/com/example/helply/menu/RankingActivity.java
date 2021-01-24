@@ -82,13 +82,10 @@ public class RankingActivity extends Navigation {
                 List<DocumentSnapshot> list = task.getResult().getDocuments();
                 int i = 0 ;
                 for (DocumentSnapshot doc : list) {
-                    String[] dataString = new String[3];
-                    dataString[0] = doc.get("email").toString();
-                    dataString[1] = doc.get("phone").toString();
-                    dataString[2] = doc.get("points").toString();
-
+                    String[] dataString = new String[2];
+                    dataString[0] = doc.get("login").toString();
+                    dataString[1] = doc.get("points").toString();
                     listData.add(dataString);
-
                     i++;
 
                 }

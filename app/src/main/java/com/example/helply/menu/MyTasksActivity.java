@@ -83,7 +83,7 @@ public class MyTasksActivity extends Navigation {
                     List<DocumentSnapshot> list = task.getResult().getDocuments();
                     int i = 0;
                     for (DocumentSnapshot doc : list) {
-                        if (doc.getId().equals(mAuth.getUid())) {
+                        if (doc.getId().split("-")[0].equals(mAuth.getUid())) {
                             if (doc.get("helper").toString().equals(" ")) {
                                 String[] dataString = new String[8];
                                 dataString[0] = doc.get("date").toString();

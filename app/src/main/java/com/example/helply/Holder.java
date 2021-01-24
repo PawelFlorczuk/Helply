@@ -10,9 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.Vector;
-import java.util.function.BiConsumer;
-
 public class Holder extends RecyclerView.ViewHolder {
 
     TextView need, address, time;
@@ -24,8 +21,8 @@ public class Holder extends RecyclerView.ViewHolder {
     public Holder(@NonNull View itemView, String[] v,Bitmap bitmap) {
         super(itemView);
         this.data = v;
-        this.need = itemView.findViewById(R.id.needTV);
-        this.address = itemView.findViewById(R.id.addressObjectTV);
+        this.need = itemView.findViewById(R.id.pointsTV);
+        this.address = itemView.findViewById(R.id.nickTV);
         this.time = itemView.findViewById(R.id.timeTV);
         this.imageView = itemView.findViewById(R.id.personImage);
         this.bitmap = bitmap;

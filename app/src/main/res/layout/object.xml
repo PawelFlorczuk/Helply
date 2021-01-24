@@ -15,9 +15,9 @@
 
 
         <TextView
-            android:id="@+id/addressObjectTV"
-            android:layout_width="134dp"
-            android:layout_height="14dp"
+            android:id="@+id/nickTV"
+            android:layout_width="195dp"
+            android:layout_height="16dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:text="TextView"
@@ -29,7 +29,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
         <TextView
-            android:id="@+id/needTV"
+            android:id="@+id/pointsTV"
             android:layout_width="145dp"
             android:layout_height="32dp"
             android:layout_marginStart="10dp"
@@ -49,7 +49,7 @@
             android:text="Address"
             android:textSize="10dp"
             app:layout_constraintStart_toEndOf="@+id/personImage"
-            app:layout_constraintTop_toBottomOf="@+id/needTV" />
+            app:layout_constraintTop_toBottomOf="@+id/pointsTV" />
 
         <TextView
             android:id="@+id/textView4"
@@ -76,14 +76,14 @@
 
         <TextView
             android:id="@+id/timeTV"
-            android:layout_width="102dp"
-            android:layout_height="12dp"
+            android:layout_width="105dp"
+            android:layout_height="16dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:text="Time"
             android:textSize="10dp"
             app:layout_constraintStart_toEndOf="@+id/personImage"
-            app:layout_constraintTop_toBottomOf="@+id/addressObjectTV" />
+            app:layout_constraintTop_toBottomOf="@+id/nickTV" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

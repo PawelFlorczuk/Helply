@@ -317,8 +317,8 @@ public class AddTaskActivity extends Navigation implements View.OnClickListener 
             }
             user = FirebaseAuth.getInstance().getCurrentUser();
             db = FirebaseFirestore.getInstance();
-            con = true;
-            DocumentReference document = (db.collection("tasks").document(user.getUid()));
+
+            DocumentReference document = (db.collection("tasks").document(user.getUid() + "-1"));
             document.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -339,7 +339,7 @@ public class AddTaskActivity extends Navigation implements View.OnClickListener 
                                     Toast.makeText(AddTaskActivity.this, "Announcement created!", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                     finish();
-                                    con = false;
+
 
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
@@ -348,6 +348,45 @@ public class AddTaskActivity extends Navigation implements View.OnClickListener 
                                     Toast.makeText(AddTaskActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
 
 
+                                }
+                            });
+                        } else {
+                            DocumentReference document = (db.collection("tasks").document(user.getUid() + "-2"));
+                            document.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot doc = task.getResult();
+                                        if(!doc.exists()) {
+                                            Map<String, Object> user = new HashMap<>();
+                                            user.put("date", LocalDateTime.now().toString());
+                                            user.put("address", address);
+                                            user.put("description",description);
+                                            user.put("helper"," ");
+                                            user.put("emailPhoneNumber", emailPhoneNumber);
+                                            user.put("kindOfHelp", nameOfHelp);
+                                            user.put("nameOfHelp", needString);
+                                            document.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Toast.makeText(AddTaskActivity.this, "Announcement created!", Toast.LENGTH_SHORT).show();
+                                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                                    finish();
+
+
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Toast.makeText(AddTaskActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+
+
+                                                }
+                                            });
+                                        } else {
+                                            Toast.makeText(AddTaskActivity.this, "You can create only two announcements", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
                                 }
                             });
                         }

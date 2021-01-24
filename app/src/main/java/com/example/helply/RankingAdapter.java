@@ -18,7 +18,7 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingHolder> {
 
         for(int i = 0 ; i < (v.size() - 1)  ; i++){
             for(int j = (v.size() -1) ; j > i   ; j--){
-                if(Integer.parseInt(v.get(i)[2]) < Integer.parseInt(v.get(j)[2])){
+                if(Integer.parseInt(v.get(i)[1]) < Integer.parseInt(v.get(j)[1])){
                     data = v.get(i);
                     v.set(i,v.get(j));
                     v.set(j,data);
@@ -43,8 +43,8 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull RankingHolder holder, int position) {
-        holder.description.setText(v.get(position)[0]);
-        holder.street.setText(v.get(position)[2]);
+        holder.pointsTV.setText(v.get(position)[1]);
+        holder.nickTV.setText(v.get(position)[0]);
         if (position == 0) {
             holder.medal.setImageResource(R.drawable.medal_1);
         } else if (position == 1) {

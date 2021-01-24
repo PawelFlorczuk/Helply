@@ -94,7 +94,7 @@
                 android:ems="10"
                 android:hint="@string/new_nick"
                 android:importantForAutofill="no"
-                android:inputType="phone"
+                android:inputType="text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"

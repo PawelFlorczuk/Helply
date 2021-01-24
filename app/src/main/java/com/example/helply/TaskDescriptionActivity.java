@@ -107,7 +107,7 @@ public class TaskDescriptionActivity extends AppCompatActivity implements View.O
     public void onClick(View view) {
         if(view.getId() == R.id.addBtn) {
 
-            if(!mAuth.getUid().equals(data[7])) {
+            if(!mAuth.getUid().equals(data[7].split("-")[0])) {
 
                 db = FirebaseFirestore.getInstance();
                 DocumentReference documentReference = db.collection("tasks").document(data[7]);

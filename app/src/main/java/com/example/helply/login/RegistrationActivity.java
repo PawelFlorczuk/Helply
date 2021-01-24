@@ -127,22 +127,33 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                                         DocumentSnapshot doc = task.getResult();
                                         if(doc.exists()) {
                                             documentReference.delete();
-                                            Toast.makeText(getApplicationContext(),"This login is already taken", Toast.LENGTH_LONG);
+                                            final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                            AuthCredential credential = EmailAuthProvider.getCredential(email, password);
+
+                                            user.reauthenticate(credential)
+                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                            user.delete();
+                                                        }
+                                                    });
+                                            progressBar.setVisibility(View.INVISIBLE);
+                                            Toast.makeText(getApplicationContext(),"This login is already taken", Toast.LENGTH_LONG).show();
 
                                         } else {
                                             documentReference2.set(new HashMap<>()).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
-
+                                                    progressBar.setVisibility(View.INVISIBLE);
+                                                    Toast.makeText(RegistrationActivity.this, "Authorization succeed", Toast.LENGTH_SHORT).show();
+                                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                                    finish();
                                                 }
                                             });
                                         }
                                     }
                                 });
-                                progressBar.setVisibility(View.INVISIBLE);
-                                Toast.makeText(RegistrationActivity.this, "Authorization succeed", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                finish();
+
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override

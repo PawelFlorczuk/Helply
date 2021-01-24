@@ -31,10 +31,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import org.w3c.dom.Document;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -62,6 +65,8 @@ public class SettingsActivity extends Navigation implements View.OnClickListener
     private Button chooseAvatarBtn;
     private CircleImageView avatar;
 
+
+
     private Bitmap bitmap;
 
 
@@ -81,6 +86,7 @@ public class SettingsActivity extends Navigation implements View.OnClickListener
         avatar = findViewById(R.id.settings_avatarIV);
 
 
+        repeatPasswordTV = findViewById(R.id.settings_confirmPasswordET);
         passwordBtn = findViewById(R.id.settings_savePasswordBtn);
         nickBtn = findViewById(R.id.settings_changeNickBtn);
         chooseAvatarBtn = findViewById(R.id.settings_chooseAvatarBtn);
@@ -132,29 +138,92 @@ public class SettingsActivity extends Navigation implements View.OnClickListener
             }
             case R.id.settings_changeNickBtn: // todo handle this
             {
+                String newLogin = nickTV.getText().toString().trim();
+                String oldLogin;
+                DocumentReference loginGet = db.collection("users").document(mAuth.getUid());
+                loginGet.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.isSuccessful()) {
+                            String oldLogin = (String) task.getResult().get("login");
+                            if(oldLogin.equals(newLogin)) {
+                                Toast.makeText(getApplicationContext(), "New nick can't equals to the old one",Toast.LENGTH_SHORT).show();
+                            } else {
+                                DocumentReference checkExistsLogin = db.collection("logins").document(newLogin);
+                                checkExistsLogin.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                        if(task.getResult().exists()) {
+                                            Toast.makeText(SettingsActivity.this, "This nick already exists", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Map<String, Object> log = new HashMap<>();
+                                            DocumentReference newLoginCreate = db.collection("logins").document(newLogin);
+                                            newLoginCreate.set(log).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if(task.isSuccessful()) {
+                                                        Map<String, Object> user = new HashMap<>();
+                                                        DocumentReference documentReference = db.collection("users").document(mAuth.getUid());
+                                                        user.put("login",newLogin);
+                                                        documentReference.update(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                            @Override
+                                                            public void onSuccess(Void aVoid) {
+                                                                DocumentReference deleteOldLogin = db.collection("logins").document(oldLogin);
+                                                                deleteOldLogin.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                    @Override
+                                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                                        if(task.isSuccessful()) {
+                                                                            Toast.makeText(SettingsActivity.this, "Udało się zmienic numer", Toast.LENGTH_SHORT).show();
+                                                                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                                                            finish();
+                                                                        } else {
+                                                                            newLoginCreate.delete();
+                                                                            Map<String, Object> user = new HashMap<>();
+                                                                            DocumentReference documentReference = db.collection("users").document(mAuth.getUid());
+                                                                            user.put("login",oldLogin);
+                                                                            documentReference.update(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                                @Override
+                                                                                public void onComplete(@NonNull Task<Void> task) {
 
-//                String phoneNumber = nickTV.getText().toString().trim();
-//                Map<String, Object> user = new HashMap<>();
-//                DocumentReference documentReference = db.collection("users").document(mAuth.getUid());
-//                user.put("phone",phoneNumber);
-//
-//
-//                documentReference.update(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void aVoid) {
-//                        Toast.makeText(SettingsActivity.this, "Udało się zmienic numer", Toast.LENGTH_SHORT).show();
-//                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-//                        finish();
-//                    }
-//                }).addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Toast.makeText(SettingsActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
-//
-//
-//                    }
-//                });
-//
+                                                                                }
+                                                                            });
+                                                                            Toast.makeText(SettingsActivity.this, "Your old login doesn't exist", Toast.LENGTH_SHORT).show();
+
+                                                                        }
+                                                                    }
+                                                                });
+                                                            }
+                                                        }).addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+                                                                newLoginCreate.delete();
+                                                                Toast.makeText(SettingsActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+
+
+                                                            }
+                                                        });
+                                                    } else {
+
+                                                        Toast.makeText(getApplicationContext(), "This login already exists",Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    }
+                                });
+
+                            }
+
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Check your internet connection",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+
+
+
+
 
 
                 break;
@@ -162,8 +231,25 @@ public class SettingsActivity extends Navigation implements View.OnClickListener
             case R.id.settings_savePasswordBtn: {
                 mAuth.getCurrentUser();
                 String email = user.getEmail();
+                String repeatPassword = repeatPasswordTV.getText().toString().trim();
                 String oldPassword = oldPasswordTV.getText().toString().trim();
                 String newPassword = passwordTV.getText().toString().trim();
+                if(oldPassword.equals(newPassword)) {
+                    Toast.makeText(SettingsActivity.this, "New and old password can't be equal", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (!repeatPassword.equals(newPassword)) {
+                    Toast.makeText(SettingsActivity.this, "Password and confirm password are not equal", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (repeatPassword.length() < 6 ) {
+                    Toast.makeText(SettingsActivity.this, "Password has to have at least 6 characters", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (newPassword.length() < 6 ) {
+                    Toast.makeText(SettingsActivity.this, "Password has to have at least 6 characters", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 AuthCredential credential = EmailAuthProvider
                         .getCredential(email, oldPassword);
                 user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -177,6 +263,9 @@ public class SettingsActivity extends Navigation implements View.OnClickListener
                                         Toast.makeText(SettingsActivity.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
                                     } else {
                                         Toast.makeText(SettingsActivity.this, "Password successfully changed!", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                        finish();
+
                                     }
                                 }
                             });
