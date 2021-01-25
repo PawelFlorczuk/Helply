@@ -78,7 +78,7 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
         dateTV = findViewById(R.id.dateTV);
         informactionBreedTV = findViewById(R.id.informactionBreadTV);
 
-        addBtn = findViewById(R.id.addBtn);
+        addBtn = findViewById(R.id.takeBtn);
         addBtn.setOnClickListener(this);
 
         Intent intent = getIntent();
@@ -145,7 +145,7 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.addBtn) {
+        if (view.getId() == R.id.takeBtn) {
             if (!mAuth.getUid().equals(taskData[3])) {
                 startActivityForResult(new Intent(this, FinishTaskPopUpWindow.class), 1005);
             }

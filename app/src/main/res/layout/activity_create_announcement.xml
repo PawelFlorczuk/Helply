@@ -58,10 +58,10 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
                 <Button
-                    android:id="@+id/addBtn"
+                    android:id="@+id/takeBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="8dp"
                     android:text="Create"
                     android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -70,7 +70,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/descET" />
 
                 <Button
-                    android:id="@+id/listBtn"
+                    android:id="@+id/createListBtn"
                     android:layout_width="152dp"
                     android:layout_height="34dp"
                     android:layout_marginTop="20dp"
@@ -138,7 +138,7 @@
                     android:id="@+id/helpKindET"
                     android:layout_width="259dp"
                     android:layout_height="41dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="48dp"
                     android:ems="10"
                     android:hint="Breed of the dog"
                     android:inputType="text"

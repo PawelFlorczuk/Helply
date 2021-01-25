@@ -71,7 +71,7 @@ public class TaskToDoDetailsActivity extends MenuNavigationTemplate implements V
         dateTV = findViewById(R.id.dateTV);
         informactionBreedTV = findViewById(R.id.informactionBreadTV);
 
-        addBtn = findViewById(R.id.addBtn);
+        addBtn = findViewById(R.id.takeBtn);
         addBtn.setOnClickListener(this);
         addBtn.setVisibility(View.GONE);
 

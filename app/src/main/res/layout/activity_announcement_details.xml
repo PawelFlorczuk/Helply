@@ -10,7 +10,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <include
@@ -22,35 +22,25 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="10dp">
+            android:paddingBottom="10dp"
+            >
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_0"
                 android:layout_width="match_parent"
-                android:layout_height="655dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
                 app:cardBackgroundColor="@color/quantum_orange200"
                 app:cardCornerRadius="25dp">
 
-                <!--                <ScrollView-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="wrap_content">-->
-
-                <!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
-                <!--                        android:layout_width="match_parent"-->
-                <!--                        android:layout_height="wrap_content">-->
-
-
-                <!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-                <!--                </ScrollView>-->
 
 
                 <ScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    >
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -310,7 +300,7 @@
                         <androidx.cardview.widget.CardView
                             android:id="@+id/cv_7"
                             android:layout_width="match_parent"
-                            android:layout_height="60dp"
+                            android:layout_height="wrap_content"
                             android:layout_below="@id/cv_6"
                             android:layout_marginLeft="20dp"
                             android:layout_marginTop="10dp"
@@ -320,7 +310,7 @@
                             <!---->
                             <androidx.constraintlayout.widget.ConstraintLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent">
+                                android:layout_height="wrap_content">
 
                                 <!---->
 
@@ -373,15 +363,14 @@
                             </androidx.constraintlayout.widget.ConstraintLayout>
                         </androidx.cardview.widget.CardView>
 
-
                         <Button
-                            android:id="@+id/addBtn"
+                            android:id="@+id/takeBtn"
                             android:layout_width="120dp"
                             android:layout_height="41dp"
                             android:layout_below="@id/cv_7"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="20dp"
-                            android:layout_marginBottom="8dp"
+                            android:layout_marginBottom="0dp"
                             android:text="Take"
                             android:textAllCaps="false"
                             app:layout_constraintBottom_toBottomOf="parent"

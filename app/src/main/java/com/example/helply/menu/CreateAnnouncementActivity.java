@@ -1,7 +1,10 @@
 package com.example.helply.menu;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -87,9 +90,9 @@ public class CreateAnnouncementActivity extends MenuNavigationTemplate implement
         descET = findViewById(R.id.descET);
 
 
-        addBtn = findViewById(R.id.addBtn);
+        addBtn = findViewById(R.id.takeBtn);
         addressBtn = findViewById(R.id.addressBtn);
-        listBtn = findViewById(R.id.listBtn);
+        listBtn = findViewById(R.id.createListBtn);
 
         emailPhoneNumberET = findViewById(R.id.emailPhoneNumberET);
         emailPhoneNumberTV = findViewById(R.id.emailPhoneNumberTV);
@@ -249,7 +252,7 @@ public class CreateAnnouncementActivity extends MenuNavigationTemplate implement
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onClick(View view) {
-        if(view.getId() == R.id.addBtn)
+        if(view.getId() == R.id.takeBtn)
         {
 
 
@@ -325,6 +328,7 @@ public class CreateAnnouncementActivity extends MenuNavigationTemplate implement
                             user.put("emailPhoneNumber", emailPhoneNumber);
                             user.put("kindOfHelp", nameOfHelp);
                             user.put("nameOfHelp", needString);
+                            user.put("volunteerContact", " ");
                             document.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
@@ -395,9 +399,45 @@ public class CreateAnnouncementActivity extends MenuNavigationTemplate implement
 
         }
         switch (view.getId()) {
-            case R.id.listBtn: {
-                startActivityForResult(new Intent(CreateAnnouncementActivity.this, ListPopUpWindow.class),1002);
-                break;
+            case R.id.createListBtn: {
+
+
+//                startActivityForResult(new Intent(CreateAnnouncementActivity.this, ListPopUpWindow.class),1002);
+//                break;
+
+                Dialog myDialog;
+                myDialog = new Dialog(this);
+                myDialog.setContentView(R.layout.custompopup);
+
+
+                TextView txtclose;
+                txtclose =(TextView) myDialog.findViewById(R.id.txtclose);
+                txtclose.setText("M");
+
+                TextView shoppingListTV = (TextView) myDialog.findViewById(R.id.shopping_list_edit_text);
+                txtclose.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        myDialog.dismiss();
+                    }
+                });
+
+                myDialog.findViewById(R.id.save_shopping_list).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        helpKindTV.setText("Change your shopping list");
+                        listBtn.setText("Change your list");
+                        helpKindTV.setText("Change your shopping list");
+                        shoppingList = shoppingListTV.getText().toString();
+                        listBtn.setText("Change your list");
+                        myDialog.dismiss();
+                    }
+                });
+
+                myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                myDialog.show();
+
+
             }
         }
     }
