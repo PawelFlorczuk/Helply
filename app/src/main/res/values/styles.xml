@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -17,9 +19,8 @@
 
     <style name="AppTheme.ListPupUpWindowTheme">
         <item name="android:windowIsTranslucent">true</item>
-
         <item name="android:windowCloseOnTouchOutside">true</item>
-
+        <item name="android:windowBackground">@color/quantum_orange400</item>
     </style>
 
 </resources>
