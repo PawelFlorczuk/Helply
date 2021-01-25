@@ -128,7 +128,7 @@ public class SettingsActivity extends MenuNavigationTemplate implements View.OnC
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent,  "Pobierz zdjecie"), 10001);
+                startActivityForResult(Intent.createChooser(intent,  "Load your picture"), 10001);
 
                 break;
             }
@@ -169,7 +169,7 @@ public class SettingsActivity extends MenuNavigationTemplate implements View.OnC
                                                                     @Override
                                                                     public void onComplete(@NonNull Task<Void> task) {
                                                                         if(task.isSuccessful()) {
-                                                                            Toast.makeText(SettingsActivity.this, "Udało się zmienic numer", Toast.LENGTH_SHORT).show();
+                                                                            Toast.makeText(SettingsActivity.this, "You successfully changed your nick", Toast.LENGTH_SHORT).show();
                                                                             startActivity(new Intent(getApplicationContext(), AnnouncementsMainActivity.class));
                                                                             finish();
                                                                         } else {

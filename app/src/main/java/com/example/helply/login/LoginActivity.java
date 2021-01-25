@@ -70,7 +70,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
         if(password.length() < 6) {
-            Toast.makeText(LoginActivity.this,"Pasword is less than 6 characters", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this,"Password is less than 6 characters", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     progressBar.setVisibility(View.INVISIBLE);
-                    Toast.makeText(LoginActivity.this,"Udało się zalogować", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this,"Login successfully", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getApplicationContext(), AnnouncementsMainActivity.class));
 
                 }else {

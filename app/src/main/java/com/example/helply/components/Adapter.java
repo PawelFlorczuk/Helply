@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.helply.model.Data;
 import com.example.helply.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -70,12 +69,7 @@ public class Adapter extends RecyclerView.Adapter<Holder> {
         holder.need.setText(v.get(position)[5]);
         holder.time.setText(time);
 
-        Data.Address = v.get(position)[0];
-        Data.Description = v.get(position)[1];
-        Data.Message = v.get(position)[3];
-        Data.Helper = v.get(position)[2];
-        Data.Purchase = v.get(position)[4];
-        Data.ID = v.get(position)[5];
+
         holder.is = is;
 
         String imageID = v.get(position)[7].split("-")[0];

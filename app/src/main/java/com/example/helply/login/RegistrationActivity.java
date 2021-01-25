@@ -145,7 +145,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     progressBar.setVisibility(View.INVISIBLE);
-                                                    Toast.makeText(RegistrationActivity.this, "Authorization succeed", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(RegistrationActivity.this, "Successful registration", Toast.LENGTH_SHORT).show();
                                                     startActivity(new Intent(getApplicationContext(), AnnouncementsMainActivity.class));
                                                     finish();
                                                 }
