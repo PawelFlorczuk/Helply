@@ -35,6 +35,7 @@
         <activity android:name=".popup.MapActivity"/>
         <activity android:name=".details.TaskToDoDetailsActivity"/>
         <activity android:name=".menu.MyAnnouncementsActivity"/>
+        <activity android:name=".details.OpinionsActivity"/>
 
         <activity
             android:name=".popup.ListPopUpWindow"

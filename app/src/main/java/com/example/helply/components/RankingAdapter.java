@@ -1,6 +1,7 @@
 package com.example.helply.components;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,7 @@ import com.example.helply.R;
 import java.util.Vector;
 
 public class RankingAdapter extends RecyclerView.Adapter<RankingHolder> {
-    public RankingAdapter(Context c, Vector<String[]> v)
+    public RankingAdapter(Context c, Vector<String[]> v, Bitmap bitmap)
     {
         this.c = c;
         String [] data;
@@ -28,10 +29,13 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingHolder> {
             }
 
         }
+        this.bitmap = bitmap;
         this.v = v;
     }
 
     Context c;
+    String id;
+    Bitmap bitmap;
     Vector<String[]> v;
 
     @NonNull
@@ -40,7 +44,7 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingHolder> {
         LayoutInflater inflater = LayoutInflater.from(c);
         View view = inflater.inflate(R.layout.ranking_object, parent, false);
 
-        return new RankingHolder(view);
+        return new RankingHolder(view, bitmap);
     }
 
     @Override
@@ -56,7 +60,7 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingHolder> {
         } else {
             holder.medal.setVisibility(View.INVISIBLE);
         }
-
+        holder.uid = v.get(position)[2];
 
     }
 

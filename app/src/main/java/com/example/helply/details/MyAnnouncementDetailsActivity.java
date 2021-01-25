@@ -17,7 +17,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.helply.components.Adapter;
-import com.example.helply.model.Data;
 import com.example.helply.R;
 import com.example.helply.menu.MyAnnouncementsActivity;
 import com.example.helply.menu.MenuNavigationTemplate;
@@ -149,7 +148,7 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.addBtn) {
-            if (!mAuth.getUid().equals(Data.Helper)) {
+            if (!mAuth.getUid().equals(taskData[3])) {
                 startActivityForResult(new Intent(this, FinishTaskPopUpWindow.class),1005);
             }
 
@@ -163,7 +162,7 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
             SharedPreferences preferences = getSharedPreferences("PointAndDescription",MODE_PRIVATE);
             String point = preferences.getString("point","0");
             String userOpinion = preferences.getString("opinion"," ");
-            if (!mAuth.getUid().equals(Data.Helper)) {
+            if (!mAuth.getUid().equals(taskData[3])) {
                 db = FirebaseFirestore.getInstance();
                 DocumentReference documentReference = db.collection("tasks").document(taskData[7]);
                 if (true){//checkBox.isChecked()) {
@@ -201,7 +200,7 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
                                                                         @Override
                                                                         public void onComplete(@NonNull Task<Void> task) {
                                                                             if(task.isSuccessful()) {
-                                                                                Toast.makeText(MyAnnouncementDetailsActivity.this, "Udało się zakończyc task!", Toast.LENGTH_SHORT).show();
+                                                                                Toast.makeText(MyAnnouncementDetailsActivity.this, "Successfully task is finished", Toast.LENGTH_SHORT).show();
                                                                                 startActivity(new Intent(getApplicationContext(), MyAnnouncementsActivity.class));
                                                                             } else {
                                                                                 Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task is unsuccessful!", Toast.LENGTH_SHORT).show();

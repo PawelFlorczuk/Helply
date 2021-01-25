@@ -173,7 +173,7 @@ public class AnnouncementDetailsActivity extends MenuNavigationTemplate implemen
                 documentReference.update(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(AnnouncementDetailsActivity.this, "Udało się zarejestrować", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AnnouncementDetailsActivity.this, "Announcement taken successfully", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getApplicationContext(), AnnouncementsMainActivity.class));
                         finish();
                     }
@@ -186,7 +186,7 @@ public class AnnouncementDetailsActivity extends MenuNavigationTemplate implemen
                     }
                 });
             } else{
-                Toast.makeText(AnnouncementDetailsActivity.this, "e.toString()", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AnnouncementDetailsActivity.this, "Taking announcement failed", Toast.LENGTH_SHORT).show();
             }
         }
 

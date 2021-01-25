@@ -79,14 +79,15 @@ public class RankingActivity extends MenuNavigationTemplate {
                 List<DocumentSnapshot> list = task.getResult().getDocuments();
                 int i = 0 ;
                 for (DocumentSnapshot doc : list) {
-                    String[] dataString = new String[2];
+                    String[] dataString = new String[3];
                     dataString[0] = doc.get("login").toString();
                     dataString[1] = doc.get("points").toString();
+                    dataString[2] = doc.getId();
                     listData.add(dataString);
                     i++;
 
                 }
-                adapter = new RankingAdapter(RankingActivity.this, listData);
+                adapter = new RankingAdapter(RankingActivity.this, listData,bitmap);
                 recyclerView.setAdapter(adapter);
             }
         });
