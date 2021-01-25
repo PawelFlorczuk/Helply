@@ -282,7 +282,6 @@ public class SettingsActivity extends MenuNavigationTemplate implements View.OnC
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-
             bitmap = Bitmap.createScaledBitmap(bitmap, avatar.getWidth(), avatar.getHeight(), true);
             avatar.setImageBitmap(bitmap);
             Toast.makeText(SettingsActivity.this, "1", Toast.LENGTH_LONG).show();
@@ -303,14 +302,13 @@ public class SettingsActivity extends MenuNavigationTemplate implements View.OnC
         reference.putBytes(byteArrayOutputStream.toByteArray()).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(SettingsActivity.this, "2", Toast.LENGTH_LONG).show();
                 getDownUrl(reference);
 
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(SettingsActivity.this, "Nie udało", Toast.LENGTH_LONG).show();
+                Toast.makeText(SettingsActivity.this, "Adding picture failed", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -320,7 +318,7 @@ public class SettingsActivity extends MenuNavigationTemplate implements View.OnC
                 .addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        Toast.makeText(SettingsActivity.this, "3", Toast.LENGTH_LONG).show();
+
                         setUserProfileUrl(uri);
                     }
                 });
@@ -334,7 +332,7 @@ public class SettingsActivity extends MenuNavigationTemplate implements View.OnC
         user.updateProfile(request).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Toast.makeText(SettingsActivity.this, "4", Toast.LENGTH_LONG).show();
+                Toast.makeText(SettingsActivity.this, "Picture added successfully", Toast.LENGTH_LONG).show();
             }
         });
     }

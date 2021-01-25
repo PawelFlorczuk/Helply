@@ -7,12 +7,35 @@
     android:background="@color/white"
     >
 
+    <ImageView
+        android:layout_marginTop="20dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/popWindowImage"
+        app:srcCompat="@drawable/user_default_logo"/>
+
+    <TextView
+        android:layout_below="@+id/popWindowImage"
+        android:id="@+id/textContact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Write your contact details" />
+
     <EditText
         android:id="@+id/contactET"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/textContact"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="50dp"
         android:ems="10"
         android:gravity="start|top"
+        android:hint="Write your contact details"
         android:inputType="textMultiLine" />
 
     <androidx.constraintlayout.widget.ConstraintLayout

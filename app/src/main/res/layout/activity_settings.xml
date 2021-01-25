@@ -120,7 +120,7 @@
                 android:layout_width="159dp"
                 android:layout_height="38dp"
                 android:layout_gravity="center_vertical"
-                android:text="@string/choose"
+                android:text="Choose new picture"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -129,8 +129,6 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/settings_avatarIV"
-
-
                 android:layout_width="123dp"
                 android:layout_height="127dp"
 

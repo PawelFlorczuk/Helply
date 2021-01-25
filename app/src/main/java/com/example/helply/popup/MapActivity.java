@@ -1,5 +1,6 @@
 package com.example.helply.popup;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
@@ -44,6 +45,24 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             public void onClick(View v) {
 
                 String address = addressList.get(0).toString();
+                if(!address.split(",")[10].split("=")[1].equals("Poland") && !address.split(",")[10].split("=")[1].equals("Polska")) {
+                    Toast.makeText(getApplicationContext(), "You can only choose place from Poland", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if(address.split(",")[10].split("=")[1] == null || address.split(",")[7].split("=")[1] == null ||
+                        address.split(",")[6].split("=")[1] == null ||  address.split(",")[3].split("=")[1] == null ||
+                        address.split(",")[4].split("=")[1] == null) {
+                    Toast.makeText(getApplicationContext(), "Address should be written like this :\"Country City Street Street number \"", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                try {
+                   Integer checkIfNumber = Integer.valueOf(address.split(",")[3].split("=")[1]);
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getApplicationContext(), "Address should be written like this :\"Country City Street Street number \"", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+
                 SharedPreferences preferences = getSharedPreferences("Address",MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString("address",address);
@@ -93,8 +112,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         myMap = googleMap;
-        LatLng lat = new LatLng(52.229676,21.012229);
-        myMap.moveCamera(CameraUpdateFactory.newLatLng(lat));
+        LatLng lat = new LatLng(52.112795,19.211946);
+        myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lat,5));
         myMap.getUiSettings().setZoomControlsEnabled(true);
     }
 }

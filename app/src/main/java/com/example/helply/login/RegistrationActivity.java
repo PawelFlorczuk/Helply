@@ -87,22 +87,27 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         repeatPassword = repeatedPasswordET.getText().toString().trim();
 
         if(!password.equals(repeatPassword)) {
+            progressBar.setVisibility(View.INVISIBLE);
             Toast.makeText(RegistrationActivity.this, "Passwords are not the same", Toast.LENGTH_SHORT).show();
             return;
         }
         if(email.equals("")) {
+            progressBar.setVisibility(View.INVISIBLE);
             Toast.makeText(RegistrationActivity.this,"Email is empty", Toast.LENGTH_SHORT).show();
             return;
         }
         if(password.equals("")) {
+            progressBar.setVisibility(View.INVISIBLE);
             Toast.makeText(RegistrationActivity.this,"Password is empty", Toast.LENGTH_SHORT).show();
             return;
         }
         if(password.length() < 6) {
+            progressBar.setVisibility(View.INVISIBLE);
             Toast.makeText(RegistrationActivity.this,"Password is less than 6 characters", Toast.LENGTH_SHORT).show();
             return;
         }
         if(!termsOfUseCheckBox.isChecked()){
+            progressBar.setVisibility(View.INVISIBLE);
             Toast.makeText(RegistrationActivity.this,"You have to accept the rules", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -166,9 +171,11 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
+
                                                 user.delete();
                                             }
                                         });
+                                progressBar.setVisibility(View.INVISIBLE);
                                 Toast.makeText(RegistrationActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
                             }
                         });

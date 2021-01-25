@@ -60,6 +60,8 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
     private String[] taskData;
     private long points;
 
+    private boolean taken;
+
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -110,9 +112,12 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
             takenTV.setText("Accepted");
             addBtn.setText("Finish announcement");
             addBtn.setVisibility(View.VISIBLE);
+            taken = true;
 
         } else {
-            addBtn.setVisibility(View.GONE);
+            addBtn.setText("Delete annoucement");
+            addBtn.setVisibility(View.VISIBLE);
+            taken = false;
         }
 
 
@@ -121,7 +126,7 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
         navigationView.bringToFront();
         drawerLayout = findViewById(R.id.dl_drawer_layout);
         toolbar = findViewById(R.id.toolBar);
-        toolbar.setTitle("My tasks");
+        toolbar.setTitle("My announcements");
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, (R.string.open), (R.string.close));
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
@@ -146,8 +151,25 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.takeBtn) {
-            if (!mAuth.getUid().equals(taskData[3])) {
-                startActivityForResult(new Intent(this, FinishTaskPopUpWindow.class), 1005);
+            if (taken) {
+                if (!mAuth.getUid().equals(taskData[3])) {
+                    startActivityForResult(new Intent(this, FinishTaskPopUpWindow.class), 1005);
+                }
+            } else {
+                db = FirebaseFirestore.getInstance();
+                DocumentReference documentReference = db.collection("tasks").document(taskData[7]);
+                documentReference.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()) {
+                            Toast.makeText(MyAnnouncementDetailsActivity.this, "Successfully task is removed", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getApplicationContext(), MyAnnouncementsActivity.class));
+                        } else {
+                            Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task is unsuccessful", Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+                });
             }
 
 

@@ -62,14 +62,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         password = passwordET.getText().toString().trim();
 
         if(email.equals("")) {
+            progressBar.setVisibility(View.INVISIBLE);
             Toast.makeText(LoginActivity.this,"Email is empty", Toast.LENGTH_SHORT).show();
             return;
         }
         if(password.equals("")) {
+            progressBar.setVisibility(View.INVISIBLE);
             Toast.makeText(LoginActivity.this,"Password is empty", Toast.LENGTH_SHORT).show();
             return;
         }
         if(password.length() < 6) {
+            progressBar.setVisibility(View.INVISIBLE);
             Toast.makeText(LoginActivity.this,"Password is less than 6 characters", Toast.LENGTH_SHORT).show();
             return;
         }
