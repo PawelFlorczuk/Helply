@@ -269,15 +269,20 @@ public class CreateAnnouncementActivity extends MenuNavigationTemplate implement
             address = this.address;
             description = descET.getText().toString();
 
-            if (address.equals("") || address.equals(" ") || address == null) {
+            if ( address == null || description == null || emailPhoneNumber == null ) {
+                Toast.makeText(getApplicationContext(), "You have to fill all the fields" ,Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if ( address.equals("") || address.equals(" ") ) {
                 Toast.makeText(getApplicationContext(), "You have to set your address" ,Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (description.equals("") || description.equals(" ") || description == null) {
+            if (description.equals("") || description.equals(" ")  ) {
                 Toast.makeText(getApplicationContext(), "The description cannot be empty" ,Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (emailPhoneNumber.equals("") || emailPhoneNumber.equals(" ")|| emailPhoneNumber == null) {
+            if (emailPhoneNumber.equals("") || emailPhoneNumber.equals(" ")) {
                 Toast.makeText(getApplicationContext(), "The phone number or email field cannot be empty" ,Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -287,7 +292,11 @@ public class CreateAnnouncementActivity extends MenuNavigationTemplate implement
                 {
                     need = helpKindET.getText().toString();
                     this.needString = need;
-                    if (need.equals("") || need.equals(" ") || need == null) {
+                    if( need == null) {
+                        Toast.makeText(getApplicationContext(), "The breed of the dog field cannot be empty" ,Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if ( need.equals("") || need.equals(" ")) {
                         Toast.makeText(getApplicationContext(), "The breed of the dog field cannot be empty" ,Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -297,7 +306,11 @@ public class CreateAnnouncementActivity extends MenuNavigationTemplate implement
                 {
                     need = this.shoppingList;
                     this.needString = need;
-                    if (need.equals("") || need.equals(" ")|| need == null) {
+                    if( need == null) {
+                        Toast.makeText(getApplicationContext(), "The list field cannot be empty" ,Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (need.equals("") || need.equals(" ") ) {
                         Toast.makeText(getApplicationContext(), "The list field cannot be empty" ,Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -308,7 +321,11 @@ public class CreateAnnouncementActivity extends MenuNavigationTemplate implement
                 {
                     need = helpKindET.getText().toString();
                     this.needString = need;
-                    if (need.equals("") || need.equals(" ")|| need == null) {
+                    if( need == null) {
+                        Toast.makeText(getApplicationContext(), "The type of the help field cannot be empty" ,Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (need.equals("") || need.equals(" ")) {
                         Toast.makeText(getApplicationContext(), "The type of the help field cannot be empty" ,Toast.LENGTH_SHORT).show();
                         return;
                     }
