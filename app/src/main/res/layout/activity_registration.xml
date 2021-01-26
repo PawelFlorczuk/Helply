@@ -22,8 +22,8 @@
 
     <Button
         android:id="@+id/registerBtn"
-        android:layout_width="125dp"
-        android:layout_height="48dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:background="@drawable/buttonstyle"
         android:text="@string/register"
@@ -93,6 +93,7 @@
         android:shadowDy="0"
         android:shadowRadius="0"
         android:text="@string/sign_in"
+        android:textAllCaps="false"
         android:textColor="@color/white"
         android:textColorHint="#FFFFFF"
         android:background="@drawable/buttonstyle"
