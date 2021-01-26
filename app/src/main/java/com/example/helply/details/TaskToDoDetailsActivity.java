@@ -109,7 +109,7 @@ public class TaskToDoDetailsActivity extends MenuNavigationTemplate implements V
         navigationView.bringToFront();
         drawerLayout = findViewById(R.id.dl_drawer_layout);
         toolbar = findViewById(R.id.toolBar);
-        toolbar.setTitle("My announcements");
+        toolbar.setTitle("Task to be performed");
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,(R.string.open), (R.string.close));
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
