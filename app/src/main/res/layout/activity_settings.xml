@@ -117,7 +117,7 @@
 
             <Button
                 android:id="@+id/settings_chooseAvatarBtn"
-                android:layout_width="159dp"
+                android:layout_width="216dp"
                 android:layout_height="38dp"
                 android:layout_gravity="center_vertical"
                 android:text="Choose new picture"
