@@ -443,12 +443,9 @@ public class CreateAnnouncementActivity extends MenuNavigationTemplate implement
                 myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 myDialog.show();
 
-
             }
         }
     }
-
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
