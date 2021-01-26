@@ -1,6 +1,8 @@
 package com.example.helply.menu;
 
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.ColorFilter;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -80,6 +82,7 @@ public class AnnouncementsMainActivity extends MenuNavigationTemplate {
             setProfileImage(bitmap);
 
             initSideBarMenu();
+
 
                 if (mAuth.getUid() != null) {
                 db = FirebaseFirestore.getInstance();
