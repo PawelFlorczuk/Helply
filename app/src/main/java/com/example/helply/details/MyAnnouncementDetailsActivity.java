@@ -216,39 +216,53 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()) {
-//                                                        DocumentReference opinions = db.collection("users").document(taskData[7].split("-")[0]).collection("opinions").document(mAuth.getUid());
-//                                                    DocumentReference opinions = db.collection("users").document(uid).collection("opinions").document(mAuth.getUid());
-                                                    CollectionReference opinions = db.collection("users").document(uid).collection("opinions");
-                                                    HashMap<String, Object> opinion = new HashMap<>();
-                                                    opinion.put("opinion", userOpinion);
-//                                                    opinions.set(opinion).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                    opinions.add(opinion).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                                                        @Override
-                                                        public void onComplete(@NonNull Task<DocumentReference> task) {
-                                                            if (task.isSuccessful()) {
-                                                                DocumentReference delete = db.collection("tasks").document(taskData[7]);
-                                                                delete.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                                    @Override
-                                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                                        if (task.isSuccessful()) {
-                                                                            Toast.makeText(MyAnnouncementDetailsActivity.this, "Task was finished successfully!", Toast.LENGTH_SHORT).show();
-                                                                            startActivity(new Intent(getApplicationContext(), MyAnnouncementsActivity.class));
-                                                                            finish();
-                                                                        } else {
-                                                                            Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task was unsuccessful!", Toast.LENGTH_SHORT).show();
+                                                    if(userOpinion != " ") {
+                                                        CollectionReference opinions = db.collection("users").document(uid).collection("opinions");
+                                                        HashMap<String, Object> opinion = new HashMap<>();
+                                                        opinion.put("opinion", userOpinion);
+                                                        opinions.add(opinion).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<DocumentReference> task) {
+                                                                if (task.isSuccessful()) {
+                                                                    DocumentReference delete = db.collection("tasks").document(taskData[7]);
+                                                                    delete.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                        @Override
+                                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                                            if (task.isSuccessful()) {
+                                                                                Toast.makeText(MyAnnouncementDetailsActivity.this, "Task was finished successfully!", Toast.LENGTH_SHORT).show();
+                                                                                startActivity(new Intent(getApplicationContext(), MyAnnouncementsActivity.class));
+                                                                                finish();
+                                                                            } else {
+                                                                                Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task was unsuccessful!", Toast.LENGTH_SHORT).show();
+                                                                            }
+
                                                                         }
-
-                                                                    }
-                                                                });
-                                                            } else {
-                                                                Map<String, Object> unsuccesfulUser = new HashMap<>();
-                                                                unsuccesfulUser.put("points", points);
-                                                                documentReference.update(unsuccesfulUser);
-                                                                Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task was unsuccessful!", Toast.LENGTH_SHORT).show();
+                                                                    });
+                                                                } else {
+                                                                    Map<String, Object> unsuccesfulUser = new HashMap<>();
+                                                                    unsuccesfulUser.put("points", points);
+                                                                    documentReference.update(unsuccesfulUser);
+                                                                    Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task was unsuccessful!", Toast.LENGTH_SHORT).show();
+                                                                }
                                                             }
-                                                        }
 
-                                                    });
+                                                        });
+                                                    } else {
+                                                        DocumentReference delete = db.collection("tasks").document(taskData[7]);
+                                                        delete.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<Void> task) {
+                                                                if (task.isSuccessful()) {
+                                                                    Toast.makeText(MyAnnouncementDetailsActivity.this, "Task was finished successfully!", Toast.LENGTH_SHORT).show();
+                                                                    startActivity(new Intent(getApplicationContext(), MyAnnouncementsActivity.class));
+                                                                    finish();
+                                                                } else {
+                                                                    Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task was unsuccessful!", Toast.LENGTH_SHORT).show();
+                                                                }
+
+                                                            }
+                                                        });
+                                                    }
                                                 } else {
                                                     Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task was unsuccessful!", Toast.LENGTH_SHORT).show();
                                                 }
