@@ -82,7 +82,11 @@ public class TaskToDoDetailsActivity extends MenuNavigationTemplate implements V
         descriptionTV.setText(data[2]);
         addressTV.setText(data[1]);
         emailPhoneNumberTV.setText(data[4]);
-        dateTV.setText(data[0]);
+
+        String temp [] = data[0].split("T");
+        String res = temp[1].substring(0,5)  + " "+ temp[0]; //.replace("."," ");
+
+        dateTV.setText(res);
         if(data[5].equals("Shopping")) {
             shoppingListTV.setText(data[6]);
             informactionBreedTV.setText("Shopping list");

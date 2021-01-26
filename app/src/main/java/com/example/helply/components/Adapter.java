@@ -3,6 +3,7 @@ package com.example.helply.components;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.helply.R;
@@ -25,8 +27,7 @@ import java.time.LocalDateTime;
 import java.util.Vector;
 
 public class Adapter extends RecyclerView.Adapter<Holder> {
-    public Adapter(Context c, Vector<String[]> v,int is,Bitmap bitmap)
-    {
+    public Adapter(Context c, Vector<String[]> v, int is, Bitmap bitmap) {
         this.c = c;
         this.v = v;
         this.is = is;
@@ -34,6 +35,7 @@ public class Adapter extends RecyclerView.Adapter<Holder> {
         this.bit = bitmap;
 
     }
+
     Bitmap bit;
     Integer windowNum;
     Context c;
@@ -47,7 +49,7 @@ public class Adapter extends RecyclerView.Adapter<Holder> {
         LayoutInflater inflater = LayoutInflater.from(c);
         View view = inflater.inflate(R.layout.announcement_object, parent, false);
         windowNum = windowNum + 1;
-        return new Holder(view,v.get(windowNum), bit);
+        return new Holder(view, v.get(windowNum), bit);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -57,20 +59,42 @@ public class Adapter extends RecyclerView.Adapter<Holder> {
         String[] address = v.get(position)[1].split("-");
         String finalAddress = address[2] + " " + address[3] + " " + address[4];
         String[] timeArray = v.get(position)[0].split("T");
-        String time =  timeArray[0];
+        String time = timeArray[0];
         String timeNow = LocalDateTime.now().toString().split("T")[0];
-        if(time.equals(timeNow)) {
+        if (time.equals(timeNow)) {
             time = "Today";
         } else if (time.equals(LocalDateTime.now().minusDays(1).toString().split("T")[0])) {
             time = "Yesterday";
+        }else {
+            String temp [] = v.get(position)[0].split("T");
+            String res = temp[1].substring(0,5)  + " "+ temp[0]; //.replace("."," ");
+            time = res;
+
         }
 
         holder.address.setText(finalAddress);
         holder.need.setText(v.get(position)[5]);
         holder.time.setText(time);
-
-
         holder.is = is;
+        String announcementType = v.get(position)[5];
+        switch (announcementType) {
+
+            case "Shopping": {
+                holder.announcementObjectCL.setBackgroundColor(Color.rgb(0xFF, 0xC0, 0xCB));
+                break;
+            }
+
+            case "Walking the dog": {
+                holder.announcementObjectCL.setBackgroundColor(Color.rgb(0x00, 0x00, 0x80));
+                break;
+            }
+
+            default: {
+                holder.announcementObjectCL.setBackgroundColor(Color.rgb(0x99, 0x00, 0x80));
+                break;
+            }
+
+        }
 
         String imageID = v.get(position)[7].split("-")[0];
         StorageReference storageReference = FirebaseStorage.getInstance().getReference()
@@ -94,8 +118,6 @@ public class Adapter extends RecyclerView.Adapter<Holder> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
 
 
     }

@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.helply.R;
@@ -22,7 +23,7 @@ public class Holder extends RecyclerView.ViewHolder {
     Integer is;
     String[] data;
     Bitmap bitmap;
-
+    ConstraintLayout announcementObjectCL;
     public Holder(@NonNull View itemView, String[] v,Bitmap bitmap) {
         super(itemView);
         this.data = v;
@@ -31,6 +32,8 @@ public class Holder extends RecyclerView.ViewHolder {
         this.time = itemView.findViewById(R.id.timeTV);
         this.imageView = itemView.findViewById(R.id.personImage);
         this.bitmap = bitmap;
+
+        this.announcementObjectCL = itemView.findViewById(R.id.announcement_object_cl);
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override

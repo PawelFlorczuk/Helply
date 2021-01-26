@@ -90,7 +90,11 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
         descriptionTV.setText(taskData[2]);
         addressTV.setText(taskData[1]);
         emailPhoneNumberTV.setText(taskData[4]);
-        dateTV.setText(taskData[0]);
+        
+        String temp [] = taskData[0].split("T");
+        String res = temp[1].substring(0,5)  + " "+ temp[0]; //.replace("."," ");
+
+        dateTV.setText(res);
         if (taskData[5].equals("Shopping")) {
             shoppingListTV.setText(taskData[6]);
             informactionBreedTV.setText("Shopping list");

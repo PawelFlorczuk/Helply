@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -468,6 +469,8 @@ public class CreateAnnouncementActivity extends MenuNavigationTemplate implement
             addressTV.setVisibility(View.VISIBLE);
             addressBtn.setText(R.string.change_address);
             yourAddressTV.setText(result);
+            yourAddressTV.setTypeface(null, Typeface.NORMAL);
+
             this.address = country + "-" + partOfCountry + "-" + city + "-"
                     + street  + "-"+  number;
         }

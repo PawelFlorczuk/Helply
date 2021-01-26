@@ -5,14 +5,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="20dp"
     android:layout_height="150dp"
-    app:cardCornerRadius="25dp">
+    app:cardCornerRadius="25dp"
+
+    >
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="161dp"
-        android:background="@color/white">
-
+        android:id="@+id/announcement_object_cl"
+        >
 
         <TextView
             android:id="@+id/nickTV"
