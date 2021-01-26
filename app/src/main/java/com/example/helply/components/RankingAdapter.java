@@ -66,7 +66,7 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingHolder> {
 
     @Override
     public int getItemCount() {
-        return v.size();
+        return 5;
     }
 }
 

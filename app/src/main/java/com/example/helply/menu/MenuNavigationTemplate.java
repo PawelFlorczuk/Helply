@@ -93,28 +93,24 @@ public class MenuNavigationTemplate extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), AnnouncementsMainActivity.class);
                       //  intent.putExtra("Bitmap", bitmap);
                         startActivity(intent);
-                        finish();
                         break;
                     }
                     case R.id.my_announcements_card_view_menu: {
                         Intent intent = new Intent(getApplicationContext(), MyAnnouncementsActivity.class);
                      //   intent.putExtra("Bitmap", bitmap);
                         startActivity(intent);
-                        finish();
                         break;
                     }
                     case R.id.create_announcement_card_view_menu: {
                         Intent intent = new Intent(getApplicationContext(), CreateAnnouncementActivity.class);
                       //  intent.putExtra("Bitmap", bitmap);
                         startActivity(intent);
-                        finish();
                         break;
                     }
                     case R.id.tasks_to_be_performed_card_view_menu: {
                         Intent intent = new Intent(getApplicationContext(), TasksToDoActivity.class);
                       //  intent.putExtra("Bitmap", bitmap);
                         startActivity(intent);
-                        finish();
                         break;
                     }
 
@@ -122,7 +118,6 @@ public class MenuNavigationTemplate extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
                       //  intent.putExtra("Bitmap", bitmap);
                         startActivity(intent);
-                        finish();
                         break;
                     }
 
@@ -130,7 +125,6 @@ public class MenuNavigationTemplate extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), RankingActivity.class);
                         //intent.putExtra("Bitmap", bitmap);
                         startActivity(intent);
-                        finish();
                         break;
                     }
 

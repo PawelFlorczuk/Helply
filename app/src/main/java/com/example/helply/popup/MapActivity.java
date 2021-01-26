@@ -22,6 +22,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -45,11 +46,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             public void onClick(View v) {
 
                 String address = addressList.get(0).toString();
-                if(!address.split(",")[10].split("=")[1].equals("Poland") && !address.split(",")[10].split("=")[1].equals("Polska")) {
-                    Toast.makeText(getApplicationContext(), "You can only choose place from Poland", Toast.LENGTH_LONG).show();
+                addressList.get(0).getCountryName();
+                if(!addressList.get(0).getCountryName().equals("Poland") && !addressList.get(0).getCountryName().equals("Polska")) {
+                    Toast.makeText(getApplicationContext(), "You can only choose place from Poland or you have written bad address", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if(address.split(",")[10].split("=")[1] == null || address.split(",")[7].split("=")[1] == null ||
+                if(addressList.get(0).getCountryName() == null || address.split(",")[7].split("=")[1] == null ||
                         address.split(",")[6].split("=")[1] == null ||  address.split(",")[3].split("=")[1] == null ||
                         address.split(",")[4].split("=")[1] == null) {
                     Toast.makeText(getApplicationContext(), "Address should be written like this :\"Country City Street Street number \"", Toast.LENGTH_LONG).show();

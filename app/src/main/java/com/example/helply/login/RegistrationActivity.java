@@ -91,6 +91,11 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             Toast.makeText(RegistrationActivity.this, "Passwords are not the same", Toast.LENGTH_SHORT).show();
             return;
         }
+        if(login.length() > 12) {
+            progressBar.setVisibility(View.INVISIBLE);
+            Toast.makeText(RegistrationActivity.this, "Login length can't be more than 12 characters", Toast.LENGTH_SHORT).show();
+            return;
+        }
         if(email.equals("")) {
             progressBar.setVisibility(View.INVISIBLE);
             Toast.makeText(RegistrationActivity.this,"Email is empty", Toast.LENGTH_SHORT).show();
