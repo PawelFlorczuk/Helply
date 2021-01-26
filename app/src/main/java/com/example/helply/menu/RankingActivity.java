@@ -70,7 +70,7 @@ public class RankingActivity extends MenuNavigationTemplate {
         setProfileImage(bitmap);
 
         this.initSideBarMenu();
-        toolbar.setTitleTextColor(Color.BLACK);
+        toolbar.setTitleTextColor(Color.WHITE);
 
 
         Task<QuerySnapshot> documentReference = db.collection("users").get();

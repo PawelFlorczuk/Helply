@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dl_drawer_layout"
     android:layout_width="match_parent"
+    android:background="#FFCC99"
 
     android:layout_height="match_parent">
 
@@ -25,6 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
+
             android:layout_marginRight="20dp"
             app:cardBackgroundColor="@color/quantum_orange200"
             app:cardCornerRadius="25dp">
@@ -46,6 +48,7 @@
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cv_1"
+
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -431,7 +434,7 @@
                         android:textAllCaps="false"
                         android:background="@drawable/buttonstyle"
                         app:layout_constraintHorizontal_bias="0.498"
-                        android:textColor="@color/purple_200"
+                        android:textColor="@color/white"
 
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -456,7 +459,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/quantum_orange100"
+        android:background="#FFCC99"
         android:fitsSystemWindows="true">
         <!--        app:headerLayout="@layout/sidebar_header">-->
 

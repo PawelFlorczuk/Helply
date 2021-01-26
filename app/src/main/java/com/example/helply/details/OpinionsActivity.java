@@ -81,7 +81,7 @@ public class OpinionsActivity extends MenuNavigationTemplate {
             setProfileImage(bitmap);
 
             initSideBarMenu();
-        toolbar.setTitleTextColor(Color.BLACK);
+        toolbar.setTitleTextColor(Color.WHITE);
 
             if (mAuth.getUid() != null) {
                 db = FirebaseFirestore.getInstance();

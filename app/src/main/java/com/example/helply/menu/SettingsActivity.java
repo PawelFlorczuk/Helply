@@ -143,7 +143,7 @@ public class SettingsActivity extends MenuNavigationTemplate implements View.OnC
 
 
         this.initSideBarMenu();
-        toolbar.setTitleTextColor(Color.BLACK);
+        toolbar.setTitleTextColor(Color.WHITE);
 
     }
 

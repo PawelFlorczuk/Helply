@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="400dp"
-        android:background="@color/quantum_orange100">
+        android:background="#FFCC99">
 
         <Button
             android:id="@+id/save_shopping_list"

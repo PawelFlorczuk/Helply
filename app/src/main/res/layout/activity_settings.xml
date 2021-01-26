@@ -13,7 +13,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/quantum_orange100"
+            android:background="#FFCC99"
 
             >
 
@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="216dp"
                 android:text="@string/change_password"
-                android:textColor="@color/purple_200"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
@@ -118,7 +118,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:background="@drawable/buttonstyle"
-                android:textColor="@color/purple_200"
+                android:textColor="@color/white"
 
                 app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
@@ -129,7 +129,7 @@
                 android:id="@+id/settings_chooseAvatarBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/purple_200"
+                android:textColor="@color/white"
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/buttonstyle"
                 android:text="Choose new picture"
@@ -167,7 +167,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/quantum_orange100"
+        android:background="#FFCC99"
         android:fitsSystemWindows="true">
         <!--        app:headerLayout="@layout/sidebar_header">-->
 

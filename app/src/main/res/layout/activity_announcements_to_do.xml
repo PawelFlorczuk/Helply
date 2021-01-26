@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/dl_drawer_layout"
+    android:background="#FFCC99"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,6 +13,7 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             layout="@layout/main_toolbar"
+
             />
     </LinearLayout>
 
@@ -21,7 +23,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        android:background="@color/quantum_orange100">
+        android:background="#FFCC99">
         <!--        app:headerLayout="@layout/sidebar_header">-->
 
         <include

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/dl_drawer_layout"
-    android:background="@color/quantum_orange100"
+    android:background="#FFCC99"
 
 
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -23,7 +23,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="@color/quantum_orange100"
+            android:background="#FFCC99"
+            android:clipChildren="false"
+            android:clipToPadding="false"
             >
 
             <include
@@ -38,6 +40,9 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
+
+                android:clipChildren="false"
+                android:clipToPadding="false"
                 >
 
                 <TextView
@@ -68,9 +73,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
+                    android:textAllCaps="false"
                     android:background="@drawable/buttonstyle"
                     android:text="Create list"
-                    android:textColor="@color/purple_200"
+                    android:textColor="@color/white"
                     android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -84,7 +90,7 @@
                     android:background="@drawable/buttonstyle"
                     android:text="Press to set address"
                     android:textAllCaps="false"
-                    android:textColor="@color/purple_200"
+                    android:textColor="@color/white"
                     android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -168,8 +174,10 @@
                     android:layout_marginTop="8dp"
                     android:background="@drawable/buttonstyle"
                     android:text="Create"
-                    android:textColor="@color/purple_200"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
                     android:visibility="invisible"
+                    android:layout_marginBottom="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.497"
                     app:layout_constraintStart_toStartOf="parent"
@@ -234,7 +242,9 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        android:background="@color/quantum_orange100">
+        android:background="#FFCC99"
+
+        >
 <!--        app:headerLayout="@layout/sidebar_header">-->
 
         <include

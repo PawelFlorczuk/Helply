@@ -4,16 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="#FFCC99"
+
     >
 
     <ImageView
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"
         android:id="@+id/popWindowImage"
-        app:srcCompat="@drawable/user_default_logo"/>
+        app:srcCompat="@drawable/applogo"/>
 
     <TextView
         android:layout_below="@+id/popWindowImage"
@@ -21,17 +22,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:text="Write your contact details" />
 
     <EditText
         android:id="@+id/contactET"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/textContact"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:layout_marginRight="50dp"
         android:ems="10"
         android:gravity="start|top"
@@ -42,7 +43,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="400dp"
-        android:background="@color/quantum_orange100">
+        android:background="#FFCC99"
+        >
 
         <Button
             android:id="@+id/saveContactET"
@@ -51,6 +53,8 @@
             android:text="Save"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/buttonstyle"
+            android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

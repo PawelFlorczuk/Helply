@@ -65,7 +65,7 @@ public class TasksToDoActivity extends MenuNavigationTemplate {
         setProfileImage(bitmap);
 
         this.initSideBarMenu();
-        toolbar.setTitleTextColor(Color.BLACK);
+        toolbar.setTitleTextColor(Color.WHITE);
 
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();

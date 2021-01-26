@@ -120,7 +120,7 @@ public class TaskToDoDetailsActivity extends MenuNavigationTemplate implements V
         user = FirebaseAuth.getInstance().getCurrentUser();
 
         this.initSideBarMenu();
-        toolbar.setTitleTextColor(Color.BLACK);
+        toolbar.setTitleTextColor(Color.WHITE);
 
         View headerView = navigationView.inflateHeaderView(R.layout.sidebar_header);
         profileImage = (CircleImageView) headerView.findViewById(R.id.profileImage);

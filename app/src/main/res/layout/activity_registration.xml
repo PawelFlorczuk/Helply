@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="#FFCC99"
     tools:context=".login.RegistrationActivity">
 
 
@@ -18,21 +18,25 @@
         app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/user_default_logo" />
+        app:srcCompat="@drawable/applogo" />
 
     <Button
         android:id="@+id/registerBtn"
         android:layout_width="125dp"
         android:layout_height="48dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/buttonstyle"
         android:text="@string/register"
         android:textAllCaps="false"
+        android:textColor="@color/white"
         android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/termsOfUseChckBox" />
 
     <EditText
+        android:textColor="#2548AF"
+
         android:id="@+id/emailET"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -51,6 +55,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:textColor="#2548AF"
+
         android:ems="10"
         android:hint="Nickame"
         android:importantForAutofill="no"
@@ -68,6 +74,8 @@
         android:ems="10"
         android:hint="Password"
         android:importantForAutofill="no"
+        android:textColor="#2548AF"
+
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -85,9 +93,9 @@
         android:shadowDy="0"
         android:shadowRadius="0"
         android:text="@string/sign_in"
-        android:textColor="#2196F3"
+        android:textColor="@color/white"
         android:textColorHint="#FFFFFF"
-        app:backgroundTint="#00FFFFFF"
+        android:background="@drawable/buttonstyle"
         app:elevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -103,6 +111,8 @@
         android:hint="Confirm password"
         android:importantForAutofill="no"
         android:inputType="textPassword"
+        android:textColor="#2548AF"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -115,6 +125,7 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="50dp"
+        android:textColor="#2548AF"
         android:text="@string/i_agree_the_general_terms_of_use"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
