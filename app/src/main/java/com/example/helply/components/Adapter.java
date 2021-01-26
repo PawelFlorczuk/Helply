@@ -80,17 +80,17 @@ public class Adapter extends RecyclerView.Adapter<Holder> {
         switch (announcementType) {
 
             case "Shopping": {
-                holder.announcementObjectCL.setBackgroundColor(Color.rgb(0xFF, 0xC0, 0xCB));
+                holder.announcementObjectCL.setBackgroundColor(Color.rgb(89, 79, 66));
                 break;
             }
 
             case "Walking the dog": {
-                holder.announcementObjectCL.setBackgroundColor(Color.rgb(0x00, 0x00, 0x80));
+                holder.announcementObjectCL.setBackgroundColor(Color.rgb(103, 79, 45));
                 break;
             }
 
             default: {
-                holder.announcementObjectCL.setBackgroundColor(Color.rgb(0x99, 0x00, 0x80));
+                holder.announcementObjectCL.setBackgroundColor(Color.rgb(115, 79, 45));
                 break;
             }
 

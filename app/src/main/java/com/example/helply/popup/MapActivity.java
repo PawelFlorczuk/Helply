@@ -48,7 +48,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 String address = addressList.get(0).toString();
                 addressList.get(0).getCountryName();
                 if(!addressList.get(0).getCountryName().equals("Poland") && !addressList.get(0).getCountryName().equals("Polska")) {
-                    Toast.makeText(getApplicationContext(), "You can only choose place from Poland or you have written bad address", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "You can only choose a place in Poland or you have mistyped your address", Toast.LENGTH_LONG).show();
                     return;
                 }
                 if(addressList.get(0).getCountryName() == null || address.split(",")[7].split("=")[1] == null ||

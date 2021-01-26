@@ -5,7 +5,7 @@
     android:id="@+id/dl_drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/quantum_orange100"
+    android:background="#FFCC99"
     >
 
 
@@ -114,7 +114,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="100dp"
-                android:text="@string/change_nick"
+                android:text="New nickname"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:background="@drawable/buttonstyle"

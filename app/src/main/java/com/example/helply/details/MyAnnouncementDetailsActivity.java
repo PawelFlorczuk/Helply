@@ -120,7 +120,7 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
             taken = true;
 
         } else {
-            addBtn.setText("Delete annoucement");
+            addBtn.setText("Delete announcement");
             addBtn.setVisibility(View.VISIBLE);
             taken = false;
         }
@@ -168,11 +168,11 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()) {
-                            Toast.makeText(MyAnnouncementDetailsActivity.this, "Successfully task is removed", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MyAnnouncementDetailsActivity.this, "Task was removed successfully", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), MyAnnouncementsActivity.class));
                             finish();
                         } else {
-                            Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task is unsuccessful", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task was unsuccessful", Toast.LENGTH_SHORT).show();
 
                         }
                     }
@@ -231,11 +231,11 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
                                                                     @Override
                                                                     public void onComplete(@NonNull Task<Void> task) {
                                                                         if (task.isSuccessful()) {
-                                                                            Toast.makeText(MyAnnouncementDetailsActivity.this, "Successfully task is finished", Toast.LENGTH_SHORT).show();
+                                                                            Toast.makeText(MyAnnouncementDetailsActivity.this, "Task was finished successfully!", Toast.LENGTH_SHORT).show();
                                                                             startActivity(new Intent(getApplicationContext(), MyAnnouncementsActivity.class));
                                                                             finish();
                                                                         } else {
-                                                                            Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task is unsuccessful!", Toast.LENGTH_SHORT).show();
+                                                                            Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task was unsuccessful!", Toast.LENGTH_SHORT).show();
                                                                         }
 
                                                                     }
@@ -244,13 +244,13 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
                                                                 Map<String, Object> unsuccesfulUser = new HashMap<>();
                                                                 unsuccesfulUser.put("points", points);
                                                                 documentReference.update(unsuccesfulUser);
-                                                                Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task is unsuccessful!", Toast.LENGTH_SHORT).show();
+                                                                Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task was unsuccessful!", Toast.LENGTH_SHORT).show();
                                                             }
                                                         }
 
                                                     });
                                                 } else {
-                                                    Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task is unsuccessful!", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task was unsuccessful!", Toast.LENGTH_SHORT).show();
                                                 }
                                             }
                                         });
@@ -261,7 +261,7 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
                                 db.collection("tasks").document(taskData[7]).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
-                                        Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task is unsuccessful!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task was unsuccessful!", Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(getApplicationContext(), MyAnnouncementsActivity.class));
                                         finish();
                                     }

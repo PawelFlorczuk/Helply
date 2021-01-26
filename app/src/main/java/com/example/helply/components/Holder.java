@@ -23,7 +23,7 @@ public class Holder extends RecyclerView.ViewHolder {
     Integer is;
     String[] data;
     Bitmap bitmap;
-    ConstraintLayout announcementObjectCL;
+    ImageView announcementObjectCL;
     public Holder(@NonNull View itemView, String[] v,Bitmap bitmap) {
         super(itemView);
         this.data = v;

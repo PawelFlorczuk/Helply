@@ -123,7 +123,7 @@ public class CreateAnnouncementActivity extends MenuNavigationTemplate implement
         bitmap = intent.getParcelableExtra("Bitmap");
         setProfileImage(bitmap);
 
-        String[] spinnerString = {"Choose kind of help","Walking the dog", "Shopping", "Other"};
+        String[] spinnerString = {"Choose type of help","Walking the dog", "Shopping", "Other"};
         spinner.setAdapter(new ArrayAdapter<>(CreateAnnouncementActivity.this,
                 android.R.layout.simple_spinner_dropdown_item, spinnerString));
 
@@ -274,11 +274,11 @@ public class CreateAnnouncementActivity extends MenuNavigationTemplate implement
                 return;
             }
             if (description.equals("") || description.equals(" ") || description == null) {
-                Toast.makeText(getApplicationContext(), "The description can't be empty" ,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "The description cannot be empty" ,Toast.LENGTH_SHORT).show();
                 return;
             }
             if (emailPhoneNumber.equals("") || emailPhoneNumber.equals(" ")|| emailPhoneNumber == null) {
-                Toast.makeText(getApplicationContext(), "The phone number or email form can't be empty" ,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "The phone number or email field cannot be empty" ,Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -288,7 +288,7 @@ public class CreateAnnouncementActivity extends MenuNavigationTemplate implement
                     need = helpKindET.getText().toString();
                     this.needString = need;
                     if (need.equals("") || need.equals(" ") || need == null) {
-                        Toast.makeText(getApplicationContext(), "The breed of the dog can't be empty" ,Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "The breed of the dog field cannot be empty" ,Toast.LENGTH_SHORT).show();
                         return;
                     }
                     break;
@@ -298,7 +298,7 @@ public class CreateAnnouncementActivity extends MenuNavigationTemplate implement
                     need = this.shoppingList;
                     this.needString = need;
                     if (need.equals("") || need.equals(" ")|| need == null) {
-                        Toast.makeText(getApplicationContext(), "The list can't be empty" ,Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "The list field cannot be empty" ,Toast.LENGTH_SHORT).show();
                         return;
                     }
 
@@ -309,7 +309,7 @@ public class CreateAnnouncementActivity extends MenuNavigationTemplate implement
                     need = helpKindET.getText().toString();
                     this.needString = need;
                     if (need.equals("") || need.equals(" ")|| need == null) {
-                        Toast.makeText(getApplicationContext(), "The kind of the help can't be empty" ,Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "The type of the help field cannot be empty" ,Toast.LENGTH_SHORT).show();
                         return;
                     }
                     break;
@@ -340,9 +340,6 @@ public class CreateAnnouncementActivity extends MenuNavigationTemplate implement
                                     Toast.makeText(CreateAnnouncementActivity.this, "Announcement created!", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(getApplicationContext(), AnnouncementsMainActivity.class));
                                     finish();
-                                    finish();
-
-
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
@@ -419,7 +416,7 @@ public class CreateAnnouncementActivity extends MenuNavigationTemplate implement
 
                 TextView txtclose;
                 txtclose =(TextView) myDialog.findViewById(R.id.txtclose);
-                txtclose.setText("M");
+                txtclose.setText("X");
 
                 TextView shoppingListTV = (TextView) myDialog.findViewById(R.id.shopping_list_edit_text);
                 txtclose.setOnClickListener(new View.OnClickListener() {

@@ -62,7 +62,7 @@ public class FinishTaskPopUpWindow extends Activity {
                 String point, description;
                 description = opinionET.getText().toString();
                 if(opinionCB.isChecked() && (description.equals("") || description.equals(" ") || description == null)) {
-                    Toast.makeText(getApplicationContext(),"Description can't be null", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Description field cannot be empty", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(!opinionCB.isChecked()) {

@@ -103,8 +103,7 @@ public class OpinionsActivity extends MenuNavigationTemplate {
                                 i++;
                             }
                             if(i == 0) {
-                                Toast.makeText(getApplicationContext(),"This volunteer haven't got any opinions",Toast.LENGTH_SHORT).show();
-                                Toast.makeText(getApplicationContext(),id,Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(),"This volunteer hasn't got any opinions",Toast.LENGTH_SHORT).show();
                             }
                             adapter = new OpinionsAdapter(OpinionsActivity.this, datalist);
                             recyclerView.setAdapter(adapter);
@@ -112,8 +111,7 @@ public class OpinionsActivity extends MenuNavigationTemplate {
 
                     });
                 } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(),"This volunteer haven't got any opinions",Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getApplicationContext(),id,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"This volunteer hasn't got any opinions",Toast.LENGTH_SHORT).show();
                 }
             } else {
             }

@@ -93,17 +93,17 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         }
         if(login.length() > 12) {
             progressBar.setVisibility(View.INVISIBLE);
-            Toast.makeText(RegistrationActivity.this, "Login length can't be more than 12 characters", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegistrationActivity.this, "Login cannot be more than 12 characters", Toast.LENGTH_SHORT).show();
             return;
         }
         if(email.equals("")) {
             progressBar.setVisibility(View.INVISIBLE);
-            Toast.makeText(RegistrationActivity.this,"Email is empty", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegistrationActivity.this,"Email field is empty", Toast.LENGTH_SHORT).show();
             return;
         }
         if(password.equals("")) {
             progressBar.setVisibility(View.INVISIBLE);
-            Toast.makeText(RegistrationActivity.this,"Password is empty", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegistrationActivity.this,"Password field is empty", Toast.LENGTH_SHORT).show();
             return;
         }
         if(password.length() < 6) {

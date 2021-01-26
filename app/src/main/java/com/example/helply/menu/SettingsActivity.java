@@ -175,14 +175,14 @@ public class SettingsActivity extends MenuNavigationTemplate implements View.OnC
                         if(task.isSuccessful()) {
                             String oldLogin = (String) task.getResult().get("login");
                             if(oldLogin.equals(newLogin)) {
-                                Toast.makeText(getApplicationContext(), "New nick can't equals to the old one",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "New nickname cannot equal to the old one",Toast.LENGTH_SHORT).show();
                             } else {
                                 DocumentReference checkExistsLogin = db.collection("logins").document(newLogin);
                                 checkExistsLogin.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                     @Override
                                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                         if(task.getResult().exists()) {
-                                            Toast.makeText(SettingsActivity.this, "This nick already exists", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(SettingsActivity.this, "This nickname already exists", Toast.LENGTH_SHORT).show();
                                         } else {
                                             Map<String, Object> log = new HashMap<>();
                                             DocumentReference newLoginCreate = db.collection("logins").document(newLogin);
@@ -201,7 +201,7 @@ public class SettingsActivity extends MenuNavigationTemplate implements View.OnC
                                                                     @Override
                                                                     public void onComplete(@NonNull Task<Void> task) {
                                                                         if(task.isSuccessful()) {
-                                                                            Toast.makeText(SettingsActivity.this, "You successfully changed your nick", Toast.LENGTH_SHORT).show();
+                                                                            Toast.makeText(SettingsActivity.this, "You changed your nickname successfully", Toast.LENGTH_SHORT).show();
                                                                             startActivity(new Intent(getApplicationContext(), AnnouncementsMainActivity.class));
                                                                             finish();
                                                                         } else {
@@ -215,7 +215,7 @@ public class SettingsActivity extends MenuNavigationTemplate implements View.OnC
 
                                                                                 }
                                                                             });
-                                                                            Toast.makeText(SettingsActivity.this, "Your old login doesn't exist", Toast.LENGTH_SHORT).show();
+                                                                            Toast.makeText(SettingsActivity.this, "Your old nickname does not exist", Toast.LENGTH_SHORT).show();
 
                                                                         }
                                                                     }

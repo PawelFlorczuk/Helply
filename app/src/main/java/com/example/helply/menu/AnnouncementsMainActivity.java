@@ -65,7 +65,7 @@ public class AnnouncementsMainActivity extends MenuNavigationTemplate {
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             toolbar = findViewById(R.id.toolBar);
 
-            toolbar.setTitleTextColor(Color.BLACK);
+            toolbar.setTitleTextColor(Color.WHITE);
 
             toolbar.setTitle("Announcements");
             actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, (R.string.open), (R.string.close));

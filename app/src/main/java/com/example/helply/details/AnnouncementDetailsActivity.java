@@ -165,7 +165,7 @@ public class AnnouncementDetailsActivity extends MenuNavigationTemplate implemen
             SharedPreferences preferences = getSharedPreferences("VolunteerContact",MODE_PRIVATE);
             String contact = preferences.getString("volunteer_contact","Contact");
             if(contact == null || contact.equals("") || contact.equals(" ") || contact.equals("Contact")) {
-                Toast.makeText(AnnouncementDetailsActivity.this, "The contact can't be empty", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AnnouncementDetailsActivity.this, "The contact field cannot be empty", Toast.LENGTH_SHORT).show();
                 return;
             }
 

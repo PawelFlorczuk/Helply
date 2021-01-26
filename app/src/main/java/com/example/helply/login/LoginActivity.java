@@ -63,12 +63,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         if(email.equals("")) {
             progressBar.setVisibility(View.INVISIBLE);
-            Toast.makeText(LoginActivity.this,"Email is empty", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this,"Email field is empty", Toast.LENGTH_SHORT).show();
             return;
         }
         if(password.equals("")) {
             progressBar.setVisibility(View.INVISIBLE);
-            Toast.makeText(LoginActivity.this,"Password is empty", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this,"Password field is empty", Toast.LENGTH_SHORT).show();
             return;
         }
         if(password.length() < 6) {
