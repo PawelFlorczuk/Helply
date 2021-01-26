@@ -1,5 +1,6 @@
 package com.example.helply.menu;
 
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -63,6 +64,9 @@ public class AnnouncementsMainActivity extends MenuNavigationTemplate {
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             toolbar = findViewById(R.id.toolBar);
+
+            toolbar.setTitleTextColor(Color.BLACK);
+
             toolbar.setTitle("Announcements");
             actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, (R.string.open), (R.string.close));
             drawerLayout.addDrawerListener(actionBarDrawerToggle);
