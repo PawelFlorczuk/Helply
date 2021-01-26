@@ -33,12 +33,15 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -109,6 +112,33 @@ public class SettingsActivity extends MenuNavigationTemplate implements View.OnC
         Intent intent = getIntent();
         bitmap = intent.getParcelableExtra("Bitmap");
         setProfileImage(bitmap);
+
+
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference()
+                .child("profileImage")
+                .child(user.getUid() + ".jpg");
+
+        try {
+            final File image = File.createTempFile(user.getUid(), ".jpg");
+            storageReference.getFile(image).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    Bitmap result = BitmapFactory.decodeFile(image.getAbsolutePath());
+                    if(avatar != null) {
+                        bitmap = result;
+                        avatar.setImageBitmap(bitmap);
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    avatar.setImageResource(R.drawable.user_default_logo);
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
 
         this.initSideBarMenu();
