@@ -216,7 +216,7 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()) {
-                                                    if(userOpinion != " ") {
+                                                    if(!userOpinion.equals(" ")) {
                                                         CollectionReference opinions = db.collection("users").document(uid).collection("opinions");
                                                         HashMap<String, Object> opinion = new HashMap<>();
                                                         opinion.put("opinion", userOpinion);
