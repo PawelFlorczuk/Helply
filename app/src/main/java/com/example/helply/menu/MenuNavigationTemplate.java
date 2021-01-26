@@ -26,6 +26,7 @@ import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 
@@ -90,46 +91,53 @@ public class MenuNavigationTemplate extends AppCompatActivity {
                 switch (v.getId()) {
                     case R.id.announcements_card_view_menu: {
                         Intent intent = new Intent(getApplicationContext(), AnnouncementsMainActivity.class);
-                        intent.putExtra("Bitmap", bitmap);
+                      //  intent.putExtra("Bitmap", bitmap);
                         startActivity(intent);
+                        finish();
                         break;
                     }
                     case R.id.my_announcements_card_view_menu: {
                         Intent intent = new Intent(getApplicationContext(), MyAnnouncementsActivity.class);
-                        intent.putExtra("Bitmap", bitmap);
+                     //   intent.putExtra("Bitmap", bitmap);
                         startActivity(intent);
+                        finish();
                         break;
                     }
                     case R.id.create_announcement_card_view_menu: {
                         Intent intent = new Intent(getApplicationContext(), CreateAnnouncementActivity.class);
-                        intent.putExtra("Bitmap", bitmap);
+                      //  intent.putExtra("Bitmap", bitmap);
                         startActivity(intent);
+                        finish();
                         break;
                     }
                     case R.id.tasks_to_be_performed_card_view_menu: {
                         Intent intent = new Intent(getApplicationContext(), TasksToDoActivity.class);
-                        intent.putExtra("Bitmap", bitmap);
+                      //  intent.putExtra("Bitmap", bitmap);
                         startActivity(intent);
+                        finish();
                         break;
                     }
 
                     case R.id.settings_card_view_menu: {
                         Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-                        intent.putExtra("Bitmap", bitmap);
+                      //  intent.putExtra("Bitmap", bitmap);
                         startActivity(intent);
+                        finish();
                         break;
                     }
 
                     case R.id.best_volunteers_card_view_menu: {
                         Intent intent = new Intent(getApplicationContext(), RankingActivity.class);
-                        intent.putExtra("Bitmap", bitmap);
+                        //intent.putExtra("Bitmap", bitmap);
                         startActivity(intent);
+                        finish();
                         break;
                     }
 
                     case R.id.log_out_card_view_menu: {
                         FirebaseAuth.getInstance().signOut();
                         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                        finish();
                         break;
                     }
                 }

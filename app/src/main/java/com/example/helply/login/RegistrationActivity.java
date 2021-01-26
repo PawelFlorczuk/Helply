@@ -71,9 +71,11 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         switch(view.getId()) {
             case R.id.signInBtn:
                 startActivity(new Intent(this, LoginActivity.class));
+                finish();
                 break;
             case R.id.registerBtn:
                 register();
+                finish();
                 break;
         }
     }

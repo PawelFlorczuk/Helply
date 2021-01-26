@@ -3,6 +3,7 @@ package com.example.helply.menu;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -114,6 +115,8 @@ public class CreateAnnouncementActivity extends MenuNavigationTemplate implement
         profileImage = (CircleImageView) headerView.findViewById(R.id.profileImage);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
+
+
 
         Intent intent = getIntent();
         bitmap = intent.getParcelableExtra("Bitmap");
@@ -335,6 +338,7 @@ public class CreateAnnouncementActivity extends MenuNavigationTemplate implement
                                     Toast.makeText(CreateAnnouncementActivity.this, "Announcement created!", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(getApplicationContext(), AnnouncementsMainActivity.class));
                                     finish();
+                                    finish();
 
 
                                 }
@@ -368,6 +372,7 @@ public class CreateAnnouncementActivity extends MenuNavigationTemplate implement
                                                 public void onSuccess(Void aVoid) {
                                                     Toast.makeText(CreateAnnouncementActivity.this, "Announcement created!", Toast.LENGTH_SHORT).show();
                                                     startActivity(new Intent(getApplicationContext(), AnnouncementsMainActivity.class));
+                                                    finish();
                                                     finish();
 
 

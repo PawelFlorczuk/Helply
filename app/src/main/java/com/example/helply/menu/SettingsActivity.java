@@ -282,9 +282,35 @@ public class SettingsActivity extends MenuNavigationTemplate implements View.OnC
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-            bitmap = Bitmap.createScaledBitmap(bitmap, avatar.getWidth(), avatar.getHeight(), true);
+            int width = bitmap.getWidth();
+            int height = bitmap.getHeight();
+            if(width < 1999 && height < 1999) {
+                width = width / 3;
+                height = height / 3;
+            } else if(width < 2999 && height < 2999) {
+                width = width / 6;
+                height = height / 6;
+            } else if(width < 3999 && height < 3999) {
+                width = width / 9;
+                height = height / 9;
+            } else if(width < 4999 && height < 4999) {
+                width = width / 12;
+                height = height / 12;
+            } else if(width < 5999 && height < 5999) {
+                width = width / 15;
+                height = height / 15;
+            } else if(width < 6999 && height < 6999) {
+                width = width / 18;
+                height = height / 18;
+            } else if(width < 7999 && height < 7999) {
+                width = width / 21;
+                height = height / 21;
+            } else {
+                width = avatar.getWidth();
+                height = avatar.getHeight();
+            }
+            bitmap = Bitmap.createScaledBitmap(bitmap,width, height, true);
             avatar.setImageBitmap(bitmap);
-            Toast.makeText(SettingsActivity.this, "1", Toast.LENGTH_LONG).show();
             handleUpload(bitmap);
 
 
@@ -318,7 +344,6 @@ public class SettingsActivity extends MenuNavigationTemplate implements View.OnC
                 .addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-
                         setUserProfileUrl(uri);
                     }
                 });

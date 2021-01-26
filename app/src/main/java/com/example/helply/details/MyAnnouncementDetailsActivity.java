@@ -164,6 +164,7 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
                         if(task.isSuccessful()) {
                             Toast.makeText(MyAnnouncementDetailsActivity.this, "Successfully task is removed", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), MyAnnouncementsActivity.class));
+                            finish();
                         } else {
                             Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task is unsuccessful", Toast.LENGTH_SHORT).show();
 
@@ -226,6 +227,7 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
                                                                         if (task.isSuccessful()) {
                                                                             Toast.makeText(MyAnnouncementDetailsActivity.this, "Successfully task is finished", Toast.LENGTH_SHORT).show();
                                                                             startActivity(new Intent(getApplicationContext(), MyAnnouncementsActivity.class));
+                                                                            finish();
                                                                         } else {
                                                                             Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task is unsuccessful!", Toast.LENGTH_SHORT).show();
                                                                         }
@@ -255,6 +257,7 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
                                     public void onComplete(@NonNull Task<Void> task) {
                                         Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task is unsuccessful!", Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(getApplicationContext(), MyAnnouncementsActivity.class));
+                                        finish();
                                     }
                                 });
                             }
@@ -268,6 +271,7 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
                         public void onComplete(@NonNull Task<Void> task) {
                             Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task is unsuccessful!", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), MyAnnouncementsActivity.class));
+                            finish();
                         }
                     });
                 }
