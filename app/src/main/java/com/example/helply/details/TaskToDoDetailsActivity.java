@@ -1,6 +1,7 @@
 package com.example.helply.details;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -104,7 +105,7 @@ public class TaskToDoDetailsActivity extends MenuNavigationTemplate implements V
         navigationView.bringToFront();
         drawerLayout = findViewById(R.id.dl_drawer_layout);
         toolbar = findViewById(R.id.toolBar);
-        toolbar.setTitle("My tasks");
+        toolbar.setTitle("My announcements");
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,(R.string.open), (R.string.close));
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
@@ -115,7 +116,7 @@ public class TaskToDoDetailsActivity extends MenuNavigationTemplate implements V
         user = FirebaseAuth.getInstance().getCurrentUser();
 
         this.initSideBarMenu();
-
+        toolbar.setTitleTextColor(Color.BLACK);
 
         View headerView = navigationView.inflateHeaderView(R.layout.sidebar_header);
         profileImage = (CircleImageView) headerView.findViewById(R.id.profileImage);

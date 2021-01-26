@@ -1,6 +1,7 @@
 package com.example.helply.menu;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -64,6 +65,7 @@ public class TasksToDoActivity extends MenuNavigationTemplate {
         setProfileImage(bitmap);
 
         this.initSideBarMenu();
+        toolbar.setTitleTextColor(Color.BLACK);
 
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();

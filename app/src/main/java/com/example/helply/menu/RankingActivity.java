@@ -1,6 +1,7 @@
 package com.example.helply.menu;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -69,6 +70,7 @@ public class RankingActivity extends MenuNavigationTemplate {
         setProfileImage(bitmap);
 
         this.initSideBarMenu();
+        toolbar.setTitleTextColor(Color.BLACK);
 
 
         Task<QuerySnapshot> documentReference = db.collection("users").get();

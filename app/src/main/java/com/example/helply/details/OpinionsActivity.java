@@ -1,6 +1,7 @@
 package com.example.helply.details;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -80,6 +81,7 @@ public class OpinionsActivity extends MenuNavigationTemplate {
             setProfileImage(bitmap);
 
             initSideBarMenu();
+        toolbar.setTitleTextColor(Color.BLACK);
 
             if (mAuth.getUid() != null) {
                 db = FirebaseFirestore.getInstance();

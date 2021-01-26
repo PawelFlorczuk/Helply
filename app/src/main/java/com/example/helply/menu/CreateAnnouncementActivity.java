@@ -128,6 +128,7 @@ public class CreateAnnouncementActivity extends MenuNavigationTemplate implement
 
 
         this.initSideBarMenu();
+        toolbar.setTitleTextColor(Color.BLACK);
 
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

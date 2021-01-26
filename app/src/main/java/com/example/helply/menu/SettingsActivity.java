@@ -10,6 +10,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -142,6 +143,7 @@ public class SettingsActivity extends MenuNavigationTemplate implements View.OnC
 
 
         this.initSideBarMenu();
+        toolbar.setTitleTextColor(Color.BLACK);
 
     }
 

@@ -21,7 +21,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        android:background="@color/quantum_orange300">
+        android:background="@color/quantum_orange100">
         <!--        app:headerLayout="@layout/sidebar_header">-->
 
         <include

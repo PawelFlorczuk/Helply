@@ -2,6 +2,7 @@ package com.example.helply.details;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -116,7 +117,7 @@ public class AnnouncementDetailsActivity extends MenuNavigationTemplate implemen
         navigationView.bringToFront();
         drawerLayout = findViewById(R.id.dl_drawer_layout);
         toolbar = findViewById(R.id.toolBar);
-        toolbar.setTitle("My tasks");
+//        toolbar.setTitle("My tasks");
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,(R.string.open), (R.string.close));
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
@@ -127,6 +128,9 @@ public class AnnouncementDetailsActivity extends MenuNavigationTemplate implemen
         user = FirebaseAuth.getInstance().getCurrentUser();
 
         this.initSideBarMenu();
+        toolbar.setTitleTextColor(Color.BLACK);
+        toolbar.setTitle("Announcement");
+
 
 
         View headerView = navigationView.inflateHeaderView(R.layout.sidebar_header);
