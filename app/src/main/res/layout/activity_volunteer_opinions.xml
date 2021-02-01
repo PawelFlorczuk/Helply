@@ -53,6 +53,14 @@
             android:layout_marginBottom="0dp"
             android:layout_marginTop="70dp"
             />
+        <ProgressBar
+            android:id="@+id/opinionsProgressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="363dp"
+            android:layout_marginBottom="683dp" />
     </RelativeLayout>
 
 

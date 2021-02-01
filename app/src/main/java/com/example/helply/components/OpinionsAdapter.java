@@ -34,6 +34,9 @@ public class OpinionsAdapter  extends RecyclerView.Adapter<OpinionsHolder> {
     @Override
     public void onBindViewHolder(@NonNull OpinionsHolder holder, int position) {
         holder.opinionTV.setText(v.get(position)[0]);
+        String temp [] = v.get(position)[1].split("T");
+        String res = temp[0] + " " + temp[1].substring(0,5); //.replace("."," ");
+        holder.dateTV.setText(res);
     }
 
     @Override

@@ -31,6 +31,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -87,8 +88,13 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
         Intent intent = getIntent();
         taskData = intent.getStringArrayExtra("TaskData");
         kindOfHelpTV.setText(taskData[5]);
-        descriptionTV.setText(taskData[2]);
-        addressTV.setText(taskData[1]);
+        String[] address = taskData[1].split("-");
+        String result = "";
+        for(int i = 0; i < address.length - 2; i++) {
+            result += address[i] + ", ";
+        }
+        result += address[3] + " " + address[4];
+        addressTV.setText(result);
         emailPhoneNumberTV.setText(taskData[4]);
         
         String temp [] = taskData[0].split("T");
@@ -213,6 +219,7 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
                                         Map<String, Object> user = new HashMap<>();
                                         user.put("points", points);
                                         documentReference.update(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @RequiresApi(api = Build.VERSION_CODES.O)
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()) {
@@ -220,6 +227,7 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
                                                         CollectionReference opinions = db.collection("users").document(uid).collection("opinions");
                                                         HashMap<String, Object> opinion = new HashMap<>();
                                                         opinion.put("opinion", userOpinion);
+                                                        opinion.put("date", LocalDateTime.now().toString());
                                                         opinions.add(opinion).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                                                             @Override
                                                             public void onComplete(@NonNull Task<DocumentReference> task) {

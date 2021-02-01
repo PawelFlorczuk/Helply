@@ -1,15 +1,20 @@
 package com.example.helply.menu;
 
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 
 import android.content.Intent;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
@@ -20,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.helply.components.Adapter;
 import com.example.helply.R;
 import com.example.helply.login.LoginActivity;
+import com.example.helply.popup.ChoosePartPopUpWindow;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
@@ -44,6 +50,12 @@ public class AnnouncementsMainActivity extends MenuNavigationTemplate {
     private FirebaseFirestore db;
     private Vector<String[]> datalist;
     private FirebaseAuth mAuth;
+    private ProgressBar progressBar;
+
+    private ImageView refreshView;
+    private ImageView searchView;
+
+    private String partOfCountry;
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -60,19 +72,42 @@ public class AnnouncementsMainActivity extends MenuNavigationTemplate {
             datalist = new Vector<String[]>();
             navigationView = findViewById(R.id.nv_navView);
             navigationView.bringToFront();
-
+            progressBar = findViewById(R.id.mainProgressBar);
+            progressBar.setVisibility(View.VISIBLE);
             drawerLayout = findViewById(R.id.dl_drawer_layout);
             recyclerView = findViewById(R.id.recycledView);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             toolbar = findViewById(R.id.toolBar);
+            partOfCountry = " ";
+            refreshView = findViewById(R.id.refreshView);
+            searchView = findViewById(R.id.searchPartOfCountryView);
 
-            toolbar.setTitleTextColor(Color.WHITE);
+            refreshView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    refresh();
+                }
+            });
+            searchView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivityForResult(new Intent(AnnouncementsMainActivity.this, ChoosePartPopUpWindow.class),1010);
+                }
+            });
+
+            toolbar.setTitleTextColor(Color.DKGRAY);
+
+
 
             toolbar.setTitle("Announcements");
             actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, (R.string.open), (R.string.close));
             drawerLayout.addDrawerListener(actionBarDrawerToggle);
             actionBarDrawerToggle.syncState();
+            ImageView searchView = findViewById(R.id.searchPartOfCountryView);
+            ImageView refreshView = findViewById(R.id.refreshView);
+            refreshView.setVisibility(View.VISIBLE);
+            searchView.setVisibility(View.VISIBLE);
 
             View headerView = navigationView.inflateHeaderView(R.layout.sidebar_header);
             profileImage = (CircleImageView) headerView.findViewById(R.id.profileImage);
@@ -84,15 +119,34 @@ public class AnnouncementsMainActivity extends MenuNavigationTemplate {
             initSideBarMenu();
 
 
-                if (mAuth.getUid() != null) {
-                db = FirebaseFirestore.getInstance();
-                com.google.android.gms.tasks.Task<QuerySnapshot> documentReference = db.collection("tasks").get();
-                documentReference.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                refresh();
 
-                        List<DocumentSnapshot> list = task.getResult().getDocuments();
-                        int i = 0;
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == 1113){
+            SharedPreferences preferences = getSharedPreferences("Province",MODE_PRIVATE);
+            this.partOfCountry = preferences.getString("province"," ");
+            refresh();
+        }
+
+
+    }
+
+    public void refresh() {
+        if (mAuth.getUid() != null) {
+
+            db = FirebaseFirestore.getInstance();
+            com.google.android.gms.tasks.Task<QuerySnapshot> documentReference = db.collection("tasks").orderBy("date").get();
+            documentReference.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    datalist = new Vector<String[]>();
+                    List<DocumentSnapshot> list = task.getResult().getDocuments();
+                    int i = 0;
+                    if (partOfCountry.equals(" ")) {
                         for (DocumentSnapshot doc : list) {
                             if (doc.get("helper").toString().equals(" ")) {
                                 String[] dataString = new String[8];
@@ -109,15 +163,32 @@ public class AnnouncementsMainActivity extends MenuNavigationTemplate {
                             }
                             i++;
                         }
+                    } else {
+                        for (DocumentSnapshot doc : list) {
+                            if (doc.get("helper").toString().equals(" ") && doc.get("address").toString().split("-")[1].equals(partOfCountry)) {
+                                String[] dataString = new String[8];
+                                dataString[0] = doc.get("date").toString();
+                                dataString[1] = doc.get("address").toString();
+                                dataString[2] = doc.get("description").toString();
+                                dataString[3] = doc.get("helper").toString();
+                                dataString[4] = doc.get("emailPhoneNumber").toString();
+                                dataString[5] = doc.get("kindOfHelp").toString();
+                                dataString[6] = doc.get("nameOfHelp").toString();
+                                dataString[7] = doc.getId();
+                                datalist.add(dataString);
 
-                        adapter = new Adapter(AnnouncementsMainActivity.this, datalist, 0,bitmap);
-                        recyclerView.setAdapter(adapter);
+                            }
+                            i++;
+                        }
                     }
 
-                });
-            } else {
-            }
 
+                    adapter = new Adapter(AnnouncementsMainActivity.this, datalist, 0,bitmap);
+                    recyclerView.setAdapter(adapter);
+                    progressBar.setVisibility(View.GONE);
+                }
+
+            });
         }
     }
 

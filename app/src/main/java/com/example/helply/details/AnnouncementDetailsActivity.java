@@ -23,11 +23,14 @@ import com.example.helply.R;
 import com.example.helply.menu.AnnouncementsMainActivity;
 import com.example.helply.menu.MenuNavigationTemplate;
 import com.example.helply.popup.TaskPopUpWindow;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -59,7 +62,7 @@ public class AnnouncementDetailsActivity extends MenuNavigationTemplate implemen
     private Button addBtn;
     private FirebaseAuth mAuth;
 
-    private String [] data;
+    private String [] taskData;
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -89,28 +92,34 @@ public class AnnouncementDetailsActivity extends MenuNavigationTemplate implemen
         addBtn.setOnClickListener(this);
 
         Intent intent = getIntent();
-        data = intent.getStringArrayExtra("TaskData");
-        kindOfHelpTV.setText(data[5]);
-        descriptionTV.setText(data[2]);
-        addressTV.setText(data[1]);
-        emailPhoneNumberTV.setText(data[4]);
+        taskData = intent.getStringArrayExtra("TaskData");
+        kindOfHelpTV.setText(taskData[5]);
+        descriptionTV.setText(taskData[2]);
+        String[] address = taskData[1].split("-");
+        String result = "";
+        for(int i = 0; i < address.length - 2; i++) {
+            result += address[i] + ", ";
+        }
+        result += address[3] + " " + address[4];
+        addressTV.setText(result);
+        emailPhoneNumberTV.setText(taskData[4]);
 
-        String temp [] = data[0].split("T");
+        String temp [] = taskData[0].split("T");
         String res = temp[1].substring(0,5)  + " "+ temp[0]; //.replace("."," ");
 
         dateTV.setText(res);
-        if(data[5].equals("Shopping")) {
-            shoppingListTV.setText(data[6]);
+        if(taskData[5].equals("Shopping")) {
+            shoppingListTV.setText(taskData[6]);
             informactionBreedTV.setText("Shopping list");
             shoppingListTV.setVisibility(View.VISIBLE);
             needTV.setVisibility(View.GONE);
-        } else if(data[5].equals("Walking the dog")){
-            needTV.setText(data[6]);
+        } else if(taskData[5].equals("Walking the dog")){
+            needTV.setText(taskData[6]);
             informactionBreedTV.setText("Walking the dog");
             needTV.setVisibility(View.VISIBLE);
             shoppingListTV.setVisibility(View.GONE);
-        } else if(data[5].equals("Other")) {
-            needTV.setText(data[6]);
+        } else if(taskData[5].equals("Other")) {
+            needTV.setText(taskData[6]);
             informactionBreedTV.setText("Other");
             needTV.setVisibility(View.VISIBLE);
             shoppingListTV.setVisibility(View.GONE);
@@ -125,7 +134,7 @@ public class AnnouncementDetailsActivity extends MenuNavigationTemplate implemen
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,(R.string.open), (R.string.close));
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
-        if(mAuth.getUid().equals(this.data[7].split("-")[0])) {
+        if(mAuth.getUid().equals(this.taskData[7].split("-")[0])) {
             addBtn.setVisibility(View.GONE);
         }
 
@@ -151,7 +160,7 @@ public class AnnouncementDetailsActivity extends MenuNavigationTemplate implemen
     @Override
     public void onClick(View view) {
         if(view.getId() == R.id.takeBtn) {
-            if(!mAuth.getUid().equals(this.data[7].split("-")[0])) {
+            if(!mAuth.getUid().equals(this.taskData[7].split("-")[0])) {
                 startActivityForResult(new Intent(this, TaskPopUpWindow.class), 1003);
             }
         }
@@ -168,34 +177,45 @@ public class AnnouncementDetailsActivity extends MenuNavigationTemplate implemen
                 Toast.makeText(AnnouncementDetailsActivity.this, "The contact field cannot be empty", Toast.LENGTH_SHORT).show();
                 return;
             }
+            DocumentReference get = db.collection("tasks").document(this.taskData[7]);
+            get.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if(task.getResult().get("helper").equals(" ")){
+                        if(!mAuth.getUid().equals(taskData[7].split("-")[0])) {
+                            db = FirebaseFirestore.getInstance();
+                            DocumentReference documentReference = db.collection("tasks").document(taskData[7]);
+                            Map<String, Object> user = new HashMap<>();
 
-            if(!mAuth.getUid().equals(this.data[7].split("-")[0])) {
+                            user.put("helper",mAuth.getUid());
+                            user.put("volunteerContact",contact);
 
-                db = FirebaseFirestore.getInstance();
-                DocumentReference documentReference = db.collection("tasks").document(this.data[7]);
-                Map<String, Object> user = new HashMap<>();
+                            documentReference.update(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(AnnouncementDetailsActivity.this, "Announcement taken successfully", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(getApplicationContext(), AnnouncementsMainActivity.class));
+                                    finish();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(AnnouncementDetailsActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
 
-                user.put("helper",mAuth.getUid());
-                user.put("volunteerContact",contact);
 
-                documentReference.update(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(AnnouncementDetailsActivity.this, "Announcement taken successfully", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getApplicationContext(), AnnouncementsMainActivity.class));
-                        finish();
+                                }
+                            });
+                        } else{
+                            Toast.makeText(AnnouncementDetailsActivity.this, "Taking announcement failed", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(AnnouncementDetailsActivity.this, "This announcement already has a volunteer", Toast.LENGTH_SHORT).show();
                     }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(AnnouncementDetailsActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+                }
+            });
 
 
-                    }
-                });
-            } else{
-                Toast.makeText(AnnouncementDetailsActivity.this, "Taking announcement failed", Toast.LENGTH_SHORT).show();
-            }
+
         }
 
         }

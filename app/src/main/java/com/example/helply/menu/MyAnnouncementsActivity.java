@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -36,6 +37,7 @@ public class MyAnnouncementsActivity extends MenuNavigationTemplate {
     protected NavigationView navigationView;
     protected ActionBarDrawerToggle actionBarDrawerToggle;
     private RecyclerView recyclerView;
+    private ProgressBar progressBar;
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -54,6 +56,8 @@ public class MyAnnouncementsActivity extends MenuNavigationTemplate {
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,(R.string.open), (R.string.close));
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
+        progressBar = findViewById(R.id.myProgressBar);
+        progressBar.setVisibility(View.VISIBLE);
 
         View headerView = navigationView.inflateHeaderView(R.layout.sidebar_header);
         profileImage = (CircleImageView) headerView.findViewById(R.id.profileImage);
@@ -102,6 +106,7 @@ public class MyAnnouncementsActivity extends MenuNavigationTemplate {
 
                     adapter = new Adapter(MyAnnouncementsActivity.this, datalist, 5,bitmap);
                     recyclerView.setAdapter(adapter);
+                    progressBar.setVisibility(View.GONE);
                 }
 
             });

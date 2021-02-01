@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,7 +49,7 @@ public class OpinionsActivity extends MenuNavigationTemplate {
     private Vector<String[]> datalist;
     private FirebaseAuth mAuth;
     private String id;
-
+    private ProgressBar progressBar;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -57,7 +58,8 @@ public class OpinionsActivity extends MenuNavigationTemplate {
             super.onCreate(savedInstanceState);
             user = FirebaseAuth.getInstance().getCurrentUser();
             mAuth = FirebaseAuth.getInstance();
-
+            progressBar = findViewById(R.id.opinionsProgressBar);
+            progressBar.setVisibility(View.VISIBLE);
             datalist = new Vector<String[]>();
             navigationView = findViewById(R.id.nv_navView);
             navigationView.bringToFront();
@@ -86,7 +88,7 @@ public class OpinionsActivity extends MenuNavigationTemplate {
             if (mAuth.getUid() != null) {
                 db = FirebaseFirestore.getInstance();
                 try {
-                    com.google.android.gms.tasks.Task<QuerySnapshot> documentReference = db.collection("users").document(id).collection("opinions").get();
+                    com.google.android.gms.tasks.Task<QuerySnapshot> documentReference = db.collection("users").document(id).collection("opinions").orderBy("date").get();
                     documentReference.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -97,6 +99,7 @@ public class OpinionsActivity extends MenuNavigationTemplate {
 
                                 String[] dataString = new String[8];
                                 dataString[0] = doc.get("opinion").toString();
+                                dataString[1] = doc.get("date").toString();
                                 datalist.add(dataString);
 
 
@@ -107,11 +110,13 @@ public class OpinionsActivity extends MenuNavigationTemplate {
                             }
                             adapter = new OpinionsAdapter(OpinionsActivity.this, datalist);
                             recyclerView.setAdapter(adapter);
+                            progressBar.setVisibility(View.INVISIBLE);
                         }
 
                     });
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(),"This volunteer hasn't got any opinions",Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.VISIBLE);
                 }
             } else {
             }

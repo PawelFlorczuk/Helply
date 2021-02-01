@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -38,6 +39,7 @@ public class RankingActivity extends MenuNavigationTemplate {
     protected ActionBarDrawerToggle actionBarDrawerToggle;
     private RecyclerView recyclerView;
     private FirebaseFirestore db;
+    private ProgressBar progressBar;
 
 
 
@@ -47,6 +49,8 @@ public class RankingActivity extends MenuNavigationTemplate {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranking);
         Vector<String[]> listData = new Vector<String[]>();
+        progressBar = findViewById(R.id.rankingProgressBar);
+        progressBar.setVisibility(View.VISIBLE);
         navigationView = findViewById(R.id.nv_navView);
         navigationView.bringToFront();
         drawerLayout = findViewById(R.id.dl_drawer_layout);
@@ -91,6 +95,7 @@ public class RankingActivity extends MenuNavigationTemplate {
                 }
                 adapter = new RankingAdapter(RankingActivity.this, listData,bitmap);
                 recyclerView.setAdapter(adapter);
+                progressBar.setVisibility(View.INVISIBLE);
             }
         });
     }

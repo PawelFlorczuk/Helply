@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -36,13 +37,15 @@ public class TasksToDoActivity extends MenuNavigationTemplate {
     protected NavigationView navigationView;
     protected ActionBarDrawerToggle actionBarDrawerToggle;
     private RecyclerView recyclerView;
-
+    private ProgressBar progressBar;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_announcements_to_do);
+        progressBar = findViewById(R.id.tasksToDoProgressBar);
+        progressBar.setVisibility(View.VISIBLE);
         navigationView = findViewById(R.id.nv_navView);
         navigationView.bringToFront();
         drawerLayout = findViewById(R.id.dl_drawer_layout);
@@ -54,6 +57,7 @@ public class TasksToDoActivity extends MenuNavigationTemplate {
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,(R.string.open), (R.string.close));
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
+
 
         View headerView = navigationView.inflateHeaderView(R.layout.sidebar_header);
         profileImage = (CircleImageView) headerView.findViewById(R.id.profileImage);
@@ -100,6 +104,7 @@ public class TasksToDoActivity extends MenuNavigationTemplate {
                     }
                     adapter = new Adapter(TasksToDoActivity.this, datalist,1,bitmap);
                     recyclerView.setAdapter(adapter);
+                    progressBar.setVisibility(View.GONE);
                 }
 
 

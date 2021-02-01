@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
@@ -49,6 +50,7 @@ public class TaskToDoDetailsActivity extends MenuNavigationTemplate implements V
     private String [] data;
 
 
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,8 @@ public class TaskToDoDetailsActivity extends MenuNavigationTemplate implements V
 
         contactCV = findViewById(R.id.cv_7);
         contactCV.setVisibility(View.GONE);
+
+
 
         contactTV = findViewById(R.id.contactTV);
         takenTV = findViewById(R.id.takenTV);
