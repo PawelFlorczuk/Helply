@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
@@ -53,7 +54,7 @@ public class MyAnnouncementsActivity extends MenuNavigationTemplate {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         toolbar.setTitle("My announcements");
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,(R.string.open), (R.string.close));
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, (R.string.open), (R.string.close));
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         progressBar = findViewById(R.id.myProgressBar);
@@ -70,6 +71,16 @@ public class MyAnnouncementsActivity extends MenuNavigationTemplate {
 
         this.initSideBarMenu();
 
+        ImageView refresh = findViewById(R.id.refreshView);
+        refresh.setVisibility(View.VISIBLE);
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                refreshMyAnnouncement();
+            }
+
+
+        });
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -86,24 +97,24 @@ public class MyAnnouncementsActivity extends MenuNavigationTemplate {
                     for (DocumentSnapshot doc : list) {
                         if (doc.getId().split("-")[0].equals(mAuth.getUid())) {
 
-                                String[] dataString = new String[9];
-                                dataString[0] = doc.get("date").toString();
-                                dataString[1] = doc.get("address").toString();
-                                dataString[2] = doc.get("description").toString();
-                                dataString[3] = doc.get("helper").toString();
-                                dataString[4] = doc.get("emailPhoneNumber").toString();
-                                dataString[5] = doc.get("kindOfHelp").toString();
-                                dataString[6] = doc.get("nameOfHelp").toString();
-                                dataString[7] = doc.getId();
-                                dataString[8] = doc.get("volunteerContact").toString();
-                                datalist.add(dataString);
+                            String[] dataString = new String[9];
+                            dataString[0] = doc.get("date").toString();
+                            dataString[1] = doc.get("address").toString();
+                            dataString[2] = doc.get("description").toString();
+                            dataString[3] = doc.get("helper").toString();
+                            dataString[4] = doc.get("emailPhoneNumber").toString();
+                            dataString[5] = doc.get("kindOfHelp").toString();
+                            dataString[6] = doc.get("nameOfHelp").toString();
+                            dataString[7] = doc.getId();
+                            dataString[8] = doc.get("volunteerContact").toString();
+                            datalist.add(dataString);
 
 
-                            }
+                        }
                         i++;
                     }
 
-                    adapter = new Adapter(MyAnnouncementsActivity.this, datalist, 5,bitmap);
+                    adapter = new Adapter(MyAnnouncementsActivity.this, datalist, 5, bitmap);
                     recyclerView.setAdapter(adapter);
                     progressBar.setVisibility(View.GONE);
                 }
@@ -113,5 +124,46 @@ public class MyAnnouncementsActivity extends MenuNavigationTemplate {
         }
     }
 
+    public void refreshMyAnnouncement() {
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Vector<String[]> datalist = new Vector<>();
+        if (mAuth.getUid() != null) {
+            db = FirebaseFirestore.getInstance();
+            com.google.android.gms.tasks.Task<QuerySnapshot> documentReference = db.collection("tasks").get();
+            documentReference.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                    List<DocumentSnapshot> list = task.getResult().getDocuments();
+                    int i = 0;
+                    for (DocumentSnapshot doc : list) {
+                        if (doc.getId().split("-")[0].equals(mAuth.getUid())) {
+
+                            String[] dataString = new String[9];
+                            dataString[0] = doc.get("date").toString();
+                            dataString[1] = doc.get("address").toString();
+                            dataString[2] = doc.get("description").toString();
+                            dataString[3] = doc.get("helper").toString();
+                            dataString[4] = doc.get("emailPhoneNumber").toString();
+                            dataString[5] = doc.get("kindOfHelp").toString();
+                            dataString[6] = doc.get("nameOfHelp").toString();
+                            dataString[7] = doc.getId();
+                            dataString[8] = doc.get("volunteerContact").toString();
+                            datalist.add(dataString);
+
+
+                        }
+                        i++;
+                    }
+
+                    adapter = new Adapter(MyAnnouncementsActivity.this, datalist, 5, bitmap);
+                    recyclerView.setAdapter(adapter);
+                    progressBar.setVisibility(View.GONE);
+                }
+
+            });
+        }
+    }
 
 }

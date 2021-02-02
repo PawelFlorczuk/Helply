@@ -1,12 +1,17 @@
 package com.example.helply.details;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -90,15 +95,15 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
         kindOfHelpTV.setText(taskData[5]);
         String[] address = taskData[1].split("-");
         String result = "";
-        for(int i = 0; i < address.length - 2; i++) {
+        for (int i = 0; i < address.length - 2; i++) {
             result += address[i] + ", ";
         }
         result += address[3] + " " + address[4];
         addressTV.setText(result);
         emailPhoneNumberTV.setText(taskData[4]);
-        
-        String temp [] = taskData[0].split("T");
-        String res = temp[1].substring(0,5)  + " "+ temp[0]; //.replace("."," ");
+
+        String temp[] = taskData[0].split("T");
+        String res = temp[1].substring(0, 5) + " " + temp[0]; //.replace("."," ");
 
         dateTV.setText(res);
         if (taskData[5].equals("Shopping")) {
@@ -165,7 +170,177 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
         if (view.getId() == R.id.takeBtn) {
             if (taken) {
                 if (!mAuth.getUid().equals(taskData[3])) {
-                    startActivityForResult(new Intent(this, FinishTaskPopUpWindow.class), 1005);
+
+
+//                    startActivityForResult(new Intent(this, FinishTaskPopUpWindow.class), 1005);
+
+                    Dialog myDialog = new Dialog(this);
+                    myDialog.setContentView(R.layout.acitivity_finish_task_pop_up_window);
+
+
+                    EditText opinionET;
+                    CheckBox opinionCB;
+                    CheckBox pointCB;
+                    Button finishBtn;
+
+                    opinionET = myDialog.findViewById(R.id.opinionET);
+                    opinionCB = myDialog.findViewById(R.id.opinCheckBox);
+                    pointCB = myDialog.findViewById(R.id.pointCheckBox);
+                    finishBtn = myDialog.findViewById(R.id.finishBtn);
+
+                    opinionCB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                            if (isChecked) {
+                                opinionET.setVisibility(View.VISIBLE);
+                            } else {
+                                opinionET.setVisibility(View.INVISIBLE);
+                            }
+                        }
+                    });
+
+
+                    finishBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String point, description;
+                            description = opinionET.getText().toString();
+                            if(opinionCB.isChecked() && (description.equals("") || description.equals(" ") || description == null)) {
+                                Toast.makeText(getApplicationContext(),"Description field cannot be empty", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            if(!opinionCB.isChecked()) {
+                                description = " ";
+                            }
+                            if(pointCB.isChecked()) {
+                                point = "1";
+                            } else {
+                                point = "0";
+                            }
+
+
+                            String userOpinion = description;
+                            if (!mAuth.getUid().equals(taskData[3])) {
+                                db = FirebaseFirestore.getInstance();
+                                DocumentReference documentReference = db.collection("tasks").document(taskData[7]);
+                                if (true) {//checkBox.isChecked()) {
+                                    documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                            DocumentSnapshot doc = task.getResult();
+                                            if (doc.get("helper") != " " && doc.exists() && doc != null) {
+                                                String uid = (String) doc.get("helper");
+                                                DocumentReference documentReference = db.collection("users").document(uid);
+                                                documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                                                        DocumentSnapshot doc = task.getResult();
+                                                        points = (long) doc.get("points");
+                                                        if (point.equals("1")) {
+                                                            points++;
+                                                        }
+                                                        Map<String, Object> user = new HashMap<>();
+                                                        user.put("points", points);
+                                                        documentReference.update(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                            @RequiresApi(api = Build.VERSION_CODES.O)
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<Void> task) {
+                                                                if (task.isSuccessful()) {
+                                                                    if (!userOpinion.equals(" ")) {
+                                                                        CollectionReference opinions = db.collection("users").document(uid).collection("opinions");
+                                                                        HashMap<String, Object> opinion = new HashMap<>();
+                                                                        opinion.put("opinion", userOpinion);
+                                                                        opinion.put("date", LocalDateTime.now().toString());
+                                                                        opinions.add(opinion).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                                                            @Override
+                                                                            public void onComplete(@NonNull Task<DocumentReference> task) {
+                                                                                if (task.isSuccessful()) {
+                                                                                    DocumentReference delete = db.collection("tasks").document(taskData[7]);
+                                                                                    delete.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                                        @Override
+                                                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                                                            if (task.isSuccessful()) {
+                                                                                                Toast.makeText(MyAnnouncementDetailsActivity.this, "Task was finished successfully!", Toast.LENGTH_SHORT).show();
+                                                                                                startActivity(new Intent(getApplicationContext(), MyAnnouncementsActivity.class));
+                                                                                                finish();
+                                                                                            } else {
+                                                                                                Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task was unsuccessful!", Toast.LENGTH_SHORT).show();
+                                                                                            }
+
+                                                                                        }
+                                                                                    });
+                                                                                } else {
+                                                                                    Map<String, Object> unsuccesfulUser = new HashMap<>();
+                                                                                    unsuccesfulUser.put("points", points);
+                                                                                    documentReference.update(unsuccesfulUser);
+                                                                                    Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task was unsuccessful!", Toast.LENGTH_SHORT).show();
+                                                                                }
+                                                                            }
+
+                                                                        });
+                                                                    } else {
+                                                                        DocumentReference delete = db.collection("tasks").document(taskData[7]);
+                                                                        delete.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                            @Override
+                                                                            public void onComplete(@NonNull Task<Void> task) {
+                                                                                if (task.isSuccessful()) {
+                                                                                    Toast.makeText(MyAnnouncementDetailsActivity.this, "Task was finished successfully!", Toast.LENGTH_SHORT).show();
+                                                                                    startActivity(new Intent(getApplicationContext(), MyAnnouncementsActivity.class));
+                                                                                    finish();
+                                                                                } else {
+                                                                                    Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task was unsuccessful!", Toast.LENGTH_SHORT).show();
+                                                                                }
+
+                                                                            }
+                                                                        });
+                                                                    }
+                                                                } else {
+                                                                    Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task was unsuccessful!", Toast.LENGTH_SHORT).show();
+                                                                }
+                                                            }
+                                                        });
+                                                    }
+                                                });
+                                            } else {
+
+                                                db.collection("tasks").document(taskData[7]).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task was unsuccessful!", Toast.LENGTH_SHORT).show();
+                                                        startActivity(new Intent(getApplicationContext(), MyAnnouncementsActivity.class));
+                                                        finish();
+                                                    }
+                                                });
+                                            }
+
+
+                                        }
+                                    });
+                                } else {
+                                    db.collection("tasks").document(taskData[7]).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task is unsuccessful!", Toast.LENGTH_SHORT).show();
+                                            startActivity(new Intent(getApplicationContext(), MyAnnouncementsActivity.class));
+                                            finish();
+                                        }
+                                    });
+                                }
+
+
+                            }
+
+
+                            myDialog.dismiss();
+                        }
+                    });
+
+
+                    myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    myDialog.show();
+
+
                 }
             } else {
                 db = FirebaseFirestore.getInstance();
@@ -173,7 +348,7 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
                 documentReference.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()) {
+                        if (task.isSuccessful()) {
                             Toast.makeText(MyAnnouncementDetailsActivity.this, "Task was removed successfully", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), MyAnnouncementsActivity.class));
                             finish();
@@ -223,7 +398,7 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()) {
-                                                    if(!userOpinion.equals(" ")) {
+                                                    if (!userOpinion.equals(" ")) {
                                                         CollectionReference opinions = db.collection("users").document(uid).collection("opinions");
                                                         HashMap<String, Object> opinion = new HashMap<>();
                                                         opinion.put("opinion", userOpinion);

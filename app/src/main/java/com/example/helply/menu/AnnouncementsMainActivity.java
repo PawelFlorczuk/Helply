@@ -1,17 +1,23 @@
 package com.example.helply.menu;
 
+import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 
 import android.content.Intent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -83,6 +89,7 @@ public class AnnouncementsMainActivity extends MenuNavigationTemplate {
             refreshView = findViewById(R.id.refreshView);
             searchView = findViewById(R.id.searchPartOfCountryView);
 
+
             refreshView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -94,6 +101,55 @@ public class AnnouncementsMainActivity extends MenuNavigationTemplate {
                 @Override
                 public void onClick(View v) {
                     startActivityForResult(new Intent(AnnouncementsMainActivity.this, ChoosePartPopUpWindow.class),1010);
+//                    Dialog myDialog = new Dialog(getApplicationContext());
+//                    myDialog.setContentView(R.layout.activity_choose_part_pop_up_window);
+//                     Spinner chooseSpinner;
+//                     Button saveBtn;
+//
+//                    chooseSpinner = findViewById(R.id.choosePopUpWindowSpinner);
+//
+//                    String[] spinnerString = {"Choose your province","Dolnośląskie","Kujawsko-Pomorskie","Lubelskie",
+//                            "Lubuskie","Łódzkie", "Małopolskie", "Mazowieckie","Opolskie","Podkarpackie","Podlaskie",
+//                            "Pomorskie","Śląskie","Świętokrzyskie","Warmińsko-Mazurskie","Wielkopolskie","Zachodniopomorskie"};
+//
+//                    chooseSpinner.setAdapter(new ArrayAdapter<>(getApplicationContext(),
+//                            android.R.layout.simple_spinner_dropdown_item, spinnerString));
+//                    saveBtn = findViewById(R.id.savePartOfTheCountryBtn);
+//
+//                    Button finalSaveBtn = saveBtn;
+//                    chooseSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//                        @Override
+//                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                            if(position != 0) {
+//                                partOfCountry = spinnerString[position];
+//                                finalSaveBtn.setEnabled(true);
+//                            } else {
+//                                finalSaveBtn.setEnabled(false);
+//                            }
+//
+//                        }
+//
+//                        @Override
+//                        public void onNothingSelected(AdapterView<?> parent) {
+//
+//                        }
+//                    });
+//
+//                    saveBtn = findViewById(R.id.savePartOfTheCountryBtn);
+//
+//                    saveBtn.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            refresh();
+//                            myDialog.dismiss();
+//                        }
+//                    });
+//
+//
+//                    myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//                    myDialog.show();
+
+
                 }
             });
 
