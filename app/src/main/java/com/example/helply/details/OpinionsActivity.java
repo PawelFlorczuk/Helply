@@ -31,6 +31,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.List;
@@ -88,7 +89,7 @@ public class OpinionsActivity extends MenuNavigationTemplate {
             if (mAuth.getUid() != null) {
                 db = FirebaseFirestore.getInstance();
                 try {
-                    com.google.android.gms.tasks.Task<QuerySnapshot> documentReference = db.collection("users").document(id).collection("opinions").orderBy("date").get();
+                    com.google.android.gms.tasks.Task<QuerySnapshot> documentReference = db.collection("users").document(id).collection("opinions").orderBy("date", Query.Direction.DESCENDING).get();
                     documentReference.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
