@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
+import android.graphics.Path;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -38,6 +39,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.List;
@@ -194,7 +196,7 @@ public class AnnouncementsMainActivity extends MenuNavigationTemplate {
         if (mAuth.getUid() != null) {
 
             db = FirebaseFirestore.getInstance();
-            com.google.android.gms.tasks.Task<QuerySnapshot> documentReference = db.collection("tasks").orderBy("date").get();
+            com.google.android.gms.tasks.Task<QuerySnapshot> documentReference = db.collection("tasks").orderBy("date", Query.Direction.DESCENDING).get();
             documentReference.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
