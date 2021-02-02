@@ -1,12 +1,15 @@
 package com.example.helply.details;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,7 +65,7 @@ public class AnnouncementDetailsActivity extends MenuNavigationTemplate implemen
     private Button addBtn;
     private FirebaseAuth mAuth;
 
-    private String [] taskData;
+    private String[] taskData;
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -70,6 +73,8 @@ public class AnnouncementDetailsActivity extends MenuNavigationTemplate implemen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_announcement_details);
+
+        db = FirebaseFirestore.getInstance();
 
         contactCV = findViewById(R.id.cv_7);
         contactCV.setVisibility(View.GONE);
@@ -97,28 +102,28 @@ public class AnnouncementDetailsActivity extends MenuNavigationTemplate implemen
         descriptionTV.setText(taskData[2]);
         String[] address = taskData[1].split("-");
         String result = "";
-        for(int i = 0; i < address.length - 2; i++) {
+        for (int i = 0; i < address.length - 2; i++) {
             result += address[i] + ", ";
         }
         result += address[3] + " " + address[4];
         addressTV.setText(result);
         emailPhoneNumberTV.setText(taskData[4]);
 
-        String temp [] = taskData[0].split("T");
-        String res = temp[1].substring(0,5)  + " "+ temp[0]; //.replace("."," ");
+        String temp[] = taskData[0].split("T");
+        String res = temp[1].substring(0, 5) + " " + temp[0]; //.replace("."," ");
 
         dateTV.setText(res);
-        if(taskData[5].equals("Shopping")) {
+        if (taskData[5].equals("Shopping")) {
             shoppingListTV.setText(taskData[6]);
             informactionBreedTV.setText("Shopping list");
             shoppingListTV.setVisibility(View.VISIBLE);
             needTV.setVisibility(View.GONE);
-        } else if(taskData[5].equals("Walking the dog")){
+        } else if (taskData[5].equals("Walking the dog")) {
             needTV.setText(taskData[6]);
             informactionBreedTV.setText("Walking the dog");
             needTV.setVisibility(View.VISIBLE);
             shoppingListTV.setVisibility(View.GONE);
-        } else if(taskData[5].equals("Other")) {
+        } else if (taskData[5].equals("Other")) {
             needTV.setText(taskData[6]);
             informactionBreedTV.setText("Other");
             needTV.setVisibility(View.VISIBLE);
@@ -131,10 +136,10 @@ public class AnnouncementDetailsActivity extends MenuNavigationTemplate implemen
         drawerLayout = findViewById(R.id.dl_drawer_layout);
         toolbar = findViewById(R.id.toolBar);
 //        toolbar.setTitle("My tasks");
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,(R.string.open), (R.string.close));
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, (R.string.open), (R.string.close));
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
-        if(mAuth.getUid().equals(this.taskData[7].split("-")[0])) {
+        if (mAuth.getUid().equals(this.taskData[7].split("-")[0])) {
             addBtn.setVisibility(View.GONE);
         }
 
@@ -145,7 +150,6 @@ public class AnnouncementDetailsActivity extends MenuNavigationTemplate implemen
         toolbar.setTitle("Announcement");
 
 
-
         View headerView = navigationView.inflateHeaderView(R.layout.sidebar_header);
         profileImage = (CircleImageView) headerView.findViewById(R.id.profileImage);
 
@@ -154,14 +158,85 @@ public class AnnouncementDetailsActivity extends MenuNavigationTemplate implemen
         setProfileImage(bitmap);
 
 
-
     }
 
     @Override
     public void onClick(View view) {
-        if(view.getId() == R.id.takeBtn) {
-            if(!mAuth.getUid().equals(this.taskData[7].split("-")[0])) {
-                startActivityForResult(new Intent(this, TaskPopUpWindow.class), 1003);
+        if (view.getId() == R.id.takeBtn) {
+            if (!mAuth.getUid().equals(this.taskData[7].split("-")[0])) {
+
+
+//                startActivityForResult(new Intent(this, TaskPopUpWindow.class), 1003);
+
+
+                Dialog myDialog = new Dialog(this);
+                myDialog.setContentView(R.layout.task_pop_up_window);
+
+
+                final Button saveContactET = myDialog.findViewById(R.id.saveContactET);
+                final EditText contactET = myDialog.findViewById(R.id.contactET);
+
+                myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                myDialog.show();
+
+
+                saveContactET.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+
+
+                        String contact = contactET.getText().toString();
+                        if (contact == null || contact.equals("") || contact.equals(" ") || contact.equals("Contact")) {
+                            Toast.makeText(AnnouncementDetailsActivity.this, "The contact field cannot be empty", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+
+                        DocumentReference get = db.collection("tasks").document(taskData[7]);
+                        get.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.getResult().get("helper").equals(" ")) {
+                                    if (!mAuth.getUid().equals(taskData[7].split("-")[0])) {
+                                        db = FirebaseFirestore.getInstance();
+                                        DocumentReference documentReference = db.collection("tasks").document(taskData[7]);
+                                        Map<String, Object> user = new HashMap<>();
+
+                                        user.put("helper", mAuth.getUid());
+                                        user.put("volunteerContact", contact);
+
+                                        documentReference.update(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Toast.makeText(AnnouncementDetailsActivity.this, "Announcement taken successfully", Toast.LENGTH_SHORT).show();
+                                                startActivity(new Intent(getApplicationContext(), AnnouncementsMainActivity.class));
+                                                finish();
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(AnnouncementDetailsActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+
+
+                                            }
+                                        });
+                                    } else {
+                                        Toast.makeText(AnnouncementDetailsActivity.this, "Taking announcement failed", Toast.LENGTH_SHORT).show();
+                                    }
+                                } else {
+                                    Toast.makeText(AnnouncementDetailsActivity.this, "This announcement already has a volunteer", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+
+
+                        myDialog.dismiss();
+                    }
+                });
+
+
+
             }
         }
     }
@@ -169,26 +244,29 @@ public class AnnouncementDetailsActivity extends MenuNavigationTemplate implemen
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == 1111){
+        if (resultCode == 1111) {
 
-            SharedPreferences preferences = getSharedPreferences("VolunteerContact",MODE_PRIVATE);
-            String contact = preferences.getString("volunteer_contact","Contact");
-            if(contact == null || contact.equals("") || contact.equals(" ") || contact.equals("Contact")) {
+            SharedPreferences preferences = getSharedPreferences("VolunteerContact", MODE_PRIVATE);
+
+            String contact = preferences.getString("volunteer_contact", "Contact");
+            if (contact == null || contact.equals("") || contact.equals(" ") || contact.equals("Contact")) {
                 Toast.makeText(AnnouncementDetailsActivity.this, "The contact field cannot be empty", Toast.LENGTH_SHORT).show();
                 return;
             }
-            DocumentReference get = db.collection("tasks").document(this.taskData[7]);
+
+
+            DocumentReference get = db.collection("tasks").document(taskData[7]);
             get.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if(task.getResult().get("helper").equals(" ")){
-                        if(!mAuth.getUid().equals(taskData[7].split("-")[0])) {
+                    if (task.getResult().get("helper").equals(" ")) {
+                        if (!mAuth.getUid().equals(taskData[7].split("-")[0])) {
                             db = FirebaseFirestore.getInstance();
                             DocumentReference documentReference = db.collection("tasks").document(taskData[7]);
                             Map<String, Object> user = new HashMap<>();
 
-                            user.put("helper",mAuth.getUid());
-                            user.put("volunteerContact",contact);
+                            user.put("helper", mAuth.getUid());
+                            user.put("volunteerContact", contact);
 
                             documentReference.update(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
@@ -205,7 +283,7 @@ public class AnnouncementDetailsActivity extends MenuNavigationTemplate implemen
 
                                 }
                             });
-                        } else{
+                        } else {
                             Toast.makeText(AnnouncementDetailsActivity.this, "Taking announcement failed", Toast.LENGTH_SHORT).show();
                         }
                     } else {
@@ -213,14 +291,13 @@ public class AnnouncementDetailsActivity extends MenuNavigationTemplate implemen
                     }
                 }
             });
-
-
-
         }
 
-        }
 
 
     }
+
+
+}
 
 

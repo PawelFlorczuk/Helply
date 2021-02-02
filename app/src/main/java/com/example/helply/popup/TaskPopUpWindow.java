@@ -25,16 +25,16 @@ public class TaskPopUpWindow extends Activity {
         int height = dm.heightPixels;
         getWindow().setLayout((int) (width * .8), (int) (height * .6));
 
-        final Button saveListBtn = findViewById(R.id.saveContactET);
-        final EditText shoppingList = findViewById(R.id.contactET);
+        final Button saveContactET = findViewById(R.id.saveContactET);
+        final EditText contactET = findViewById(R.id.contactET);
 
 
-        saveListBtn.setOnClickListener(new View.OnClickListener() {
+        saveContactET.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SharedPreferences preferences = getSharedPreferences("VolunteerContact", MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("volunteer_contact", shoppingList.getText().toString());
+                editor.putString("volunteer_contact", contactET.getText().toString());
                 editor.apply();
                 setResult(1111);
                 finish();

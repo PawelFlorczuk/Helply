@@ -426,6 +426,7 @@ public class CreateAnnouncementActivity extends MenuNavigationTemplate implement
 //                startActivityForResult(new Intent(CreateAnnouncementActivity.this, ListPopUpWindow.class),1002);
 //                break;
 
+
                 Dialog myDialog;
                 myDialog = new Dialog(this);
                 myDialog.setContentView(R.layout.custompopup);
