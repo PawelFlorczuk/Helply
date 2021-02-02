@@ -141,7 +141,7 @@ public class AnnouncementDetailsActivity extends MenuNavigationTemplate implemen
         user = FirebaseAuth.getInstance().getCurrentUser();
 
         this.initSideBarMenu();
-        toolbar.setTitleTextColor(Color.WHITE);
+        toolbar.setTitleTextColor(Color.DKGRAY);
         toolbar.setTitle("Announcement");
 
 

@@ -118,9 +118,7 @@ public class AnnouncementsMainActivity extends MenuNavigationTemplate {
             setProfileImage(bitmap);
 
             initSideBarMenu();
-
-
-                refresh();
+            refresh();
 
         }
     }

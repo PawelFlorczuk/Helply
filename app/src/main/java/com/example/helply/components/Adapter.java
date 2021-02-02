@@ -3,8 +3,6 @@ package com.example.helply.components;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +10,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.helply.R;
@@ -26,8 +23,6 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Vector;
-
-import javax.annotation.meta.When;
 
 public class Adapter extends RecyclerView.Adapter<Holder> {
     public Adapter(Context c, Vector<String[]> v, int is, Bitmap bitmap) {
@@ -89,12 +84,12 @@ public class Adapter extends RecyclerView.Adapter<Holder> {
             }
 
             case "Walking the dog": {
-                holder.announcementObjectCL.setBackgroundResource(R.drawable.do10);
+               holder.announcementObjectCL.setBackgroundResource(R.drawable.dog13);
                 break;
             }
 
             default: {
-                holder.announcementObjectCL.setBackgroundResource(R.drawable.object5);
+             //   holder.announcementObjectCL.setBackgroundResource(R.drawable.object5);
                 break;
             }
 

@@ -58,7 +58,7 @@ public class MyAnnouncementsActivity extends MenuNavigationTemplate {
         actionBarDrawerToggle.syncState();
         progressBar = findViewById(R.id.myProgressBar);
         progressBar.setVisibility(View.VISIBLE);
-
+        toolbar.setTitleTextColor(Color.DKGRAY);
         View headerView = navigationView.inflateHeaderView(R.layout.sidebar_header);
         profileImage = (CircleImageView) headerView.findViewById(R.id.profileImage);
 
@@ -69,7 +69,6 @@ public class MyAnnouncementsActivity extends MenuNavigationTemplate {
         setProfileImage(bitmap);
 
         this.initSideBarMenu();
-        toolbar.setTitleTextColor(Color.WHITE);
 
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();

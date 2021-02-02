@@ -62,7 +62,7 @@ public class RankingActivity extends MenuNavigationTemplate {
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,(R.string.open), (R.string.close));
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
-
+        toolbar.setTitleTextColor(Color.DKGRAY);
         db = FirebaseFirestore.getInstance();
 
         View headerView = navigationView.inflateHeaderView(R.layout.sidebar_header);
@@ -74,7 +74,6 @@ public class RankingActivity extends MenuNavigationTemplate {
         setProfileImage(bitmap);
 
         this.initSideBarMenu();
-        toolbar.setTitleTextColor(Color.WHITE);
 
 
         Task<QuerySnapshot> documentReference = db.collection("users").get();

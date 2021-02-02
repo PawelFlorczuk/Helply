@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dl_drawer_layout"
     android:layout_width="match_parent"
-    android:background="#FFCC99"
+    android:background="#DCDCDC"
 
     android:layout_height="match_parent">
 
@@ -457,7 +457,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="#FFCC99"
+        android:background="#A9A9A9"
         android:fitsSystemWindows="true">
         <!--        app:headerLayout="@layout/sidebar_header">-->
 

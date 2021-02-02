@@ -111,6 +111,7 @@ public class CreateAnnouncementActivity extends MenuNavigationTemplate implement
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         navigationView.bringToFront();
+        toolbar.setTitleTextColor(Color.DKGRAY);
 
         View headerView = navigationView.inflateHeaderView(R.layout.sidebar_header);
         profileImage = (CircleImageView) headerView.findViewById(R.id.profileImage);
@@ -129,7 +130,6 @@ public class CreateAnnouncementActivity extends MenuNavigationTemplate implement
 
 
         this.initSideBarMenu();
-        toolbar.setTitleTextColor(Color.WHITE);
 
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

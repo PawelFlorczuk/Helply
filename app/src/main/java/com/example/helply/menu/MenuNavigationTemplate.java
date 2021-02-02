@@ -42,6 +42,7 @@ public class MenuNavigationTemplate extends AppCompatActivity {
     protected FirebaseFirestore db;
     protected FirebaseUser user;
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

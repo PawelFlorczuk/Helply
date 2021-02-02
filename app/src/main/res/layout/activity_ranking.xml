@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/dl_drawer_layout"
-    android:background="#FFCC99"
+    android:background="#DCDCDC"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
@@ -23,7 +23,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        android:background="#FFCC99">
+        android:background="#A9A9A9">
         <!--        app:headerLayout="@layout/sidebar_header">-->
 
         <include

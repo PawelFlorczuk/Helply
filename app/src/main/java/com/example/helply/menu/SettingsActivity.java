@@ -86,7 +86,7 @@ public class SettingsActivity extends MenuNavigationTemplate implements View.OnC
         repeatPasswordTV = findViewById(R.id.settings_confirmPasswordET);
         oldPasswordTV = findViewById(R.id.settings_currentPasswordET);
         avatar = findViewById(R.id.settings_avatarIV);
-
+        toolbar.setTitleTextColor(Color.DKGRAY);
 
         repeatPasswordTV = findViewById(R.id.settings_confirmPasswordET);
         passwordBtn = findViewById(R.id.settings_savePasswordBtn);
@@ -143,7 +143,6 @@ public class SettingsActivity extends MenuNavigationTemplate implements View.OnC
 
 
         this.initSideBarMenu();
-        toolbar.setTitleTextColor(Color.WHITE);
 
     }
 
