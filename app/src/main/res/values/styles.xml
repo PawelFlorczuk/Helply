@@ -25,8 +25,8 @@
 
     <style name="AppToolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <item name="android:textColorPrimary">@color/quantum_grey</item>
-        <item name="android:textColorSecondary">@color/quantum_grey</item>
+        <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:textColorSecondary">@color/black</item>
     </style>
 
 

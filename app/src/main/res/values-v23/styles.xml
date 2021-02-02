@@ -6,7 +6,7 @@
         <!-- Customize your theme here. -->
         <item name="android:windowLightStatusBar">true</item>
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/quantum_white_100</item>
+        <item name="colorPrimaryDark">#A9A9A9</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 

@@ -4,7 +4,7 @@
     android:id="@+id/toolBar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/quantum_white_100"
+    android:background="#C0C0C0"
     android:gravity="center_vertical"
     android:minHeight="?attr/actionBarSize"
     android:fitsSystemWindows="true"

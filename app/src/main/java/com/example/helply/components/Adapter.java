@@ -27,6 +27,8 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Vector;
 
+import javax.annotation.meta.When;
+
 public class Adapter extends RecyclerView.Adapter<Holder> {
     public Adapter(Context c, Vector<String[]> v, int is, Bitmap bitmap) {
         this.c = c;
@@ -87,7 +89,7 @@ public class Adapter extends RecyclerView.Adapter<Holder> {
             }
 
             case "Walking the dog": {
-                holder.announcementObjectCL.setBackgroundResource(R.drawable.dog8);
+                holder.announcementObjectCL.setBackgroundResource(R.drawable.do10);
                 break;
             }
 

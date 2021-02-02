@@ -86,6 +86,7 @@ public class AnnouncementsMainActivity extends MenuNavigationTemplate {
             refreshView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    partOfCountry = " ";
                     refresh();
                 }
             });
