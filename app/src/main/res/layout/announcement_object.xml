@@ -27,7 +27,8 @@
         <ImageView
             android:id="@+id/announcement_object_cl"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            />
 
         <TextView
             android:id="@+id/nickTV"
