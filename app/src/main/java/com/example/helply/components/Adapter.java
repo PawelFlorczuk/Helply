@@ -84,12 +84,12 @@ public class Adapter extends RecyclerView.Adapter<Holder> {
             }
 
             case "Walking the dog": {
-               holder.announcementObjectCL.setBackgroundResource(R.drawable.dog8);
+               holder.announcementObjectCL.setBackgroundResource(R.drawable.dog);
                 break;
             }
 
             default: {
-                holder.announcementObjectCL.setBackgroundResource(R.drawable.object5);
+                holder.announcementObjectCL.setBackgroundResource(R.drawable.charity);
                 break;
             }
 
