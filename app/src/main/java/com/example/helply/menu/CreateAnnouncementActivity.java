@@ -3,7 +3,6 @@ package com.example.helply.menu;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -18,35 +17,23 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 
-import com.example.helply.popup.ListPopUpWindow;
-import com.example.helply.popup.MapActivity;
 import com.example.helply.R;
-
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+import com.example.helply.popup.MapActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
 
 public class CreateAnnouncementActivity extends MenuNavigationTemplate implements View.OnClickListener {
-
 
     private Spinner spinner;
 
@@ -64,15 +51,11 @@ public class CreateAnnouncementActivity extends MenuNavigationTemplate implement
 
     private String address;
     private String kindOfHelp;
-    private String needString;
+    private String need;
     private String shoppingList;
 
     private TextView emailPhoneNumberTV;
     private EditText emailPhoneNumberET;
-
-    private Boolean con;
-
-
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -91,7 +74,6 @@ public class CreateAnnouncementActivity extends MenuNavigationTemplate implement
         helpKindET = findViewById(R.id.helpKindET);
         descET = findViewById(R.id.descET);
 
-
         addBtn = findViewById(R.id.takeBtn);
         addressBtn = findViewById(R.id.addressBtn);
         listBtn = findViewById(R.id.createListBtn);
@@ -99,13 +81,14 @@ public class CreateAnnouncementActivity extends MenuNavigationTemplate implement
         emailPhoneNumberET = findViewById(R.id.emailPhoneNumberET);
         emailPhoneNumberTV = findViewById(R.id.emailPhoneNumberTV);
 
+        navigationView = findViewById(R.id.nv_navView);
+        drawerLayout = findViewById(R.id.dl_drawer_layout);
+        toolbar = findViewById(R.id.toolBar);
+
         addBtn.setOnClickListener(this);
         addressBtn.setOnClickListener(this);
         listBtn.setOnClickListener(this);
 
-        navigationView = findViewById(R.id.nv_navView);
-        drawerLayout = findViewById(R.id.dl_drawer_layout);
-        toolbar = findViewById(R.id.toolBar);
         toolbar.setTitle("Create announcements");
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,(R.string.open), (R.string.close));
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -113,24 +96,17 @@ public class CreateAnnouncementActivity extends MenuNavigationTemplate implement
         navigationView.bringToFront();
         toolbar.setTitleTextColor(Color.DKGRAY);
 
-        View headerView = navigationView.inflateHeaderView(R.layout.sidebar_header);
-        profileImage = (CircleImageView) headerView.findViewById(R.id.profileImage);
+        profileImage = navigationView.inflateHeaderView(R.layout.sidebar_header).findViewById(R.id.profileImage);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
 
-
-
-        Intent intent = getIntent();
-        bitmap = intent.getParcelableExtra("Bitmap");
-        setProfileImage(bitmap);
+        setProfileImage();
 
         String[] spinnerString = {"Choose type of help","Walking the dog", "Shopping", "Other"};
         spinner.setAdapter(new ArrayAdapter<>(CreateAnnouncementActivity.this,
                 android.R.layout.simple_spinner_dropdown_item, spinnerString));
 
-
         this.initSideBarMenu();
-
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -143,16 +119,10 @@ public class CreateAnnouncementActivity extends MenuNavigationTemplate implement
 
             }
         });
-
-
     }
 
-
-
-
-    public void showForm(int position) {
+    private void showForm(int position) {
         switch (position) {
-
             case 0: {
                 addBtn.setVisibility(View.INVISIBLE);
                 listBtn.setVisibility(View.INVISIBLE);
@@ -168,8 +138,6 @@ public class CreateAnnouncementActivity extends MenuNavigationTemplate implement
 
                 emailPhoneNumberTV.setVisibility(View.INVISIBLE);
                 emailPhoneNumberET.setVisibility(View.INVISIBLE);
-
-
                 break;
             }
             case 1: {
@@ -190,14 +158,10 @@ public class CreateAnnouncementActivity extends MenuNavigationTemplate implement
                 emailPhoneNumberTV.setVisibility(View.VISIBLE);
                 emailPhoneNumberET.setVisibility(View.VISIBLE);
 
-
                 helpKindTV.setText(R.string.dog_breed);
                 helpKindET.setHint(R.string.dog_breed);
 
                 kindOfHelp = "Walking the dog";
-
-
-
                 break;
             }
             case 2: {
@@ -221,7 +185,6 @@ public class CreateAnnouncementActivity extends MenuNavigationTemplate implement
                 helpKindTV.setText(R.string.shopping_list);
 
                 kindOfHelp = "Shopping";
-
                 break;
             }
             case 3: {
@@ -246,12 +209,23 @@ public class CreateAnnouncementActivity extends MenuNavigationTemplate implement
                 helpKindET.setHint(R.string.kind_need);
 
                 kindOfHelp = "Other";
-
                 break;
             }
-
-
         }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private Map<String, Object> createMap(String description, String emailPhoneNumber) {
+        Map<String, Object> user = new HashMap<>();
+        user.put("date", LocalDateTime.now().toString());
+        user.put("address", address);
+        user.put("description",description);
+        user.put("helper"," ");
+        user.put("emailPhoneNumber", emailPhoneNumber);
+        user.put("kindOfHelp", kindOfHelp);
+        user.put("nameOfHelp", need);
+        user.put("volunteerContact", " ");
+        return user;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -259,26 +233,21 @@ public class CreateAnnouncementActivity extends MenuNavigationTemplate implement
     public void onClick(View view) {
         if(view.getId() == R.id.takeBtn)
         {
-
-
-            String address, description, nameOfHelp,need,emailPhoneNumber;
-            need = null;
+            String description, emailPhoneNumber;
 
             emailPhoneNumber = emailPhoneNumberET.getText().toString().trim();
-            nameOfHelp = this.kindOfHelp;
-            address = this.address;
             description = descET.getText().toString();
 
-            if ( address == null || description == null || emailPhoneNumber == null ) {
+            if (address == null) {
                 Toast.makeText(getApplicationContext(), "You have to fill all the fields" ,Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            if ( address.equals("") || address.equals(" ") ) {
+            if (address.equals("") || address.equals(" ")) {
                 Toast.makeText(getApplicationContext(), "You have to set your address" ,Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (description.equals("") || description.equals(" ")  ) {
+            if (description.equals("") || description.equals(" ")) {
                 Toast.makeText(getApplicationContext(), "The description cannot be empty" ,Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -287,16 +256,11 @@ public class CreateAnnouncementActivity extends MenuNavigationTemplate implement
                 return;
             }
 
-            switch(nameOfHelp) {
+            switch(this.kindOfHelp) {
                 case "Walking the dog":
                 {
-                    need = helpKindET.getText().toString();
-                    this.needString = need;
-                    if( need == null) {
-                        Toast.makeText(getApplicationContext(), "The breed of the dog field cannot be empty" ,Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    if ( need.equals("") || need.equals(" ")) {
+                    this.need = helpKindET.getText().toString();
+                    if (need.equals("") || need.equals(" ")) {
                         Toast.makeText(getApplicationContext(), "The breed of the dog field cannot be empty" ,Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -304,27 +268,16 @@ public class CreateAnnouncementActivity extends MenuNavigationTemplate implement
                 }
                 case "Shopping":
                 {
-                    need = this.shoppingList;
-                    this.needString = need;
-                    if( need == null) {
-                        Toast.makeText(getApplicationContext(), "The list field cannot be empty" ,Toast.LENGTH_SHORT).show();
-                        return;
-                    }
+                    this.need = shoppingList;
                     if (need.equals("") || need.equals(" ") ) {
                         Toast.makeText(getApplicationContext(), "The list field cannot be empty" ,Toast.LENGTH_SHORT).show();
                         return;
                     }
-
                     break;
                 }
                 case "Other":
                 {
-                    need = helpKindET.getText().toString();
-                    this.needString = need;
-                    if( need == null) {
-                        Toast.makeText(getApplicationContext(), "The type of the help field cannot be empty" ,Toast.LENGTH_SHORT).show();
-                        return;
-                    }
+                    this.need = helpKindET.getText().toString();
                     if (need.equals("") || need.equals(" ")) {
                         Toast.makeText(getApplicationContext(), "The type of the help field cannot be empty" ,Toast.LENGTH_SHORT).show();
                         return;
@@ -336,135 +289,62 @@ public class CreateAnnouncementActivity extends MenuNavigationTemplate implement
             db = FirebaseFirestore.getInstance();
 
             DocumentReference document = (db.collection("tasks").document(user.getUid() + "-1"));
-            document.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot doc = task.getResult();
-                        if(!doc.exists()) {
-                            Map<String, Object> user = new HashMap<>();
-                            user.put("date", LocalDateTime.now().toString());
-                            user.put("address", address);
-                            user.put("description",description);
-                            user.put("helper"," ");
-                            user.put("emailPhoneNumber", emailPhoneNumber);
-                            user.put("kindOfHelp", nameOfHelp);
-                            user.put("nameOfHelp", needString);
-                            user.put("volunteerContact", " ");
-                            document.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Toast.makeText(CreateAnnouncementActivity.this, "Announcement created!", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(getApplicationContext(), AnnouncementsMainActivity.class));
-                                    finish();
+            document.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot doc = task.getResult();
+                    if(!doc.exists()) {
+                        Map<String, Object> user = createMap(description, emailPhoneNumber);
+                        document.set(user).addOnSuccessListener(aVoid -> {
+                            Toast.makeText(CreateAnnouncementActivity.this, "Announcement created!", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getApplicationContext(), AnnouncementsMainActivity.class));
+                            finish();
+                        }).addOnFailureListener(e -> Toast.makeText(CreateAnnouncementActivity.this, e.toString(), Toast.LENGTH_SHORT).show());
+                    } else {
+                        DocumentReference document1 = (db.collection("tasks").document(user.getUid() + "-2"));
+                        document1.get().addOnCompleteListener(task1 -> {
+                            if (task1.isSuccessful()) {
+                                DocumentSnapshot doc1 = task1.getResult();
+                                if(!doc1.exists()) {
+                                    Map<String, Object> user = createMap(description, emailPhoneNumber);
+                                    document1.set(user).addOnSuccessListener(aVoid -> {
+                                        Toast.makeText(CreateAnnouncementActivity.this, "Announcement created!", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(getApplicationContext(), AnnouncementsMainActivity.class));
+                                        finish();
+                                    }).addOnFailureListener(e -> Toast.makeText(CreateAnnouncementActivity.this, e.toString(), Toast.LENGTH_SHORT).show());
+                                } else {
+                                    Toast.makeText(CreateAnnouncementActivity.this, "You can create only two announcements", Toast.LENGTH_SHORT).show();
                                 }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(CreateAnnouncementActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
-
-
-                                }
-                            });
-                        } else {
-                            DocumentReference document = (db.collection("tasks").document(user.getUid() + "-2"));
-                            document.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                    if (task.isSuccessful()) {
-                                        DocumentSnapshot doc = task.getResult();
-                                        if(!doc.exists()) {
-                                            Map<String, Object> user = new HashMap<>();
-                                            user.put("date", LocalDateTime.now().toString());
-                                            user.put("address", address);
-                                            user.put("description",description);
-                                            user.put("helper"," ");
-                                            user.put("emailPhoneNumber", emailPhoneNumber);
-                                            user.put("kindOfHelp", nameOfHelp);
-                                            user.put("nameOfHelp", needString);
-                                            user.put("volunteerContact", " ");
-                                            document.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void aVoid) {
-                                                    Toast.makeText(CreateAnnouncementActivity.this, "Announcement created!", Toast.LENGTH_SHORT).show();
-                                                    startActivity(new Intent(getApplicationContext(), AnnouncementsMainActivity.class));
-                                                    finish();
-                                                    finish();
-
-
-                                                }
-                                            }).addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    Toast.makeText(CreateAnnouncementActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
-
-
-                                                }
-                                            });
-                                        } else {
-                                            Toast.makeText(CreateAnnouncementActivity.this, "You can create only two announcements", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                }
-                            });
-                        }
+                            }
+                        });
                     }
                 }
             });
-
        }
         if(view.getId() == R.id.addressBtn) {
             startActivityForResult(new Intent(this, MapActivity.class),1001);
 
-
-
         }
-        switch (view.getId()) {
-            case R.id.createListBtn: {
+        if (view.getId() == R.id.createListBtn) {
+            Dialog myDialog;
+            myDialog = new Dialog(this);
+            myDialog.setContentView(R.layout.custom_pop_up);
+            TextView txtClose = myDialog.findViewById(R.id.txtClose);
+            txtClose.setText("X");
 
+            TextView shoppingListTV = myDialog.findViewById(R.id.shoppingListEditText);
+            txtClose.setOnClickListener(v -> myDialog.dismiss());
 
-//                startActivityForResult(new Intent(CreateAnnouncementActivity.this, ListPopUpWindow.class),1002);
-//                break;
+            myDialog.findViewById(R.id.saveShoppingList).setOnClickListener(v -> {
+                helpKindTV.setText(R.string.change_shopping_list);
+                listBtn.setText(R.string.change_list);
+                shoppingList = shoppingListTV.getText().toString();
+                myDialog.dismiss();
+            });
 
-
-                Dialog myDialog;
-                myDialog = new Dialog(this);
-                myDialog.setContentView(R.layout.custompopup);
-
-
-                TextView txtclose;
-                txtclose =(TextView) myDialog.findViewById(R.id.txtclose);
-                txtclose.setText("X");
-
-                TextView shoppingListTV = (TextView) myDialog.findViewById(R.id.shopping_list_edit_text);
-                txtclose.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        myDialog.dismiss();
-                    }
-                });
-
-                myDialog.findViewById(R.id.save_shopping_list).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        helpKindTV.setText("Change your shopping list");
-                        listBtn.setText("Change your list");
-                        helpKindTV.setText("Change your shopping list");
-                        shoppingList = shoppingListTV.getText().toString();
-                        listBtn.setText("Change your list");
-                        myDialog.dismiss();
-                    }
-                });
-
-                myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                myDialog.show();
-
-
-            }
+            myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            myDialog.show();
         }
     }
-
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -489,17 +369,5 @@ public class CreateAnnouncementActivity extends MenuNavigationTemplate implement
             this.address = country + "-" + partOfCountry + "-" + city + "-"
                     + street  + "-"+  number;
         }
-
-        if(resultCode == 1110){
-
-            SharedPreferences preferences = getSharedPreferences("ShoppingList",MODE_PRIVATE);
-            String shoppingList = preferences.getString("shopping_list","Test");
-            this.helpKindTV.setText("Change your shopping list");
-            this.shoppingList = shoppingList;
-            this.listBtn.setText("Change your list");
-
-        }
-
-
     }
 }

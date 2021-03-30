@@ -32,10 +32,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
-        emailET = findViewById(R.id.login_emailET);
-        passwordET = findViewById(R.id.login_passwordET);
-        loginBtn = findViewById(R.id.login_loginBtn);
-        registerBtn = findViewById(R.id.login_signUpBtn);
+        emailET = findViewById(R.id.loginEmailET);
+        passwordET = findViewById(R.id.loginPasswordET);
+        loginBtn = findViewById(R.id.loginLoginBtn);
+        registerBtn = findViewById(R.id.loginSignUpBtn);
         progressBar = findViewById(R.id.progressBar);
 
         loginBtn.setOnClickListener(this);
@@ -46,10 +46,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
         switch(view.getId()) {
-            case R.id.login_loginBtn:
+            case R.id.loginLoginBtn:
                 login();
                 break;
-            case R.id.login_signUpBtn:
+            case R.id.loginSignUpBtn:
                 startActivity(new Intent(this, RegistrationActivity.class));
                 break;
         }

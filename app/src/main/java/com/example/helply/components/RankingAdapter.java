@@ -14,6 +14,11 @@ import com.example.helply.R;
 import java.util.Vector;
 
 public class RankingAdapter extends RecyclerView.Adapter<RankingHolder> {
+
+    Context c;
+    Bitmap bitmap;
+    Vector<String[]> v;
+
     public RankingAdapter(Context c, Vector<String[]> v, Bitmap bitmap)
     {
         this.c = c;
@@ -27,24 +32,17 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingHolder> {
                     v.set(j,data);
                 }
             }
-
         }
         this.bitmap = bitmap;
         this.v = v;
     }
-
-    Context c;
-    String id;
-    Bitmap bitmap;
-    Vector<String[]> v;
 
     @NonNull
     @Override
     public RankingHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(c);
         View view = inflater.inflate(R.layout.ranking_object, parent, false);
-
-        return new RankingHolder(view, bitmap);
+        return new RankingHolder(view);
     }
 
     @Override

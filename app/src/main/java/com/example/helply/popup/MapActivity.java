@@ -1,6 +1,5 @@
 package com.example.helply.popup;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
@@ -22,7 +21,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -41,48 +39,42 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.myMap);
         mapFragment.getMapAsync(this);
         saveAddressBtn = findViewById(R.id.saveYourAddress);
-        saveAddressBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                String address = addressList.get(0).toString();
-                addressList.get(0).getCountryName();
-                if(!addressList.get(0).getCountryName().equals("Poland") && !addressList.get(0).getCountryName().equals("Polska")) {
-                    Toast.makeText(getApplicationContext(), "You can only choose a place in Poland or you have mistyped your address", Toast.LENGTH_LONG).show();
-                    return;
-                }
-                if(addressList.get(0).getCountryName() == null || address.split(",")[7].split("=")[1] == null ||
-                        address.split(",")[6].split("=")[1] == null ||  address.split(",")[3].split("=")[1] == null ||
-                        address.split(",")[4].split("=")[1] == null) {
-                    Toast.makeText(getApplicationContext(), "Address should be written like this :\"Country City Street Street number \"", Toast.LENGTH_LONG).show();
-                    return;
-                }
-                try {
-                   Integer checkIfNumber = Integer.valueOf(address.split(",")[3].split("=")[1]);
-                } catch (NumberFormatException e) {
-                    Toast.makeText(getApplicationContext(), "Address should be written like this :\"Country City Street Street number \"", Toast.LENGTH_LONG).show();
-                    return;
-                }
-
-
-                SharedPreferences preferences = getSharedPreferences("Address",MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("address",address);
-                editor.apply();
-                setResult(1);
-                finish();
-
+        saveAddressBtn.setOnClickListener(v -> {
+            String address = addressList.get(0).toString();
+            addressList.get(0).getCountryName();
+            if(!addressList.get(0).getCountryName().equals("Poland") && !addressList.get(0).getCountryName().equals("Polska")) {
+                Toast.makeText(getApplicationContext(), "You can only choose a place in Poland or you have mistyped your address", Toast.LENGTH_LONG).show();
+                return;
             }
+            if(addressList.get(0).getCountryName() == null || address.split(",")[7].split("=")[1] == null ||
+                    address.split(",")[6].split("=")[1] == null ||  address.split(",")[3].split("=")[1] == null ||
+                    address.split(",")[4].split("=")[1] == null) {
+                Toast.makeText(getApplicationContext(), "Address should be written like this :\"Country City Street Street number \"", Toast.LENGTH_LONG).show();
+                return;
+            }
+            try {
+               Integer.valueOf(address.split(",")[3].split("=")[1]);
+            } catch (NumberFormatException e) {
+                Toast.makeText(getApplicationContext(), "Address should be written like this :\"Country City Street Street number \"", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            SharedPreferences preferences = getSharedPreferences("Address",MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("address",address);
+            editor.apply();
+            setResult(1);
+            finish();
         });
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-
                     try {
                         String location = searchView.getQuery().toString();
                         addressList = null;
-                        if (location != null || !location.equals("")) {
+                        if (!location.equals("")) {
                             Geocoder geocoder = new Geocoder(MapActivity.this);
                             addressList = geocoder.getFromLocationName(location, 1);
                         }
@@ -93,12 +85,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17));
                         saveAddressBtn.setVisibility(View.VISIBLE);
 
-
                     } catch (IOException | IndexOutOfBoundsException  e) {
-                        Toast toast = Toast.makeText(getApplicationContext(), "Address should be written like this :\"Country City Street Street number \"", Toast.LENGTH_LONG);
-                        toast.show();
+                        Toast.makeText(getApplicationContext(), "Address should be written like this :\"Country City Street Street number \"", Toast.LENGTH_LONG).show();
                         saveAddressBtn.setVisibility(View.INVISIBLE);
-
                     }
                 return false;
             }

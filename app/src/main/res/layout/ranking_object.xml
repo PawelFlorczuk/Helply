@@ -43,7 +43,7 @@
             app:layout_constraintTop_toBottomOf="@+id/nickTV" />
 
         <ImageView
-            android:id="@+id/medalImageView"
+            android:id="@+id/medalIV"
             android:layout_width="65dp"
             android:layout_height="37dp"
             android:layout_marginStart="25dp"
@@ -62,7 +62,7 @@
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.062"
-            app:layout_constraintStart_toEndOf="@+id/medalImageView"
+            app:layout_constraintStart_toEndOf="@+id/medalIV"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -74,7 +74,7 @@
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.055"
-            app:layout_constraintStart_toEndOf="@+id/medalImageView"
+            app:layout_constraintStart_toEndOf="@+id/medalIV"
             app:layout_constraintTop_toBottomOf="@+id/textView7" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

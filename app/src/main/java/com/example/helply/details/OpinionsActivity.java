@@ -5,25 +5,19 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.helply.R;
-import com.example.helply.components.Adapter;
 import com.example.helply.components.OpinionsAdapter;
-import com.example.helply.login.LoginActivity;
-import com.example.helply.menu.AnnouncementsMainActivity;
 import com.example.helply.menu.MenuNavigationTemplate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -78,13 +72,11 @@ public class OpinionsActivity extends MenuNavigationTemplate {
             View headerView = navigationView.inflateHeaderView(R.layout.sidebar_header);
             profileImage = (CircleImageView) headerView.findViewById(R.id.profileImage);
 
-            Intent intent = getIntent();
-            bitmap = intent.getParcelableExtra("Bitmap");
-            id = intent.getStringExtra("Id");
-            setProfileImage(bitmap);
+            id = getIntent().getStringExtra("Id");
+            setProfileImage();
 
             initSideBarMenu();
-        toolbar.setTitleTextColor(Color.DKGRAY);
+            toolbar.setTitleTextColor(Color.DKGRAY);
 
             if (mAuth.getUid() != null) {
                 db = FirebaseFirestore.getInstance();
@@ -102,8 +94,6 @@ public class OpinionsActivity extends MenuNavigationTemplate {
                                 dataString[0] = doc.get("opinion").toString();
                                 dataString[1] = doc.get("date").toString();
                                 datalist.add(dataString);
-
-
                                 i++;
                             }
                             if(i == 0) {
@@ -113,7 +103,6 @@ public class OpinionsActivity extends MenuNavigationTemplate {
                             recyclerView.setAdapter(adapter);
                             progressBar.setVisibility(View.INVISIBLE);
                         }
-
                     });
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(),"This volunteer hasn't got any opinions",Toast.LENGTH_SHORT).show();

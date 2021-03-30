@@ -6,7 +6,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
@@ -20,8 +19,6 @@ import com.example.helply.menu.MenuNavigationTemplate;
 import com.example.helply.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class TaskToDoDetailsActivity extends MenuNavigationTemplate implements View.OnClickListener {
     protected Toolbar toolbar;
@@ -49,18 +46,14 @@ public class TaskToDoDetailsActivity extends MenuNavigationTemplate implements V
 
     private String [] data;
 
-
-
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_announcement_details);
 
-        contactCV = findViewById(R.id.cv_7);
+        contactCV = findViewById(R.id.contactAndStatusCardView);
         contactCV.setVisibility(View.GONE);
-
-
 
         contactTV = findViewById(R.id.contactTV);
         takenTV = findViewById(R.id.takenTV);
@@ -127,13 +120,8 @@ public class TaskToDoDetailsActivity extends MenuNavigationTemplate implements V
         toolbar.setTitleTextColor(Color.DKGRAY);
 
         View headerView = navigationView.inflateHeaderView(R.layout.sidebar_header);
-        profileImage = (CircleImageView) headerView.findViewById(R.id.profileImage);
-
-        Intent intent2 = getIntent();
-        bitmap = intent2.getParcelableExtra("Bitmap");
-        setProfileImage(bitmap);
-
-
+        profileImage =  headerView.findViewById(R.id.profileImage);
+        setProfileImage();
     }
 
     @Override

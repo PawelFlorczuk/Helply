@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
@@ -15,10 +14,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.helply.components.Adapter;
 import com.example.helply.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.example.helply.components.Adapter;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -27,8 +24,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.List;
 import java.util.Vector;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class TasksToDoActivity extends MenuNavigationTemplate {
     protected Toolbar toolbar;
@@ -60,57 +55,42 @@ public class TasksToDoActivity extends MenuNavigationTemplate {
         toolbar.setTitleTextColor(Color.DKGRAY);
 
         View headerView = navigationView.inflateHeaderView(R.layout.sidebar_header);
-        profileImage = (CircleImageView) headerView.findViewById(R.id.profileImage);
+        profileImage = headerView.findViewById(R.id.profileImage);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
 
         Intent intent = getIntent();
         bitmap = intent.getParcelableExtra("Bitmap");
-        setProfileImage(bitmap);
+        setProfileImage();
 
         this.initSideBarMenu();
 
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
         Vector<String[]> datalist = new Vector<>();
         if(mAuth.getUid()!= null){
-
-
             db = FirebaseFirestore.getInstance();
             com.google.android.gms.tasks.Task<QuerySnapshot> documentReference = db.collection("tasks").get();
-            documentReference.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
-                    List<DocumentSnapshot> list = task.getResult().getDocuments();
-                    int i = 0 ;
-                    for (DocumentSnapshot doc : list) {
-                        if(doc.get("helper").toString().equals(mAuth.getUid())){
-                            String[] dataString = new String[8];
-                            dataString[0] = doc.get("date").toString();
-                            dataString[1] = doc.get("address").toString();
-                            dataString[2] = doc.get("description").toString();
-                            dataString[3] = doc.get("helper").toString();
-                            dataString[4] = doc.get("emailPhoneNumber").toString();
-                            dataString[5] = doc.get("kindOfHelp").toString();
-                            dataString[6] = doc.get("nameOfHelp").toString();
-                            dataString[7] = doc.getId();
-                            datalist.add(dataString);
-                        }
-                        i++;
-
+            documentReference.addOnCompleteListener(task -> {
+                List<DocumentSnapshot> list = task.getResult().getDocuments();
+                for (DocumentSnapshot doc : list) {
+                    if(doc.get("helper").toString().equals(mAuth.getUid())){
+                        String[] dataString = new String[8];
+                        dataString[0] = doc.get("date").toString();
+                        dataString[1] = doc.get("address").toString();
+                        dataString[2] = doc.get("description").toString();
+                        dataString[3] = doc.get("helper").toString();
+                        dataString[4] = doc.get("emailPhoneNumber").toString();
+                        dataString[5] = doc.get("kindOfHelp").toString();
+                        dataString[6] = doc.get("nameOfHelp").toString();
+                        dataString[7] = doc.getId();
+                        datalist.add(dataString);
                     }
-                    adapter = new Adapter(TasksToDoActivity.this, datalist,1,bitmap);
-                    recyclerView.setAdapter(adapter);
-                    progressBar.setVisibility(View.GONE);
                 }
-
-
-
-
+                adapter = new Adapter(TasksToDoActivity.this, datalist,"TaskToDoDetails");
+                recyclerView.setAdapter(adapter);
+                progressBar.setVisibility(View.GONE);
             });
-        } else{
         }
     }
 }

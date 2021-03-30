@@ -9,21 +9,21 @@
     tools:context=".login.LoginActivity">
 
     <ImageView
-        android:id="@+id/login_logoIV"
+        android:id="@+id/loginLogoIV"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginTop="100dp"
         android:layout_marginBottom="25dp"
-        app:layout_constraintBottom_toTopOf="@+id/login_emailET"
+        app:layout_constraintBottom_toTopOf="@+id/loginEmailET"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/applogo"
+        app:srcCompat="@drawable/app_logo"
         android:contentDescription="@string/app_logo" />
 
     <Button
-        android:id="@+id/login_loginBtn"
+        android:id="@+id/loginLoginBtn"
         android:layout_width="113dp"
         android:layout_height="54dp"
         android:layout_marginBottom="50dp"
@@ -31,14 +31,14 @@
         android:textSize="18sp"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/login_signUpBtn"
+        app:layout_constraintBottom_toTopOf="@+id/loginSignUpBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="@drawable/buttonstyle"
-        app:layout_constraintTop_toBottomOf="@+id/login_passwordET" />
+        android:background="@drawable/button_style"
+        app:layout_constraintTop_toBottomOf="@+id/loginPasswordET" />
 
     <Button
-        android:id="@+id/login_signUpBtn"
+        android:id="@+id/loginSignUpBtn"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -46,15 +46,15 @@
         android:layout_marginBottom="50dp"
         android:textColor="@color/white"
         android:text="@string/sign_up"
-        android:background="@drawable/buttonstyle"
+        android:background="@drawable/button_style"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.012"
-        app:layout_constraintStart_toStartOf="@+id/login_loginBtn"
-        app:layout_constraintTop_toBottomOf="@+id/login_loginBtn" />
+        app:layout_constraintStart_toStartOf="@+id/loginLoginBtn"
+        app:layout_constraintTop_toBottomOf="@+id/loginLoginBtn" />
 
     <EditText
-        android:id="@+id/login_emailET"
+        android:id="@+id/loginEmailET"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="25dp"
@@ -63,14 +63,14 @@
         android:importantForAutofill="no"
         android:inputType="textEmailAddress"
         android:textColor="#2548AF"
-        app:layout_constraintBottom_toTopOf="@+id/login_passwordET"
+        app:layout_constraintBottom_toTopOf="@+id/loginPasswordET"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_logoIV" />
+        app:layout_constraintTop_toBottomOf="@+id/loginLogoIV" />
 
     <EditText
-        android:id="@+id/login_passwordET"
+        android:id="@+id/loginPasswordET"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="25dp"
@@ -78,11 +78,11 @@
         android:hint="@string/password"
         android:textColor="#2548AF"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/login_loginBtn"
+        app:layout_constraintBottom_toTopOf="@+id/loginLoginBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_emailET"
+        app:layout_constraintTop_toBottomOf="@+id/loginEmailET"
         android:importantForAutofill="no" />
 
     <ProgressBar

@@ -24,7 +24,6 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         android:background="#A9A9A9">
-        <!--        app:headerLayout="@layout/sidebar_header">-->
 
         <include
             layout="@layout/sidebar_menu"

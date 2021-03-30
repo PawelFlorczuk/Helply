@@ -1,6 +1,5 @@
 package com.example.helply.menu;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -8,7 +7,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
@@ -16,10 +14,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.helply.components.Adapter;
 import com.example.helply.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.example.helply.components.Adapter;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -27,9 +23,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Vector;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MyAnnouncementsActivity extends MenuNavigationTemplate {
     protected Toolbar toolbar;
@@ -39,7 +34,6 @@ public class MyAnnouncementsActivity extends MenuNavigationTemplate {
     protected ActionBarDrawerToggle actionBarDrawerToggle;
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
-
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -61,109 +55,67 @@ public class MyAnnouncementsActivity extends MenuNavigationTemplate {
         progressBar.setVisibility(View.VISIBLE);
         toolbar.setTitleTextColor(Color.DKGRAY);
         View headerView = navigationView.inflateHeaderView(R.layout.sidebar_header);
-        profileImage = (CircleImageView) headerView.findViewById(R.id.profileImage);
+        profileImage = headerView.findViewById(R.id.profileImage);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
-
-        Intent intent = getIntent();
-        bitmap = intent.getParcelableExtra("Bitmap");
-        setProfileImage(bitmap);
-
+        setProfileImage();
         this.initSideBarMenu();
 
         ImageView refresh = findViewById(R.id.refreshView);
         refresh.setVisibility(View.VISIBLE);
-        refresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                refreshMyAnnouncement();
-            }
-
-
-        });
+        refresh.setOnClickListener(v -> refreshMyAnnouncement());
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Vector<String[]> datalist = new Vector<>();
+        Vector<String[]> dataList = new Vector<>();
         if (mAuth.getUid() != null) {
             db = FirebaseFirestore.getInstance();
             com.google.android.gms.tasks.Task<QuerySnapshot> documentReference = db.collection("tasks").get();
-            documentReference.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
-                    List<DocumentSnapshot> list = task.getResult().getDocuments();
-                    int i = 0;
-                    for (DocumentSnapshot doc : list) {
-                        if (doc.getId().split("-")[0].equals(mAuth.getUid())) {
-
-                            String[] dataString = new String[9];
-                            dataString[0] = doc.get("date").toString();
-                            dataString[1] = doc.get("address").toString();
-                            dataString[2] = doc.get("description").toString();
-                            dataString[3] = doc.get("helper").toString();
-                            dataString[4] = doc.get("emailPhoneNumber").toString();
-                            dataString[5] = doc.get("kindOfHelp").toString();
-                            dataString[6] = doc.get("nameOfHelp").toString();
-                            dataString[7] = doc.getId();
-                            dataString[8] = doc.get("volunteerContact").toString();
-                            datalist.add(dataString);
-
-
-                        }
-                        i++;
+            documentReference.addOnCompleteListener(task -> {
+                List<DocumentSnapshot> list = task.getResult().getDocuments();
+                for (DocumentSnapshot doc : list) {
+                    if (doc.getId().split("-")[0].equals(mAuth.getUid())) {
+                        dataList.add(extractData(doc));
                     }
-
-                    adapter = new Adapter(MyAnnouncementsActivity.this, datalist, 5, bitmap);
-                    recyclerView.setAdapter(adapter);
-                    progressBar.setVisibility(View.GONE);
                 }
-
+                adapter = new Adapter(MyAnnouncementsActivity.this, dataList, "MyAnnouncementDetails");
+                recyclerView.setAdapter(adapter);
+                progressBar.setVisibility(View.GONE);
             });
-        } else {
         }
     }
 
     public void refreshMyAnnouncement() {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Vector<String[]> datalist = new Vector<>();
+        Vector<String[]> dataList = new Vector<>();
         if (mAuth.getUid() != null) {
             db = FirebaseFirestore.getInstance();
             com.google.android.gms.tasks.Task<QuerySnapshot> documentReference = db.collection("tasks").get();
-            documentReference.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
-                    List<DocumentSnapshot> list = task.getResult().getDocuments();
-                    int i = 0;
-                    for (DocumentSnapshot doc : list) {
-                        if (doc.getId().split("-")[0].equals(mAuth.getUid())) {
-
-                            String[] dataString = new String[9];
-                            dataString[0] = doc.get("date").toString();
-                            dataString[1] = doc.get("address").toString();
-                            dataString[2] = doc.get("description").toString();
-                            dataString[3] = doc.get("helper").toString();
-                            dataString[4] = doc.get("emailPhoneNumber").toString();
-                            dataString[5] = doc.get("kindOfHelp").toString();
-                            dataString[6] = doc.get("nameOfHelp").toString();
-                            dataString[7] = doc.getId();
-                            dataString[8] = doc.get("volunteerContact").toString();
-                            datalist.add(dataString);
-
-
-                        }
-                        i++;
+            documentReference.addOnCompleteListener(task -> {
+                List<DocumentSnapshot> list = task.getResult().getDocuments();
+                for (DocumentSnapshot doc : list) {
+                    if (doc.getId().split("-")[0].equals(mAuth.getUid())) {
+                        dataList.add(extractData(doc));
                     }
-
-                    adapter = new Adapter(MyAnnouncementsActivity.this, datalist, 5, bitmap);
-                    recyclerView.setAdapter(adapter);
-                    progressBar.setVisibility(View.GONE);
                 }
-
+                adapter = new Adapter(MyAnnouncementsActivity.this, dataList, "MyAnnouncementDetails");
+                recyclerView.setAdapter(adapter);
+                progressBar.setVisibility(View.GONE);
             });
         }
+    }
+
+    private String[] extractData (DocumentSnapshot doc) {
+        String[] dataString = new String[9];
+        dataString[0] = Objects.requireNonNull(doc.get("date")).toString();
+        dataString[1] = Objects.requireNonNull(doc.get("address")).toString();
+        dataString[2] = Objects.requireNonNull(doc.get("description")).toString();
+        dataString[3] = Objects.requireNonNull(doc.get("helper")).toString();
+        dataString[4] = Objects.requireNonNull(doc.get("emailPhoneNumber")).toString();
+        dataString[5] = Objects.requireNonNull(doc.get("kindOfHelp")).toString();
+        dataString[6] = Objects.requireNonNull(doc.get("nameOfHelp")).toString();
+        dataString[7] = doc.getId();
+        dataString[8] = Objects.requireNonNull(doc.get("volunteerContact")).toString();
+        return dataString;
     }
 
 }

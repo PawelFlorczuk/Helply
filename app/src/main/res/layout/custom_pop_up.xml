@@ -8,11 +8,11 @@
     android:padding="5dp">
 
     <TextView
-        android:id="@+id/txtclose"
+        android:id="@+id/txtClose"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_gravity="end"
-        android:background="@drawable/circlebackground"
+        android:background="@drawable/circle_back_ground"
         android:gravity="center"
         android:text="X"
         android:textColor="@color/white"
@@ -34,7 +34,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/shopping_list_edit_text"
+            android:id="@+id/shoppingListEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -45,12 +45,12 @@
 
 
     <Button
-        android:id="@+id/save_shopping_list"
+        android:id="@+id/saveShoppingList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="25dp"
-        android:background="@drawable/buttonstyle"
+        android:background="@drawable/button_style"
         android:text="Save"
         android:textColor="@color/white" />
 

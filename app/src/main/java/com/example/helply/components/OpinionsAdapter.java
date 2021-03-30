@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.helply.R;
@@ -14,9 +13,9 @@ import com.example.helply.R;
 import java.util.Vector;
 
 public class OpinionsAdapter  extends RecyclerView.Adapter<OpinionsHolder> {
+
     Vector<String[]> v;
     Context c;
-
 
     public OpinionsAdapter(Context c, Vector<String[]> v) {
         this.v =  v;
@@ -34,8 +33,8 @@ public class OpinionsAdapter  extends RecyclerView.Adapter<OpinionsHolder> {
     @Override
     public void onBindViewHolder(@NonNull OpinionsHolder holder, int position) {
         holder.opinionTV.setText(v.get(position)[0]);
-        String temp [] = v.get(position)[1].split("T");
-        String res = temp[0] + " " + temp[1].substring(0,5); //.replace("."," ");
+        String[] temp = v.get(position)[1].split("T");
+        String res = temp[0] + " " + temp[1].substring(0,5);
         holder.dateTV.setText(res);
     }
 

@@ -18,14 +18,14 @@
         app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/applogo" />
+        app:srcCompat="@drawable/app_logo" />
 
     <Button
         android:id="@+id/registerBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
-        android:background="@drawable/buttonstyle"
+        android:background="@drawable/button_style"
         android:text="@string/register"
         android:textAllCaps="false"
         android:textColor="@color/white"
@@ -96,7 +96,7 @@
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textColorHint="#FFFFFF"
-        android:background="@drawable/buttonstyle"
+        android:background="@drawable/button_style"
         app:elevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

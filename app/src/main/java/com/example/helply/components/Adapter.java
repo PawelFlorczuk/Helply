@@ -13,7 +13,6 @@ import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.helply.R;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
@@ -25,21 +24,19 @@ import java.time.LocalDateTime;
 import java.util.Vector;
 
 public class Adapter extends RecyclerView.Adapter<Holder> {
-    public Adapter(Context c, Vector<String[]> v, int is, Bitmap bitmap) {
-        this.c = c;
-        this.v = v;
-        this.is = is;
-        this.windowNum = -1;
-        this.bit = bitmap;
 
-    }
-
-    Bitmap bit;
     Integer windowNum;
     Context c;
     Vector<String[]> v;
-    Integer is;
+    String target;
 
+    public Adapter(Context c, Vector<String[]> v, String target) {
+        this.c = c;
+        this.v = v;
+        this.target = target;
+        this.windowNum = -1;
+
+    }
 
     @NonNull
     @Override
@@ -47,15 +44,12 @@ public class Adapter extends RecyclerView.Adapter<Holder> {
         LayoutInflater inflater = LayoutInflater.from(c);
         View view = inflater.inflate(R.layout.announcement_object, parent, false);
         windowNum = windowNum + 1;
-        return new Holder(view, v.get(windowNum), bit);
+        return new Holder(view, v.get(windowNum));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    @Override
-    public void onBindViewHolder(@NonNull Holder holder, int position) {
+    private String creatingDateString(int position) {
 
-        String[] address = v.get(position)[1].split("-");
-        String finalAddress = address[2] + " " + address[3] + " " + address[4];
         String[] timeArray = v.get(position)[0].split("T");
         String time = timeArray[0];
         String timeNow = LocalDateTime.now().toString().split("T")[0];
@@ -63,31 +57,33 @@ public class Adapter extends RecyclerView.Adapter<Holder> {
             time = "Today";
         } else if (time.equals(LocalDateTime.now().minusDays(1).toString().split("T")[0])) {
             time = "Yesterday";
-        }else {
-            String temp [] = v.get(position)[0].split("T");
-            String res = temp[1].substring(0,5)  + " "+ temp[0]; //.replace("."," ");
-            time = res;
-
+        } else {
+            String[] temp = v.get(position)[0].split("T");
+            time = temp[1].substring(0,5)  + " "+ temp[0];
         }
+        return time;
+    }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    public void onBindViewHolder(@NonNull Holder holder, int position) {
+        String time = creatingDateString(position);
+        String[] address = v.get(position)[1].split("-");
+        String finalAddress = address[2] + " " + address[3] + " " + address[4];
         holder.address.setText(finalAddress);
         holder.need.setText(v.get(position)[5]);
         holder.time.setText(time);
-        holder.is = is;
-        String announcementType = v.get(position)[5];
-        switch (announcementType) {
+        holder.target = target;
 
+        switch (v.get(position)[5]) {
             case "Shopping": {
                 holder.announcementObjectCL.setBackgroundResource(R.drawable.shopping);
-
                 break;
             }
-
             case "Walking the dog": {
                holder.announcementObjectCL.setBackgroundResource(R.drawable.dog);
                 break;
             }
-
             default: {
                 holder.announcementObjectCL.setBackgroundResource(R.drawable.charity);
                 break;
@@ -108,17 +104,10 @@ public class Adapter extends RecyclerView.Adapter<Holder> {
                     Bitmap result = BitmapFactory.decodeFile(image.getAbsolutePath());
                     holder.imageView.setImageBitmap(result);
                 }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    holder.imageView.setImageResource(R.drawable.user_default_logo);
-                }
-            });
+            }).addOnFailureListener(e -> holder.imageView.setImageResource(R.drawable.user_default_logo));
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
     @Override

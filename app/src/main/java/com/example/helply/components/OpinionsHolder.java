@@ -12,6 +12,7 @@ public class OpinionsHolder extends RecyclerView.ViewHolder {
 
      TextView opinionTV;
      TextView dateTV;
+
     public OpinionsHolder(@NonNull View itemView) {
         super(itemView);
         this.dateTV = itemView.findViewById(R.id.neederOpinionDate);

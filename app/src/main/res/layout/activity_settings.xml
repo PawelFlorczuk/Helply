@@ -31,7 +31,7 @@
 
 
             <EditText
-                android:id="@+id/settings_currentPasswordET"
+                android:id="@+id/settingsCurrentPasswordET"
                 android:layout_width="212dp"
                 android:layout_height="43dp"
                 android:ems="10"
@@ -46,7 +46,7 @@
                 app:layout_constraintVertical_bias="0.398" />
 
             <EditText
-                android:id="@+id/settings_confirmPasswordET"
+                android:id="@+id/settingsConfirmPasswordET"
                 android:layout_width="213dp"
                 android:layout_height="44dp"
                 android:ems="10"
@@ -61,7 +61,7 @@
                 app:layout_constraintVertical_bias="0.548" />
 
             <Button
-                android:id="@+id/settings_savePasswordBtn"
+                android:id="@+id/settingsSavePasswordBtn"
                 style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -73,12 +73,12 @@
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/toolBar"
-                android:background="@drawable/buttonstyle"
+                android:background="@drawable/button_style"
 
                 app:layout_constraintVertical_bias="0.934" />
 
             <EditText
-                android:id="@+id/settings_newPasswordET"
+                android:id="@+id/settingsNewPasswordET"
                 android:layout_width="213dp"
                 android:layout_height="43dp"
                 android:layout_marginBottom="360dp"
@@ -94,7 +94,7 @@
                 app:layout_constraintVertical_bias="0.985" />
 
             <EditText
-                android:id="@+id/settings_newNickET"
+                android:id="@+id/settingsNewNickET"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -110,14 +110,14 @@
                 app:layout_constraintVertical_bias="0.766" />
 
             <Button
-                android:id="@+id/settings_changeNickBtn"
+                android:id="@+id/settingsChangeNickBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="100dp"
                 android:text="New nickname"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:background="@drawable/buttonstyle"
+                android:background="@drawable/button_style"
                 android:textColor="@color/white"
 
                 app:layout_constraintHorizontal_bias="0.497"
@@ -126,12 +126,12 @@
                 app:layout_constraintVertical_bias="0.981" />
 
             <Button
-                android:id="@+id/settings_chooseAvatarBtn"
+                android:id="@+id/settingsChooseAvatarBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:layout_gravity="center_vertical"
-                android:background="@drawable/buttonstyle"
+                android:background="@drawable/button_style"
                 android:text="Choose new picture"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -141,7 +141,7 @@
                 app:layout_constraintVertical_bias="0.302" />
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/settings_avatarIV"
+                android:id="@+id/settingsAvatarIV"
                 android:layout_width="123dp"
                 android:layout_height="127dp"
 
@@ -169,7 +169,6 @@
         android:layout_gravity="start"
         android:background="#A9A9A9"
         android:fitsSystemWindows="true">
-        <!--        app:headerLayout="@layout/sidebar_header">-->
 
         <include
             layout="@layout/sidebar_menu"

@@ -14,7 +14,7 @@
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"
         android:id="@+id/popWindowImage"
-        app:srcCompat="@drawable/applogo"/>
+        app:srcCompat="@drawable/app_logo"/>
 
     <TextView
         android:layout_below="@+id/popWindowImage"
@@ -53,7 +53,7 @@
             android:text="Save"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:background="@drawable/buttonstyle"
+            android:background="@drawable/button_style"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

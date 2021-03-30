@@ -25,4 +25,6 @@
     <string name="my_api_key">AIzaSyDWXXd1pnckpXzVzTJyfJQHaf4lQ9dDuaI</string>
     <string name="kind_of_help">Kind of help</string>
     <string name="change_address">Press to change your address</string>
+    <string name="change_shopping_list">Change your shopping list</string>
+    <string name="change_list">Change your list</string>
 </resources>

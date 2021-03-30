@@ -1,26 +1,15 @@
 package com.example.helply.menu;
 
-import android.app.Dialog;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.ColorFilter;
-import android.graphics.Path;
-import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 
 import android.content.Intent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -33,8 +22,6 @@ import com.example.helply.components.Adapter;
 import com.example.helply.R;
 import com.example.helply.login.LoginActivity;
 import com.example.helply.popup.ChoosePartPopUpWindow;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -43,9 +30,8 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Vector;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AnnouncementsMainActivity extends MenuNavigationTemplate {
 
@@ -56,7 +42,7 @@ public class AnnouncementsMainActivity extends MenuNavigationTemplate {
     protected NavigationView navigationView;
     protected ActionBarDrawerToggle actionBarDrawerToggle;
     private FirebaseFirestore db;
-    private Vector<String[]> datalist;
+    private Vector<String[]> dataList;
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
 
@@ -77,7 +63,7 @@ public class AnnouncementsMainActivity extends MenuNavigationTemplate {
             user = FirebaseAuth.getInstance().getCurrentUser();
             mAuth = FirebaseAuth.getInstance();
             setContentView(R.layout.activity_announcements_main);
-            datalist = new Vector<String[]>();
+            dataList = new Vector<>();
             navigationView = findViewById(R.id.nv_navView);
             navigationView.bringToFront();
             progressBar = findViewById(R.id.mainProgressBar);
@@ -91,90 +77,25 @@ public class AnnouncementsMainActivity extends MenuNavigationTemplate {
             refreshView = findViewById(R.id.refreshView);
             searchView = findViewById(R.id.searchPartOfCountryView);
 
-
-            refreshView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    partOfCountry = " ";
-                    refresh();
-                }
+            refreshView.setOnClickListener(v -> {
+                partOfCountry = " ";
+                refresh();
             });
-            searchView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivityForResult(new Intent(AnnouncementsMainActivity.this, ChoosePartPopUpWindow.class),1010);
-//                    Dialog myDialog = new Dialog(getApplicationContext());
-//                    myDialog.setContentView(R.layout.activity_choose_part_pop_up_window);
-//                     Spinner chooseSpinner;
-//                     Button saveBtn;
-//
-//                    chooseSpinner = findViewById(R.id.choosePopUpWindowSpinner);
-//
-//                    String[] spinnerString = {"Choose your province","Dolnośląskie","Kujawsko-Pomorskie","Lubelskie",
-//                            "Lubuskie","Łódzkie", "Małopolskie", "Mazowieckie","Opolskie","Podkarpackie","Podlaskie",
-//                            "Pomorskie","Śląskie","Świętokrzyskie","Warmińsko-Mazurskie","Wielkopolskie","Zachodniopomorskie"};
-//
-//                    chooseSpinner.setAdapter(new ArrayAdapter<>(getApplicationContext(),
-//                            android.R.layout.simple_spinner_dropdown_item, spinnerString));
-//                    saveBtn = findViewById(R.id.savePartOfTheCountryBtn);
-//
-//                    Button finalSaveBtn = saveBtn;
-//                    chooseSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//                        @Override
-//                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                            if(position != 0) {
-//                                partOfCountry = spinnerString[position];
-//                                finalSaveBtn.setEnabled(true);
-//                            } else {
-//                                finalSaveBtn.setEnabled(false);
-//                            }
-//
-//                        }
-//
-//                        @Override
-//                        public void onNothingSelected(AdapterView<?> parent) {
-//
-//                        }
-//                    });
-//
-//                    saveBtn = findViewById(R.id.savePartOfTheCountryBtn);
-//
-//                    saveBtn.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            refresh();
-//                            myDialog.dismiss();
-//                        }
-//                    });
-//
-//
-//                    myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//                    myDialog.show();
-
-
-                }
-            });
+            searchView.setOnClickListener(v -> startActivityForResult(
+                    new Intent(AnnouncementsMainActivity.this, ChoosePartPopUpWindow.class),1010));
 
             toolbar.setTitleTextColor(Color.DKGRAY);
-
-
-
             toolbar.setTitle("Announcements");
             actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, (R.string.open), (R.string.close));
             drawerLayout.addDrawerListener(actionBarDrawerToggle);
             actionBarDrawerToggle.syncState();
-            ImageView searchView = findViewById(R.id.searchPartOfCountryView);
-            ImageView refreshView = findViewById(R.id.refreshView);
             refreshView.setVisibility(View.VISIBLE);
             searchView.setVisibility(View.VISIBLE);
 
             View headerView = navigationView.inflateHeaderView(R.layout.sidebar_header);
-            profileImage = (CircleImageView) headerView.findViewById(R.id.profileImage);
+            profileImage = headerView.findViewById(R.id.profileImage);
 
-            Intent intent = getIntent();
-            bitmap = intent.getParcelableExtra("Bitmap");
-            setProfileImage(bitmap);
-
+            setProfileImage();
             initSideBarMenu();
             refresh();
 
@@ -188,65 +109,46 @@ public class AnnouncementsMainActivity extends MenuNavigationTemplate {
             this.partOfCountry = preferences.getString("province"," ");
             refresh();
         }
-
-
     }
 
     public void refresh() {
         if (mAuth.getUid() != null) {
-
             db = FirebaseFirestore.getInstance();
             com.google.android.gms.tasks.Task<QuerySnapshot> documentReference = db.collection("tasks").orderBy("date", Query.Direction.DESCENDING).get();
-            documentReference.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    datalist = new Vector<String[]>();
-                    List<DocumentSnapshot> list = task.getResult().getDocuments();
-                    int i = 0;
-                    if (partOfCountry.equals(" ")) {
-                        for (DocumentSnapshot doc : list) {
-                            if (doc.get("helper").toString().equals(" ")) {
-                                String[] dataString = new String[8];
-                                dataString[0] = doc.get("date").toString();
-                                dataString[1] = doc.get("address").toString();
-                                dataString[2] = doc.get("description").toString();
-                                dataString[3] = doc.get("helper").toString();
-                                dataString[4] = doc.get("emailPhoneNumber").toString();
-                                dataString[5] = doc.get("kindOfHelp").toString();
-                                dataString[6] = doc.get("nameOfHelp").toString();
-                                dataString[7] = doc.getId();
-                                datalist.add(dataString);
-
-                            }
-                            i++;
-                        }
-                    } else {
-                        for (DocumentSnapshot doc : list) {
-                            if (doc.get("helper").toString().equals(" ") && doc.get("address").toString().split("-")[1].equals(partOfCountry)) {
-                                String[] dataString = new String[8];
-                                dataString[0] = doc.get("date").toString();
-                                dataString[1] = doc.get("address").toString();
-                                dataString[2] = doc.get("description").toString();
-                                dataString[3] = doc.get("helper").toString();
-                                dataString[4] = doc.get("emailPhoneNumber").toString();
-                                dataString[5] = doc.get("kindOfHelp").toString();
-                                dataString[6] = doc.get("nameOfHelp").toString();
-                                dataString[7] = doc.getId();
-                                datalist.add(dataString);
-
-                            }
-                            i++;
+            documentReference.addOnCompleteListener(task -> {
+                dataList = new Vector<>();
+                List<DocumentSnapshot> list = task.getResult().getDocuments();
+                if (partOfCountry.equals(" ")) {
+                    for (DocumentSnapshot doc : list) {
+                        if (Objects.requireNonNull(doc.get("helper")).toString().equals(" ")) {
+                            dataList.add(extractData(doc));
                         }
                     }
-
-
-                    adapter = new Adapter(AnnouncementsMainActivity.this, datalist, 0,bitmap);
-                    recyclerView.setAdapter(adapter);
-                    progressBar.setVisibility(View.GONE);
+                } else {
+                    for (DocumentSnapshot doc : list) {
+                        if (Objects.requireNonNull(doc.get("helper")).toString().equals(" ") &&
+                                Objects.requireNonNull(doc.get("address")).toString().split("-")[1].equals(partOfCountry)) {
+                            dataList.add(extractData(doc));
+                        }
+                    }
                 }
-
+                adapter = new Adapter(AnnouncementsMainActivity.this, dataList, "AnnouncementDetails");
+                recyclerView.setAdapter(adapter);
+                progressBar.setVisibility(View.GONE);
             });
         }
+    }
+    private String[] extractData (DocumentSnapshot doc) {
+        String[] dataString = new String[8];
+        dataString[0] = Objects.requireNonNull(doc.get("date")).toString();
+        dataString[1] = Objects.requireNonNull(doc.get("address")).toString();
+        dataString[2] = Objects.requireNonNull(doc.get("description")).toString();
+        dataString[3] = Objects.requireNonNull(doc.get("helper")).toString();
+        dataString[4] = Objects.requireNonNull(doc.get("emailPhoneNumber")).toString();
+        dataString[5] = Objects.requireNonNull(doc.get("kindOfHelp")).toString();
+        dataString[6] = Objects.requireNonNull(doc.get("nameOfHelp")).toString();
+        dataString[7] = doc.getId();
+        return dataString;
     }
 
 

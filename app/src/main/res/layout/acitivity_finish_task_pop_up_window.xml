@@ -11,15 +11,10 @@
         android:id="@+id/pointCheckBox"
         android:layout_width="wrap_content"
         android:layout_marginLeft="30dp"
-
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:textColor="#2548AF"
-
         android:text="Do you want to give volunteer a point?" />
-
-
-
     <CheckBox
         android:id="@+id/opinCheckBox"
         android:layout_below="@+id/pointCheckBox"
@@ -63,7 +58,7 @@
             android:layout_height="wrap_content"
             android:text="Finish"
             android:textColor="@color/white"
-            android:background="@drawable/buttonstyle"
+            android:background="@drawable/button_style"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

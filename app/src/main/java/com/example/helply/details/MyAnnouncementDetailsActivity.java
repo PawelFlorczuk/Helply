@@ -26,7 +26,6 @@ import com.example.helply.components.Adapter;
 import com.example.helply.R;
 import com.example.helply.menu.MyAnnouncementsActivity;
 import com.example.helply.menu.MenuNavigationTemplate;
-import com.example.helply.popup.FinishTaskPopUpWindow;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
@@ -68,7 +67,6 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
     private long points;
 
     private boolean taken;
-
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -136,7 +134,6 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
             taken = false;
         }
 
-
         mAuth = FirebaseAuth.getInstance();
         navigationView = findViewById(R.id.nv_navView);
         navigationView.bringToFront();
@@ -147,21 +144,15 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
 
-
         user = FirebaseAuth.getInstance().getCurrentUser();
 
         this.initSideBarMenu();
         toolbar.setTitleTextColor(Color.DKGRAY);
 
-
         View headerView = navigationView.inflateHeaderView(R.layout.sidebar_header);
-        profileImage = (CircleImageView) headerView.findViewById(R.id.profileImage);
+        profileImage = headerView.findViewById(R.id.profileImage);
 
-        Intent intent2 = getIntent();
-        bitmap = intent2.getParcelableExtra("Bitmap");
-        setProfileImage(bitmap);
-
-
+        setProfileImage();
     }
 
 
@@ -170,13 +161,8 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
         if (view.getId() == R.id.takeBtn) {
             if (taken) {
                 if (!mAuth.getUid().equals(taskData[3])) {
-
-
-//                    startActivityForResult(new Intent(this, FinishTaskPopUpWindow.class), 1005);
-
                     Dialog myDialog = new Dialog(this);
                     myDialog.setContentView(R.layout.acitivity_finish_task_pop_up_window);
-
 
                     EditText opinionET;
                     CheckBox opinionCB;
@@ -198,8 +184,6 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
                             }
                         }
                     });
-
-
                     finishBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -217,8 +201,6 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
                             } else {
                                 point = "0";
                             }
-
-
                             String userOpinion = description;
                             if (!mAuth.getUid().equals(taskData[3])) {
                                 db = FirebaseFirestore.getInstance();
@@ -267,7 +249,6 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
                                                                                             } else {
                                                                                                 Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task was unsuccessful!", Toast.LENGTH_SHORT).show();
                                                                                             }
-
                                                                                         }
                                                                                     });
                                                                                 } else {
@@ -277,7 +258,6 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
                                                                                     Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task was unsuccessful!", Toast.LENGTH_SHORT).show();
                                                                                 }
                                                                             }
-
                                                                         });
                                                                     } else {
                                                                         DocumentReference delete = db.collection("tasks").document(taskData[7]);
@@ -291,7 +271,6 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
                                                                                 } else {
                                                                                     Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task was unsuccessful!", Toast.LENGTH_SHORT).show();
                                                                                 }
-
                                                                             }
                                                                         });
                                                                     }
@@ -303,7 +282,6 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
                                                     }
                                                 });
                                             } else {
-
                                                 db.collection("tasks").document(taskData[7]).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                                     @Override
                                                     public void onComplete(@NonNull Task<Void> task) {
@@ -313,8 +291,6 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
                                                     }
                                                 });
                                             }
-
-
                                         }
                                     });
                                 } else {
@@ -327,20 +303,12 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
                                         }
                                     });
                                 }
-
-
                             }
-
-
                             myDialog.dismiss();
                         }
                     });
-
-
                     myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     myDialog.show();
-
-
                 }
             } else {
                 db = FirebaseFirestore.getInstance();
@@ -354,13 +322,10 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
                             finish();
                         } else {
                             Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task was unsuccessful", Toast.LENGTH_SHORT).show();
-
                         }
                     }
                 });
             }
-
-
         }
     }
 
@@ -385,7 +350,6 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
                                 documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                     @Override
                                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-
                                         DocumentSnapshot doc = task.getResult();
                                         points = (long) doc.get("points");
                                         if (point.equals("1")) {
@@ -418,7 +382,6 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
                                                                             } else {
                                                                                 Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task was unsuccessful!", Toast.LENGTH_SHORT).show();
                                                                             }
-
                                                                         }
                                                                     });
                                                                 } else {
@@ -428,7 +391,6 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
                                                                     Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task was unsuccessful!", Toast.LENGTH_SHORT).show();
                                                                 }
                                                             }
-
                                                         });
                                                     } else {
                                                         DocumentReference delete = db.collection("tasks").document(taskData[7]);
@@ -442,7 +404,6 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
                                                                 } else {
                                                                     Toast.makeText(MyAnnouncementDetailsActivity.this, "Finishing task was unsuccessful!", Toast.LENGTH_SHORT).show();
                                                                 }
-
                                                             }
                                                         });
                                                     }
@@ -454,7 +415,6 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
                                     }
                                 });
                             } else {
-
                                 db.collection("tasks").document(taskData[7]).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
@@ -464,8 +424,6 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
                                     }
                                 });
                             }
-
-
                         }
                     });
                 } else {
@@ -478,12 +436,7 @@ public class MyAnnouncementDetailsActivity extends MenuNavigationTemplate implem
                         }
                     });
                 }
-
-
             }
         }
-
-
     }
-
 }

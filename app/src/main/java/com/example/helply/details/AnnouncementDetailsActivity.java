@@ -21,11 +21,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.helply.components.Adapter;
 import com.example.helply.R;
+import com.example.helply.components.Adapter;
 import com.example.helply.menu.AnnouncementsMainActivity;
 import com.example.helply.menu.MenuNavigationTemplate;
-import com.example.helply.popup.TaskPopUpWindow;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -38,8 +37,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AnnouncementDetailsActivity extends MenuNavigationTemplate implements View.OnClickListener {
     protected Toolbar toolbar;
@@ -67,7 +64,6 @@ public class AnnouncementDetailsActivity extends MenuNavigationTemplate implemen
 
     private String[] taskData;
 
-
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +72,7 @@ public class AnnouncementDetailsActivity extends MenuNavigationTemplate implemen
 
         db = FirebaseFirestore.getInstance();
 
-        contactCV = findViewById(R.id.cv_7);
+        contactCV = findViewById(R.id.contactAndStatusCardView);
         contactCV.setVisibility(View.GONE);
 
         contactTV = findViewById(R.id.contactTV);
@@ -135,7 +131,6 @@ public class AnnouncementDetailsActivity extends MenuNavigationTemplate implemen
         navigationView.bringToFront();
         drawerLayout = findViewById(R.id.dl_drawer_layout);
         toolbar = findViewById(R.id.toolBar);
-//        toolbar.setTitle("My tasks");
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, (R.string.open), (R.string.close));
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
@@ -149,15 +144,10 @@ public class AnnouncementDetailsActivity extends MenuNavigationTemplate implemen
         toolbar.setTitleTextColor(Color.DKGRAY);
         toolbar.setTitle("Announcement");
 
-
         View headerView = navigationView.inflateHeaderView(R.layout.sidebar_header);
-        profileImage = (CircleImageView) headerView.findViewById(R.id.profileImage);
+        profileImage = headerView.findViewById(R.id.profileImage);
 
-        Intent intent2 = getIntent();
-        bitmap = intent2.getParcelableExtra("Bitmap");
-        setProfileImage(bitmap);
-
-
+        setProfileImage();
     }
 
     @Override
@@ -165,13 +155,8 @@ public class AnnouncementDetailsActivity extends MenuNavigationTemplate implemen
         if (view.getId() == R.id.takeBtn) {
             if (!mAuth.getUid().equals(this.taskData[7].split("-")[0])) {
 
-
-//                startActivityForResult(new Intent(this, TaskPopUpWindow.class), 1003);
-
-
                 Dialog myDialog = new Dialog(this);
                 myDialog.setContentView(R.layout.task_pop_up_window);
-
 
                 final Button saveContactET = myDialog.findViewById(R.id.saveContactET);
                 final EditText contactET = myDialog.findViewById(R.id.contactET);
@@ -179,20 +164,14 @@ public class AnnouncementDetailsActivity extends MenuNavigationTemplate implemen
                 myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 myDialog.show();
 
-
                 saveContactET.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-
-
                         String contact = contactET.getText().toString();
                         if (contact == null || contact.equals("") || contact.equals(" ") || contact.equals("Contact")) {
                             Toast.makeText(AnnouncementDetailsActivity.this, "The contact field cannot be empty", Toast.LENGTH_SHORT).show();
                             return;
                         }
-
-
                         DocumentReference get = db.collection("tasks").document(taskData[7]);
                         get.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
@@ -217,8 +196,6 @@ public class AnnouncementDetailsActivity extends MenuNavigationTemplate implemen
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
                                                 Toast.makeText(AnnouncementDetailsActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
-
-
                                             }
                                         });
                                     } else {
@@ -229,14 +206,9 @@ public class AnnouncementDetailsActivity extends MenuNavigationTemplate implemen
                                 }
                             }
                         });
-
-
                         myDialog.dismiss();
                     }
                 });
-
-
-
             }
         }
     }
@@ -245,16 +217,12 @@ public class AnnouncementDetailsActivity extends MenuNavigationTemplate implemen
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == 1111) {
-
             SharedPreferences preferences = getSharedPreferences("VolunteerContact", MODE_PRIVATE);
-
             String contact = preferences.getString("volunteer_contact", "Contact");
             if (contact == null || contact.equals("") || contact.equals(" ") || contact.equals("Contact")) {
                 Toast.makeText(AnnouncementDetailsActivity.this, "The contact field cannot be empty", Toast.LENGTH_SHORT).show();
                 return;
             }
-
-
             DocumentReference get = db.collection("tasks").document(taskData[7]);
             get.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
@@ -279,8 +247,6 @@ public class AnnouncementDetailsActivity extends MenuNavigationTemplate implemen
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
                                     Toast.makeText(AnnouncementDetailsActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
-
-
                                 }
                             });
                         } else {
