@@ -3,7 +3,7 @@ Test account
 Login:pawel@gmail.com  
 Password:123456
 
-Technologies
+Technologies:
 -Firebase
 -Android Studio
 -Java
