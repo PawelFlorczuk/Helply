@@ -1,8 +1,8 @@
 # Helply
 
 Test account
-Login:          Password:
-pawel@gmail.com 123456
+Login:pawel@gmail.com  
+Password:123456
 
 Technologies
 -Firebase
