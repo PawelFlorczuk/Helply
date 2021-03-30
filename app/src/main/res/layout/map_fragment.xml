@@ -14,7 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/map_navigaction"
-        tools:layout="@layout/activity_add_task"
+        tools:layout="@layout/activity_create_announcement"
         android:id="@+id/frag" />
 
 

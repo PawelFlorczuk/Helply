@@ -12,7 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.helply.menu.MainActivity;
+import com.example.helply.menu.AnnouncementsMainActivity;
 import com.example.helply.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -60,8 +60,6 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         signInBtn.setOnClickListener(this);
         db = FirebaseFirestore.getInstance();
 
-
-
     }
 
 
@@ -87,22 +85,32 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         repeatPassword = repeatedPasswordET.getText().toString().trim();
 
         if(!password.equals(repeatPassword)) {
+            progressBar.setVisibility(View.INVISIBLE);
             Toast.makeText(RegistrationActivity.this, "Passwords are not the same", Toast.LENGTH_SHORT).show();
             return;
         }
+        if(login.length() > 12) {
+            progressBar.setVisibility(View.INVISIBLE);
+            Toast.makeText(RegistrationActivity.this, "Login cannot be more than 12 characters", Toast.LENGTH_SHORT).show();
+            return;
+        }
         if(email.equals("")) {
-            Toast.makeText(RegistrationActivity.this,"Email is empty", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.INVISIBLE);
+            Toast.makeText(RegistrationActivity.this,"Email field is empty", Toast.LENGTH_SHORT).show();
             return;
         }
         if(password.equals("")) {
-            Toast.makeText(RegistrationActivity.this,"Password is empty", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.INVISIBLE);
+            Toast.makeText(RegistrationActivity.this,"Password field is empty", Toast.LENGTH_SHORT).show();
             return;
         }
         if(password.length() < 6) {
+            progressBar.setVisibility(View.INVISIBLE);
             Toast.makeText(RegistrationActivity.this,"Password is less than 6 characters", Toast.LENGTH_SHORT).show();
             return;
         }
         if(!termsOfUseCheckBox.isChecked()){
+            progressBar.setVisibility(View.INVISIBLE);
             Toast.makeText(RegistrationActivity.this,"You have to accept the rules", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -145,8 +153,8 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     progressBar.setVisibility(View.INVISIBLE);
-                                                    Toast.makeText(RegistrationActivity.this, "Authorization succeed", Toast.LENGTH_SHORT).show();
-                                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                                    Toast.makeText(RegistrationActivity.this, "Successful registration", Toast.LENGTH_SHORT).show();
+                                                    startActivity(new Intent(getApplicationContext(), AnnouncementsMainActivity.class));
                                                     finish();
                                                 }
                                             });
@@ -166,9 +174,11 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
+
                                                 user.delete();
                                             }
                                         });
+                                progressBar.setVisibility(View.INVISIBLE);
                                 Toast.makeText(RegistrationActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
                             }
                         });

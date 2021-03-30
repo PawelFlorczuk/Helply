@@ -1,15 +1,9 @@
 package com.example.helply.menu;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,12 +12,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.helply.Adapter;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import com.example.helply.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
@@ -31,44 +26,41 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-
-import org.w3c.dom.Document;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class SettingsActivity extends Navigation implements View.OnClickListener {
+public class SettingsActivity extends MenuNavigationTemplate implements View.OnClickListener {
 
     protected Toolbar toolbar;
-    private Adapter adapter;
     protected DrawerLayout drawerLayout;
     protected NavigationView navigationView;
     protected ActionBarDrawerToggle actionBarDrawerToggle;
     private FirebaseAuth mAuth;
 
-    private TextView nickTV;
     private Button nickBtn;
+    private Button passwordBtn;
+    private Button chooseAvatarBtn;
+
     private TextView passwordTV;
     private TextView repeatPasswordTV;
     private TextView oldPasswordTV;
-    private Button passwordBtn;
-    private Button chooseAvatarBtn;
+    private TextView nickTV;
+
     private CircleImageView avatar;
 
-
-
     private Bitmap bitmap;
-
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -79,17 +71,17 @@ public class SettingsActivity extends Navigation implements View.OnClickListener
         navigationView = findViewById(R.id.nv_navView);
         drawerLayout = findViewById(R.id.dl_drawer_layout);
         toolbar = findViewById(R.id.toolBar);
-        nickTV = findViewById(R.id.settings_newNickET);
-        passwordTV = findViewById(R.id.settings_newPasswordET);
-        repeatPasswordTV = findViewById(R.id.settings_confirmPasswordET);
-        oldPasswordTV = findViewById(R.id.settings_currentPasswordET);
-        avatar = findViewById(R.id.settings_avatarIV);
+        nickTV = findViewById(R.id.settingsNewNickET);
+        passwordTV = findViewById(R.id.settingsNewPasswordET);
+        repeatPasswordTV = findViewById(R.id.settingsConfirmPasswordET);
+        oldPasswordTV = findViewById(R.id.settingsCurrentPasswordET);
+        avatar = findViewById(R.id.settingsAvatarIV);
+        toolbar.setTitleTextColor(Color.DKGRAY);
 
-
-        repeatPasswordTV = findViewById(R.id.settings_confirmPasswordET);
-        passwordBtn = findViewById(R.id.settings_savePasswordBtn);
-        nickBtn = findViewById(R.id.settings_changeNickBtn);
-        chooseAvatarBtn = findViewById(R.id.settings_chooseAvatarBtn);
+        repeatPasswordTV = findViewById(R.id.settingsConfirmPasswordET);
+        passwordBtn = findViewById(R.id.settingsSavePasswordBtn);
+        nickBtn = findViewById(R.id.settingsChangeNickBtn);
+        chooseAvatarBtn = findViewById(R.id.settingsChooseAvatarBtn);
 
         passwordBtn.setOnClickListener(this);
         chooseAvatarBtn.setOnClickListener(this);
@@ -105,134 +97,108 @@ public class SettingsActivity extends Navigation implements View.OnClickListener
         db = FirebaseFirestore.getInstance();
 
         View headerView = navigationView.inflateHeaderView(R.layout.sidebar_header);
-        profileImage = (CircleImageView) headerView.findViewById(R.id.profileImage);
+        profileImage = headerView.findViewById(R.id.profileImage);
 
+        setProfileImage();
 
-        Intent intent = getIntent();
-        bitmap = intent.getParcelableExtra("Bitmap");
-        setProfileImage(bitmap);
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference()
+                .child("profileImage")
+                .child(user.getUid() + ".jpg");
 
-
+        try {
+            final File image = File.createTempFile(user.getUid(), ".jpg");
+            storageReference.getFile(image).addOnSuccessListener(taskSnapshot -> {
+                Bitmap result = BitmapFactory.decodeFile(image.getAbsolutePath());
+                if (avatar != null) {
+                    bitmap = result;
+                    avatar.setImageBitmap(bitmap);
+                }
+            }).addOnFailureListener(e -> avatar.setImageResource(R.drawable.user_default_logo));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         this.initSideBarMenu();
-
     }
 
     @Override
     public void onClick(View view) {
-
         switch (view.getId()) {
-            case R.id.settings_chooseAvatarBtn: {
+            case R.id.settingsChooseAvatarBtn: {
                 StorageReference storageReference = FirebaseStorage.getInstance().getReference()
                         .child("progileImage")
                         .child(mAuth.getUid() + ".jpg");
-
-
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent,  "Pobierz zdjecie"), 10001);
-
+                startActivityForResult(Intent.createChooser(intent, "Load your picture"), 10001);
                 break;
             }
-            case R.id.settings_changeNickBtn: // todo handle this
-            {
+            case R.id.settingsChangeNickBtn: {
                 String newLogin = nickTV.getText().toString().trim();
-                String oldLogin;
-                DocumentReference loginGet = db.collection("users").document(mAuth.getUid());
-                loginGet.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if(task.isSuccessful()) {
-                            String oldLogin = (String) task.getResult().get("login");
-                            if(oldLogin.equals(newLogin)) {
-                                Toast.makeText(getApplicationContext(), "New nick can't equals to the old one",Toast.LENGTH_SHORT).show();
-                            } else {
-                                DocumentReference checkExistsLogin = db.collection("logins").document(newLogin);
-                                checkExistsLogin.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                        if(task.getResult().exists()) {
-                                            Toast.makeText(SettingsActivity.this, "This nick already exists", Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            Map<String, Object> log = new HashMap<>();
-                                            DocumentReference newLoginCreate = db.collection("logins").document(newLogin);
-                                            newLoginCreate.set(log).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    if(task.isSuccessful()) {
-                                                        Map<String, Object> user = new HashMap<>();
-                                                        DocumentReference documentReference = db.collection("users").document(mAuth.getUid());
-                                                        user.put("login",newLogin);
-                                                        documentReference.update(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                            @Override
-                                                            public void onSuccess(Void aVoid) {
-                                                                DocumentReference deleteOldLogin = db.collection("logins").document(oldLogin);
-                                                                deleteOldLogin.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                                    @Override
-                                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                                        if(task.isSuccessful()) {
-                                                                            Toast.makeText(SettingsActivity.this, "Udało się zmienic numer", Toast.LENGTH_SHORT).show();
-                                                                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                                                            finish();
-                                                                        } else {
-                                                                            newLoginCreate.delete();
-                                                                            Map<String, Object> user = new HashMap<>();
-                                                                            DocumentReference documentReference = db.collection("users").document(mAuth.getUid());
-                                                                            user.put("login",oldLogin);
-                                                                            documentReference.update(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                                                @Override
-                                                                                public void onComplete(@NonNull Task<Void> task) {
+                DocumentReference loginGet = db.collection("users").document(Objects.requireNonNull(mAuth.getUid()));
+                loginGet.get().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        String oldLogin = (String) task.getResult().get("login");
+                        if (oldLogin.equals(newLogin)) {
+                            Toast.makeText(getApplicationContext(), "New nickname cannot equal to the old one", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
 
-                                                                                }
-                                                                            });
-                                                                            Toast.makeText(SettingsActivity.this, "Your old login doesn't exist", Toast.LENGTH_SHORT).show();
-
-                                                                        }
-                                                                    }
-                                                                });
-                                                            }
-                                                        }).addOnFailureListener(new OnFailureListener() {
-                                                            @Override
-                                                            public void onFailure(@NonNull Exception e) {
-                                                                newLoginCreate.delete();
-                                                                Toast.makeText(SettingsActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
-
-
-                                                            }
-                                                        });
-                                                    } else {
-
-                                                        Toast.makeText(getApplicationContext(), "This login already exists",Toast.LENGTH_SHORT).show();
-                                                    }
-                                                }
-                                            });
-                                        }
-                                    }
-                                });
-
+                        DocumentReference checkExistsLogin = db.collection("logins").document(newLogin);
+                        checkExistsLogin.get().addOnCompleteListener(existingLogin -> {
+                            if (existingLogin.getResult().exists()) {
+                                Toast.makeText(SettingsActivity.this, "This nickname already exists", Toast.LENGTH_SHORT).show();
+                                return;
                             }
 
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Check your internet connection",Toast.LENGTH_SHORT).show();
-                        }
+                            DocumentReference createNewLogin = db.collection("logins").document(newLogin);
+                            createNewLogin.set(new HashMap<>()).addOnCompleteListener(addingNewLoginToUsersCollection -> {
+                                if (addingNewLoginToUsersCollection.isSuccessful()) {
+
+                                    DocumentReference documentReference = db.collection("users").document(mAuth.getUid());
+                                    Map<String, Object> user = Map.of("login", newLogin);
+                                    documentReference.update(user).addOnSuccessListener(aVoid -> {
+
+                                        DocumentReference deleteOldLogin = db.collection("logins").document(oldLogin);
+                                        deleteOldLogin.delete().addOnCompleteListener(deletingOldLoginFromLoginsCollection -> {
+                                            if (deletingOldLoginFromLoginsCollection.isSuccessful()) {
+                                                Toast.makeText(SettingsActivity.this, "You changed your nickname successfully", Toast.LENGTH_SHORT).show();
+                                                startActivity(new Intent(getApplicationContext(), AnnouncementsMainActivity.class));
+                                                finish();
+
+                                            } else {
+                                                createNewLogin.delete();
+                                                DocumentReference changingNewPasswordToOld = db.collection("users").document(mAuth.getUid());
+                                                Map<String, Object> userLogin = Map.of("login", oldLogin);
+                                                changingNewPasswordToOld.update(userLogin);
+                                                Toast.makeText(SettingsActivity.this, "Your old nickname does not exist", Toast.LENGTH_SHORT).show();
+
+                                            }
+                                        });
+                                    }).addOnFailureListener(e -> {
+                                        createNewLogin.delete();
+                                        Toast.makeText(SettingsActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+
+                                    });
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "This login already exists", Toast.LENGTH_SHORT).show();
+
+                                }
+                            });
+                        });
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Check your internet connection", Toast.LENGTH_SHORT).show();
                     }
                 });
-
-
-
-
-
-
-
                 break;
             }
-            case R.id.settings_savePasswordBtn: {
+            case R.id.settingsSavePasswordBtn: {
                 mAuth.getCurrentUser();
                 String email = user.getEmail();
                 String repeatPassword = repeatPasswordTV.getText().toString().trim();
                 String oldPassword = oldPasswordTV.getText().toString().trim();
                 String newPassword = passwordTV.getText().toString().trim();
-                if(oldPassword.equals(newPassword)) {
+                if (oldPassword.equals(newPassword)) {
                     Toast.makeText(SettingsActivity.this, "New and old password can't be equal", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -240,44 +206,30 @@ public class SettingsActivity extends Navigation implements View.OnClickListener
                     Toast.makeText(SettingsActivity.this, "Password and confirm password are not equal", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (repeatPassword.length() < 6 ) {
-                    Toast.makeText(SettingsActivity.this, "Password has to have at least 6 characters", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (newPassword.length() < 6 ) {
+                if (repeatPassword.length() < 6) {
                     Toast.makeText(SettingsActivity.this, "Password has to have at least 6 characters", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 AuthCredential credential = EmailAuthProvider
                         .getCredential(email, oldPassword);
-                user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            user.updatePassword(newPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (!task.isSuccessful()) {
-                                        Toast.makeText(SettingsActivity.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(SettingsActivity.this, "Password successfully changed!", Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                        finish();
-
-                                    }
-                                }
-                            });
-                        } else {
-                            Toast.makeText(SettingsActivity.this, "Authorization failed!", Toast.LENGTH_SHORT).show();
-                        }
+                user.reauthenticate(credential).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        user.updatePassword(newPassword).addOnCompleteListener(changePassword -> {
+                            if (!changePassword.isSuccessful()) {
+                                Toast.makeText(SettingsActivity.this, changePassword.getException().toString(), Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(SettingsActivity.this, "Password successfully changed!", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getApplicationContext(), AnnouncementsMainActivity.class));
+                                finish();
+                            }
+                        });
+                    } else {
+                        Toast.makeText(SettingsActivity.this, "Authorization failed!", Toast.LENGTH_SHORT).show();
                     }
                 });
-
-
                 break;
             }
         }
-
     }
 
     @Override
@@ -291,13 +243,14 @@ public class SettingsActivity extends Navigation implements View.OnClickListener
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-
-            bitmap = Bitmap.createScaledBitmap(bitmap, avatar.getWidth(), avatar.getHeight(), true);
+            int width = bitmap.getWidth();
+            int height = bitmap.getHeight();
+            int k = height / avatar.getHeight();
+            width = (int) (width / (k * 1.5));
+            height = (int) (avatar.getHeight() / 1.5);
+            bitmap = Bitmap.createScaledBitmap(bitmap, width, height, true);
             avatar.setImageBitmap(bitmap);
-            Toast.makeText(SettingsActivity.this, "1", Toast.LENGTH_LONG).show();
             handleUpload(bitmap);
-
-
         }
     }
 
@@ -309,30 +262,13 @@ public class SettingsActivity extends Navigation implements View.OnClickListener
         final StorageReference reference = FirebaseStorage.getInstance().getReference()
                 .child("profileImage")
                 .child(uid + ".jpg");
-        reference.putBytes(byteArrayOutputStream.toByteArray()).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(SettingsActivity.this, "2", Toast.LENGTH_LONG).show();
-                getDownUrl(reference);
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(SettingsActivity.this, "Nie udało", Toast.LENGTH_LONG).show();
-            }
-        });
+        reference.putBytes(byteArrayOutputStream.toByteArray()).addOnSuccessListener(taskSnapshot -> getDownUrl(reference)).addOnFailureListener(e ->
+                Toast.makeText(SettingsActivity.this, "Adding picture failed", Toast.LENGTH_LONG).show());
     }
 
     private void getDownUrl(StorageReference reference) {
         reference.getDownloadUrl()
-                .addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        Toast.makeText(SettingsActivity.this, "3", Toast.LENGTH_LONG).show();
-                        setUserProfileUrl(uri);
-                    }
-                });
+                .addOnSuccessListener(uri -> setUserProfileUrl(uri));
     }
 
     private void setUserProfileUrl(Uri uri) {
@@ -340,11 +276,7 @@ public class SettingsActivity extends Navigation implements View.OnClickListener
         UserProfileChangeRequest request = new UserProfileChangeRequest.Builder()
                 .setPhotoUri(uri)
                 .build();
-        user.updateProfile(request).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Toast.makeText(SettingsActivity.this, "4", Toast.LENGTH_LONG).show();
-            }
-        });
+        user.updateProfile(request).addOnSuccessListener(aVoid -> Toast.makeText(SettingsActivity.this,
+                "Picture added successfully", Toast.LENGTH_LONG).show());
     }
 }

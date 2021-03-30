@@ -4,25 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#DCDCDC"
     tools:context=".login.RegistrationActivity">
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="118dp"
+
+        android:layout_height="106dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/app_logo" />
 
     <Button
         android:id="@+id/registerBtn"
-        android:layout_width="125dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/button_style"
         android:text="@string/register"
         android:textAllCaps="false"
+        android:textColor="@color/white"
         android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/termsOfUseChckBox" />
 
     <EditText
+        android:textColor="#2548AF"
+
         android:id="@+id/emailET"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="@string/e_mail"
         android:importantForAutofill="no"
@@ -30,15 +48,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <EditText
         android:id="@+id/loginET"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:textColor="#2548AF"
+
         android:ems="10"
-        android:hint="Login"
+        android:hint="Nickame"
         android:importantForAutofill="no"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
@@ -54,6 +74,8 @@
         android:ems="10"
         android:hint="Password"
         android:importantForAutofill="no"
+        android:textColor="#2548AF"
+
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -71,9 +93,10 @@
         android:shadowDy="0"
         android:shadowRadius="0"
         android:text="@string/sign_in"
-        android:textColor="#2196F3"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
         android:textColorHint="#FFFFFF"
-        app:backgroundTint="#00FFFFFF"
+        android:background="@drawable/button_style"
         app:elevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -89,6 +112,8 @@
         android:hint="Confirm password"
         android:importantForAutofill="no"
         android:inputType="textPassword"
+        android:textColor="#2548AF"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -101,6 +126,7 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="50dp"
+        android:textColor="#2548AF"
         android:text="@string/i_agree_the_general_terms_of_use"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/dl_drawer_layout"
+    android:background="#DCDCDC"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
@@ -22,8 +23,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        android:background="@color/quantum_orange300">
-        <!--        app:headerLayout="@layout/sidebar_header">-->
+        android:background="#A9A9A9">
 
         <include
             layout="@layout/sidebar_menu"
@@ -45,5 +45,14 @@
             android:layout_alignParentBottom="true"
             android:layout_marginTop="70dp"
             android:layout_marginBottom="0dp" />
+        <ProgressBar
+            android:id="@+id/rankingProgressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="363dp"
+            android:layout_marginBottom="683dp" />
+
     </RelativeLayout>
 </androidx.drawerlayout.widget.DrawerLayout>

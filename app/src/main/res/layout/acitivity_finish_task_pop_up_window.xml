@@ -4,25 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="#FFCC99"
     >
 
     <CheckBox
         android:id="@+id/pointCheckBox"
-        android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
-
+        android:layout_marginLeft="30dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:textColor="#2548AF"
         android:text="Do you want to give volunteer a point?" />
-
-
-
     <CheckBox
-        android:layout_centerHorizontal="true"
-        android:id="@+id/opinionCheckBox"
+        android:id="@+id/opinCheckBox"
         android:layout_below="@+id/pointCheckBox"
         android:layout_marginTop="20dp"
+        android:textColor="#2548AF"
+        android:layout_marginLeft="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Do you want to write opinion about volunteer?" />
@@ -33,10 +31,11 @@
         android:id="@+id/opinionET"
         android:layout_centerHorizontal="true"
         android:layout_width="237dp"
-        android:layout_height="196dp"
-        android:layout_below="@+id/opinionCheckBox"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/opinCheckBox"
         android:layout_marginTop="20dp"
         android:ems="10"
+        android:textColor="#2548AF"
         android:background="@null"
         android:visibility="invisible"
 
@@ -51,13 +50,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="400dp"
-        android:background="@color/quantum_orange100">
+        android:background="#FFCC99">
 
         <Button
             android:id="@+id/finishBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Finish"
+            android:textColor="@color/white"
+            android:background="@drawable/button_style"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

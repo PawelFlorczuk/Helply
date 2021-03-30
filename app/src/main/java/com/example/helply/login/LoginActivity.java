@@ -3,7 +3,6 @@ package com.example.helply.login;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,7 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.helply.menu.MainActivity;
+import com.example.helply.menu.AnnouncementsMainActivity;
 import com.example.helply.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -33,10 +32,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
-        emailET = findViewById(R.id.login_emailET);
-        passwordET = findViewById(R.id.login_passwordET);
-        loginBtn = findViewById(R.id.login_loginBtn);
-        registerBtn = findViewById(R.id.login_signUpBtn);
+        emailET = findViewById(R.id.loginEmailET);
+        passwordET = findViewById(R.id.loginPasswordET);
+        loginBtn = findViewById(R.id.loginLoginBtn);
+        registerBtn = findViewById(R.id.loginSignUpBtn);
         progressBar = findViewById(R.id.progressBar);
 
         loginBtn.setOnClickListener(this);
@@ -47,10 +46,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
         switch(view.getId()) {
-            case R.id.login_loginBtn:
+            case R.id.loginLoginBtn:
                 login();
                 break;
-            case R.id.login_signUpBtn:
+            case R.id.loginSignUpBtn:
                 startActivity(new Intent(this, RegistrationActivity.class));
                 break;
         }
@@ -63,15 +62,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         password = passwordET.getText().toString().trim();
 
         if(email.equals("")) {
-            Toast.makeText(LoginActivity.this,"Email is empty", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.INVISIBLE);
+            Toast.makeText(LoginActivity.this,"Email field is empty", Toast.LENGTH_SHORT).show();
             return;
         }
         if(password.equals("")) {
-            Toast.makeText(LoginActivity.this,"Password is empty", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.INVISIBLE);
+            Toast.makeText(LoginActivity.this,"Password field is empty", Toast.LENGTH_SHORT).show();
             return;
         }
         if(password.length() < 6) {
-            Toast.makeText(LoginActivity.this,"Pasword is less than 6 characters", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.INVISIBLE);
+            Toast.makeText(LoginActivity.this,"Password is less than 6 characters", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -81,8 +83,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     progressBar.setVisibility(View.INVISIBLE);
-                    Toast.makeText(LoginActivity.this,"Udało się zalogować", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    Toast.makeText(LoginActivity.this,"Login successfully", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getApplicationContext(), AnnouncementsMainActivity.class));
 
                 }else {
                     progressBar.setVisibility(View.INVISIBLE);
