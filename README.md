@@ -12,7 +12,7 @@ Helply is an app which connect volunteers with people in need.
 People in need create different types of announcements and volunteers
 realize them.
 
-
+<p float="left">
   <img src="https://user-images.githubusercontent.com/73315376/113035087-24e2de80-9193-11eb-8843-d8df2405af5d.jpg" width="200" height="400">
   <img src="https://user-images.githubusercontent.com/73315376/113035090-257b7500-9193-11eb-8cb5-486ee81701ec.jpg" width="200" height="400">
   <img src="https://user-images.githubusercontent.com/73315376/113035092-257b7500-9193-11eb-884f-8472311a1b4f.jpg" width="200" height="400">
