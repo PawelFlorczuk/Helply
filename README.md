@@ -28,7 +28,7 @@ realize them.
 </p>
 <p float="left">
   <img src="https://user-images.githubusercontent.com/73315376/113035087-24e2de80-9193-11eb-8843-d8df2405af5d.jpg" width="200" height="400"> 
-  <img src="https://user-images.githubusercontent.com/73315376/113035108-28766580-9193-11eb-9717-36c5c29800db.jpg" width="200" height="400">!
+  <img src="https://user-images.githubusercontent.com/73315376/113035108-28766580-9193-11eb-9717-36c5c29800db.jpg" width="200" height="400">
   <img src="https://user-images.githubusercontent.com/73315376/113035106-27ddcf00-9193-11eb-9c6f-39870704e1ea.jpg" width="200" height="400">
   
 </p>
